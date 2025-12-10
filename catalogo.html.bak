@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo - Perfumichi</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #000000;
+            color: #ffffff;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Header Styling */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 2rem 4rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            box-sizing: border-box;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.7) 100%);
+            backdrop-filter: blur(5px);
+        }
+
+        .logo-img {
+            height: 60px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        nav {
+            margin-left: auto;
+            margin-right: 3rem;
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: #ffffff;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+            opacity: 0.8;
+        }
+
+        nav a:hover {
+            opacity: 1;
+            color: #D4AF37;
+        }
+
+        /* Catalog Container */
+        .catalog-container {
+            max-width: 1200px;
+            margin: 150px auto 50px;
+            padding: 0 2rem;
+        }
+
+        h1 {
+            font-size: 3rem;
+            font-weight: 300;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: #D4AF37;
+            text-align: center;
+            margin-bottom: 3rem;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+        }
+
+        /* Product Grid */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+
+        /* Responsive Grid */
+        @media (max-width: 1200px) {
+            .product-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 992px) {
+            .product-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .product-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Product Card */
+        .product-card {
+            background: rgba(20, 20, 20, 0.5);
+            border: 1px solid #333;
+            padding: 1.5rem 1rem 1rem 1rem;
+            text-align: center;
+            transition: transform 0.3s, border-color 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            border-color: #D4AF37;
+        }
+
+        .product-image {
+            width: 100%;
+            height: 250px;
+            object-fit: contain;
+            background-color: transparent;
+            margin-bottom: 1.5rem;
+            transition: transform 0.3s;
+            border-radius: 10px;
+        }
+
+        .product-card:hover .product-image {
+            transform: scale(1.05);
+        }
+
+        .product-title {
+            font-size: 1.2rem;
+            font-weight: 500;
+            margin: 0.5rem 0;
+            letter-spacing: 0.05em;
+        }
+
+        .product-brand {
+            font-size: 0.9rem;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-price {
+            font-size: 1.1rem;
+            color: #D4AF37;
+            margin-bottom: 1.5rem;
+            font-weight: bold;
+        }
+
+        .add-btn {
+            padding: 0.8rem 2rem;
+            border: 1px solid #D4AF37;
+            background: transparent;
+            color: #D4AF37;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .add-btn:hover {
+            background: #D4AF37;
+            color: #000000;
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
+        }
+
+        /* Mobile Menu Styles */
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            z-index: 102;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 30px;
+            height: 2px;
+            background-color: #D4AF37;
+            margin: 6px 0;
+            transition: 0.4s;
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 1.5rem 2rem;
+            }
+
+            .hamburger {
+                display: block;
+            }
+
+            .hamburger.active span:nth-child(1) {
+                transform: rotate(-45deg) translate(-5px, 6px);
+            }
+
+            .hamburger.active span:nth-child(2) {
+                opacity: 0;
+            }
+
+            .hamburger.active span:nth-child(3) {
+                transform: rotate(45deg) translate(-5px, -6px);
+            }
+
+            nav {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100vh;
+                background-color: #000000;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                transform: translateX(100%);
+                transition: transform 0.5s ease-in-out;
+                z-index: 101;
+                margin: 0;
+            }
+
+            nav.active {
+                transform: translateX(0);
+            }
+
+            nav ul {
+                flex-direction: column;
+                gap: 3rem;
+                text-align: center;
+            }
+
+            nav a {
+                font-size: 1.5rem;
+            }
+
+            .catalog-container {
+                margin-top: 100px;
+            }
+        }
+
+        /* Lenis Recommended CSS */
+        html.lenis {
+            height: auto;
+        }
+
+        .lenis.lenis-smooth {
+            scroll-behavior: auto;
+        }
+
+        .lenis.lenis-smooth [data-lenis-prevent] {
+            overscroll-behavior: contain;
+        }
+
+        .lenis.lenis-stopped {
+            overflow: hidden;
+        }
+
+        .lenis.lenis-scrolling iframe {
+            pointer-events: none;
+        }
+
+        /* Cart Icon Styles */
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .cart-icon-container {
+            position: relative;
+            cursor: pointer;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .cart-icon {
+            width: 24px;
+            height: 24px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            transition: stroke 0.3s;
+        }
+
+        .cart-icon-container:hover .cart-icon {
+            stroke: #D4AF37;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: #D4AF37;
+            color: #000;
+            font-size: 0.7rem;
+            font-weight: bold;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .cart-count.visible {
+            opacity: 1;
+        }
+
+        .user-controls {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            border: 1px solid #333;
+            padding: 0.6rem 1.2rem;
+            transition: border-color 0.3s;
+        }
+
+        .user-controls:hover {
+            border-color: #D4AF37;
+        }
+
+        .account-link {
+            color: #fff;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 0.1em;
+            transition: color 0.3s;
+        }
+
+        .account-link:hover {
+            color: #D4AF37;
+        }
+
+        /* Login Modal Styles */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .login-modal {
+            background-color: #111;
+            border: 1px solid #333;
+            padding: 2rem;
+            width: 100%;
+            max-width: 400px;
+            position: relative;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.8);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            color: #888;
+            cursor: pointer;
+            font-size: 1.5rem;
+            line-height: 1;
+        }
+
+        .modal-close:hover {
+            color: #fff;
+        }
+
+        .modal-title {
+            color: #D4AF37;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.8rem;
+            background-color: #000;
+            border: 1px solid #333;
+            color: #fff;
+            font-family: inherit;
+            box-sizing: border-box;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #D4AF37;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 1rem;
+            background-color: #D4AF37;
+            color: #000;
+            border: none;
+            text-transform: uppercase;
+            font-weight: bold;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 1rem;
+        }
+
+        .submit-btn:hover {
+            background-color: #fff;
+        }
+
+        .switch-form {
+            margin-top: 1.5rem;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #888;
+        }
+
+        .switch-link {
+            color: #D4AF37;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+
+        /* Cart Drawer Styles */
+        .cart-sidebar {
+            position: fixed;
+            top: 0;
+            right: -400px;
+            width: 100%;
+            max-width: 400px;
+            height: 100vh;
+            background-color: #111;
+            border-left: 1px solid #333;
+            z-index: 2000;
+            transition: right 0.4s ease-in-out;
+            display: flex;
+            flex-direction: column;
+            box-shadow: -5px 0 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .cart-sidebar.active {
+            right: 0;
+        }
+
+        .cart-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid #333;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .cart-header h2 {
+            margin: 0;
+            color: #D4AF37;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .close-cart {
+            color: #fff;
+            font-size: 2rem;
+            cursor: pointer;
+            line-height: 1;
+        }
+
+        .close-cart:hover {
+            color: #D4AF37;
+        }
+
+        .cart-items {
+            flex: 1;
+            padding: 1.5rem;
+            overflow-y: auto;
+        }
+
+        .empty-cart-msg {
+            color: #888;
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .cart-footer {
+            padding: 1.5rem;
+            border-top: 1px solid #333;
+            background-color: #0a0a0a;
+        }
+
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .checkout-btn {
+            width: 100%;
+            padding: 1rem;
+            background-color: #D4AF37;
+            color: #000;
+            border: none;
+            text-transform: uppercase;
+            font-weight: bold;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .checkout-btn:hover {
+            background-color: #fff;
+        }
+
+        .cart-overlay-bg {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1999;
+            backdrop-filter: blur(2px);
+        }
+
+        .cart-overlay-bg.active {
+            display: block;
+        }
+
+        /* Cart Item Styles */
+        .cart-item {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #222;
+            position: relative;
+        }
+
+        .cart-item-img {
+            width: 60px;
+            height: 60px;
+            background-color: #222;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 0.8rem;
+            color: #555;
+            border: 1px solid #333;
+        }
+
+        .cart-item-details {
+            flex: 1;
+        }
+
+        .cart-item-title {
+            color: #fff;
+            font-size: 0.9rem;
+            margin-bottom: 0.3rem;
+            padding-right: 1.5rem;
+        }
+
+        .cart-item-variant {
+            color: #888;
+            font-size: 0.8rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .cart-item-price {
+            color: #D4AF37;
+            font-size: 0.9rem;
+        }
+
+        .cart-item-remove {
+            color: #555;
+            cursor: pointer;
+            font-size: 1.2rem;
+            position: absolute;
+            top: 0;
+            right: 0;
+            line-height: 1;
+        }
+
+        .cart-item-remove:hover {
+            color: #fff;
+        }
+    </style>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function () {
+            emailjs.init("CqUzROM1kCqA67-aR");
+            console.log("EmailJS initialized successfully");
+        })();
+    </script>
+</head>
+
+<body>
+
+    <header>
+        <a href="index.html"><img src="logo.png" alt="Perfumichi Logo" class="logo-img"></a>
+        <nav id="mobile-nav">
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="nicho.html">Luxury Perfumes</a></li>
+                <li><a href="woman.html">Woman</a></li>
+                <li><a href="catalogo.html" style="color: #D4AF37; opacity: 1;">Catálogo</a></li>
+                <li><a href="politicas.html">Políticas</a></li>
+            </ul>
+        </nav>
+        <div class="header-actions">
+            <div class="user-controls">
+                <a href="#" class="account-link" style="color: #D4AF37;" onclick="toggleLoginBubble(event)">CUENTA</a>
+                <div class="cart-icon-container" onclick="toggleCart()">
+                    <svg class="cart-icon" viewBox="0 0 24 24">
+                        <circle cx="9" cy="21" r="1"></circle>
+                        <circle cx="20" cy="21" r="1"></circle>
+                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                    </svg>
+                    <span class="cart-count">0</span>
+                </div>
+            </div>
+            <div class="hamburger" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </header>
+
+    <div class="catalog-container">
+        <h1>Catálogo Completo</h1>
+
+        <div class="product-grid">
+            <!-- Los 50 productos se añadirán aquí -->
+        </div>
+    </div>
+
+    <!-- Cart Drawer -->
+    <div class="cart-overlay-bg" id="cartOverlay" onclick="toggleCart()"></div>
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h2>Tu Cesta</h2>
+            <span class="close-cart" onclick="toggleCart()">&times;</span>
+        </div>
+        <div class="cart-items">
+            <p class="empty-cart-msg">Tu cesta está vacía.</p>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total:</span>
+                <span>0.00€</span>
+            </div>
+            <button class="checkout-btn">Tramitar Pedido</button>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div class="modal-overlay" id="loginModal">
+        <div class="login-modal">
+            <span class="modal-close" onclick="closeLoginModal()">&times;</span>
+            <h2 class="modal-title" id="modalTitle">Iniciar Sesión</h2>
+
+            <form id="loginForm">
+                <div class="form-group">
+                    <label class="form-label">Email</label>
+                    <input type="email" class="form-input" placeholder="tu@email.com">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Contraseña</label>
+                    <input type="password" class="form-input" placeholder="••••••••">
+                </div>
+                <button type="submit" class="submit-btn">Entrar</button>
+                <div class="switch-form">
+                    ¿No tienes cuenta? <span class="switch-link" onclick="toggleFormMode()">Regístrate</span>
+                </div>
+            </form>
+
+            <form id="registerForm" style="display: none;">
+                <div class="form-group">
+                    <label class="form-label">Nombre</label>
+                    <input type="text" class="form-input" placeholder="Tu nombre">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Email</label>
+                    <input type="email" class="form-input" placeholder="tu@email.com">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Contraseña</label>
+                    <input type="password" class="form-input" placeholder="••••••••">
+                </div>
+                <button type="submit" class="submit-btn">Crear Cuenta</button>
+                <div class="switch-form">
+                    ¿Ya tienes cuenta? <span class="switch-link" onclick="toggleFormMode()">Inicia Sesión</span>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Lenis for Smooth Scroll -->
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
+    <script>
+        const lenis = new Lenis({
+            duration: 1.5,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            smooth: true
+        });
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+
+        // Mobile Menu Toggle
+        function toggleMenu() {
+            const nav = document.getElementById('mobile-nav');
+            const hamburger = document.querySelector('.hamburger');
+            nav.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        }
+
+        // Login Modal Logic
+        const modal = document.getElementById('loginModal');
+        const loginForm = document.getElementById('loginForm');
+        const registerForm = document.getElementById('registerForm');
+        const modalTitle = document.getElementById('modalTitle');
+
+        function openLoginModal(e) {
+            e.preventDefault();
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLoginModal() {
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        function toggleFormMode() {
+            if (loginForm.style.display === 'none') {
+                loginForm.style.display = 'block';
+                registerForm.style.display = 'none';
+                modalTitle.textContent = 'Iniciar Sesión';
+            } else {
+                loginForm.style.display = 'none';
+                registerForm.style.display = 'block';
+                modalTitle.textContent = 'Crear Cuenta';
+            }
+        }
+
+        // Close modal when clicking outside
+        if (modal) {
+            modal.addEventListener('click', function (e) {
+                if (e.target === modal) {
+                    closeLoginModal();
+                }
+            });
+        }
+    </script>
+
+    <!-- CART LOGIC -->
+    <script type="module" src="js/cart.js"></script>
+
+    <!-- LOGIN BUBBLE -->
+    <div id="login-bubble" class="login-bubble hidden">
+        <div class="bubble-arrow"></div>
+        <div class="bubble-content">
+            <h3 id="bubble-title">Iniciar Sesión</h3>
+
+            <form id="bubble-login-form" onsubmit="handleBubbleLogin(event)">
+                <div class="bubble-input-group">
+                    <input type="email" id="bubble-email" placeholder="Email" required>
+                </div>
+                <div class="bubble-input-group">
+                    <input type="password" id="bubble-password" placeholder="Contraseña" required>
+                </div>
+                <button type="submit" class="bubble-btn">ENTRAR</button>
+            </form>
+
+            <form id="bubble-register-form" class="hidden" onsubmit="handleBubbleRegister(event)">
+                <div class="bubble-input-group">
+                    <input type="text" id="bubble-reg-name" placeholder="Nombre" required>
+                </div>
+                <div class="bubble-input-group">
+                    <input type="email" id="bubble-reg-email" placeholder="Email" required>
+                </div>
+                <div class="bubble-input-group">
+                    <input type="password" id="bubble-reg-password" placeholder="Contraseña" required>
+                </div>
+                <button type="submit" class="bubble-btn">REGISTRARSE</button>
+            </form>
+
+            <div class="bubble-divider">O</div>
+
+            <button class="bubble-google-btn" onclick="handleBubbleGoogleLogin()">
+                <svg width="14" height="14" viewBox="0 0 18 18">
+                    <path
+                        d="M17.64 9.2c0-.637-.057-1.252-.164-1.841H9v3.481h4.844a4.14 4.14 0 0 1-1.796 2.716v2.259h2.908c1.702-1.567 2.684-3.875 2.684-6.615z"
+                        fill="#4285F4"></path>
+                    <path
+                        d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.715H.957v2.332A8.997 8.997 0 0 0 9 18z"
+                        fill="#34A853"></path>
+                    <path
+                        d="M3.964 10.71A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.71V4.958H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.042l3.007-2.332z"
+                        fill="#FBBC05"></path>
+                    <path
+                        d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 0 0 .957 4.958L3.964 7.29C4.672 5.159 6.656 3.58 9 3.58z"
+                        fill="#EA4335"></path>
+                </svg>
+                Google
+            </button>
+
+            <p class="bubble-switch-text">
+                <span id="bubble-switch-msg">¿No tienes cuenta?</span>
+                <span id="bubble-switch-action" onclick="toggleBubbleForm()">Regístrate</span>
+            </p>
+        </div>
+    </div>
+
+    <link rel="stylesheet" href="css/auth.css">
+    <script type="module" src="js/auth.js"></script>
+</body>
+
+</html>

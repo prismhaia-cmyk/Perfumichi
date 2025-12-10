@@ -1,0 +1,309 @@
+/* Login Bubble Styles */
+.login-bubble {
+    position: fixed;
+    top: 80px;
+    /* Adjust based on header height */
+    right: 120px;
+    /* Align with Account button */
+    width: 300px;
+    background: rgba(10, 10, 10, 0.95);
+    border: 1px solid #D4AF37;
+    border-radius: 20px;
+    padding: 1.5rem;
+    z-index: 3000;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.login-bubble.hidden {
+    opacity: 0;
+    transform: translateY(-20px);
+    pointer-events: none;
+}
+
+.bubble-arrow {
+    position: absolute;
+    top: -8px;
+    right: 20px;
+    width: 15px;
+    height: 15px;
+    background: #D4AF37;
+    transform: rotate(45deg);
+    z-index: -1;
+}
+
+.bubble-content h3 {
+    color: #D4AF37;
+    margin: 0 0 1.5rem 0;
+    text-align: center;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.bubble-input-group {
+    margin-bottom: 1rem;
+}
+
+.bubble-input-group input {
+    width: 100%;
+    padding: 0.8rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid #333;
+    border-radius: 8px;
+    color: #fff;
+    font-size: 0.9rem;
+    box-sizing: border-box;
+}
+
+.bubble-input-group input:focus {
+    outline: none;
+    border-color: #D4AF37;
+}
+
+.bubble-btn {
+    width: 100%;
+    padding: 0.8rem;
+    background: #D4AF37;
+    color: #000;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.bubble-btn:hover {
+    background: #fff;
+}
+
+.bubble-divider {
+    text-align: center;
+    margin: 3rem 0;
+    color: #555;
+    font-size: 0.8rem;
+    position: relative;
+}
+
+.bubble-divider::before,
+.bubble-divider::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    width: 40%;
+    height: 1px;
+    background: #333;
+}
+
+.bubble-divider::before {
+    left: 0;
+}
+
+.bubble-divider::after {
+    right: 0;
+}
+
+.bubble-google-btn {
+    width: 100%;
+    margin-top: 1rem;
+    padding: 0.8rem;
+    background: #fff;
+    color: #333;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-size: 0.9rem;
+}
+
+.bubble-switch-text {
+    text-align: center;
+    margin-top: 1rem;
+    font-size: 0.8rem;
+    color: #888;
+}
+
+.bubble-switch-text span {
+    color: #D4AF37;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+/* Toast Notification Styles */
+.toast-notification {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: rgba(10, 10, 10, 0.95);
+    border: 1px solid #333;
+    color: #fff;
+    padding: 12px 24px;
+    border-radius: 50px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+    opacity: 0;
+    transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.9rem;
+}
+
+.toast-notification.show {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+}
+
+.toast-notification.success {
+    border-color: #4CAF50;
+    color: #4CAF50;
+}
+
+.toast-notification.error {
+    border-color: #f44336;
+    color: #f44336;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .login-bubble {
+        width: 90%;
+        left: 50%;
+        right: auto;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        max-width: 400px;
+        position: fixed;
+    }
+
+    .login-bubble.hidden {
+        transform: translate(-50%, -40%);
+        /* Keep centered but move up slightly */
+    }
+
+    .bubble-arrow {
+        display: none;
+        /* Hide arrow on mobile as it's centered */
+    }
+}
+
+/* Utility */
+.hidden {
+    display: none !important;
+}
+/* Login Modal Styles */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(5px);
+}
+
+.modal-overlay.active {
+    display: flex;
+}
+
+.login-modal {
+    background-color: #111;
+    border: 1px solid #333;
+    padding: 2rem;
+    width: 100%;
+    max-width: 400px;
+    position: relative;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.8);
+}
+
+.modal-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    color: #888;
+    cursor: pointer;
+    font-size: 1.5rem;
+    line-height: 1;
+}
+
+.modal-close:hover {
+    color: #fff;
+}
+
+.modal-title {
+    color: #D4AF37;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 1.5rem;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #aaa;
+    font-size: 0.9rem;
+}
+
+.form-input {
+    width: 100%;
+    padding: 0.8rem;
+    background-color: #000;
+    border: 1px solid #333;
+    color: #fff;
+    font-family: inherit;
+    box-sizing: border-box;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: #D4AF37;
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 1rem;
+    background-color: #D4AF37;
+    color: #000;
+    border: none;
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-top: 1rem;
+}
+
+.submit-btn:hover {
+    background-color: #fff;
+}
+
+.switch-form {
+    margin-top: 1.5rem;
+    text-align: center;
+    font-size: 0.9rem;
+    color: #888;
+}
+
+.switch-link {
+    color: #D4AF37;
+    text-decoration: underline;
+    cursor: pointer;
+}

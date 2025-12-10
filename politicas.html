@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Políticas de Envío y Devolución | Essence Decants</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description"
+        content="Políticas de privacidad, envío y devolución de Essence Decants. Envío en 24-48h a toda España. Información sobre nuestros términos de servicio.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://essencedecants.com/politicas.html">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="apple-touch-icon" href="favicon.png">
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #000000;
+            color: #ffffff;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 2rem 4rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            box-sizing: border-box;
+            background-color: #000000;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        header.header-hidden {
+            transform: translateY(-100%);
+        }
+
+        .logo-img {
+            height: 60px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: #ffffff;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+            opacity: 0.8;
+        }
+
+        nav a:hover {
+            opacity: 1;
+            color: #D4AF37;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 150px auto 50px;
+            /* Top margin for fixed header */
+            padding: 0 2rem;
+        }
+
+        h1 {
+            font-size: 3rem;
+            font-weight: 300;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: #D4AF37;
+            text-align: center;
+            margin-bottom: 3rem;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            font-weight: 500;
+            color: #D4AF37;
+            margin-top: 3rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid #333;
+            padding-bottom: 0.5rem;
+        }
+
+        p,
+        ul {
+            color: #cccccc;
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        ul {
+            padding-left: 1.5rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-top: 3rem;
+            color: #D4AF37;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.3s;
+        }
+
+        .back-btn:hover {
+            border-color: #D4AF37;
+        }
+
+        /* Mobile Menu Styles */
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            z-index: 102;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 30px;
+            height: 2px;
+            background-color: #D4AF37;
+            margin: 6px 0;
+            transition: 0.4s;
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 1.5rem 2rem;
+            }
+
+            .hamburger {
+                display: block;
+            }
+
+            .hamburger.active span:nth-child(1) {
+                transform: rotate(-45deg) translate(-5px, 6px);
+            }
+
+            .hamburger.active span:nth-child(2) {
+                opacity: 0;
+            }
+
+            .hamburger.active span:nth-child(3) {
+                transform: rotate(45deg) translate(-5px, -6px);
+            }
+
+            nav {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100vh;
+                background-color: #000000;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                transform: translateX(100%);
+                transition: transform 0.5s ease-in-out;
+                z-index: 101;
+            }
+
+            nav.active {
+                transform: translateX(0);
+            }
+
+            nav ul {
+                flex-direction: column;
+                gap: 3rem;
+                text-align: center;
+            }
+
+            nav a {
+                font-size: 1.5rem;
+            }
+
+            .container {
+                margin-top: 100px;
+                padding: 0 1.5rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+        }
+
+        /* Lenis Recommended CSS */
+        html.lenis {
+            height: auto;
+        }
+
+        .lenis.lenis-smooth {
+            scroll-behavior: auto;
+        }
+
+        .lenis.lenis-smooth [data-lenis-prevent] {
+            overscroll-behavior: contain;
+        }
+
+        .lenis.lenis-stopped {
+            overflow: hidden;
+        }
+
+        .lenis.lenis-scrolling iframe {
+            pointer-events: none;
+        }
+    </style>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script type="text/javascript">
+        // Initialize EmailJS immediately after library loads
+        (function () {
+            emailjs.init("CqUzROM1kCqA67-aR");
+            console.log("EmailJS initialized successfully");
+        })();
+    </script>
+</head>
+
+<body>
+
+    <header>
+        <a href="index.html"><img src="logo.png" alt="Perfumichi Logo" class="logo-img"></a>
+        <div class="hamburger" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <nav id="mobile-nav">
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="nicho.html">Luxury Perfumes</a></li>
+                <li><a href="politicas.html" style="color: #D4AF37; opacity: 1;">Políticas</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h1>Políticas Legales</h1>
+
+        <section id="privacidad">
+            <h2>Política de Privacidad</h2>
+            <p>En Perfumichi, nos tomamos muy en serio la privacidad de tus datos. Esta política describe cómo
+                recopilamos, usamos y protegemos tu información personal.</p>
+            <ul>
+                <li><strong>Recopilación de datos:</strong> Solo recopilamos la información necesaria para procesar tus
+                    pedidos y mejorar tu experiencia de compra.</li>
+                <li><strong>Uso de la información:</strong> Tus datos nunca serán vendidos a terceros. Se utilizan
+                    exclusivamente para gestión de pedidos y comunicación contigo.</li>
+                <li><strong>Seguridad:</strong> Implementamos medidas de seguridad robustas para proteger tus datos
+                    contra acceso no autorizado.</li>
+            </ul>
+        </section>
+
+        <section id="envios">
+            <h2>Política de Envíos</h2>
+            <p>Nos esforzamos por entregar tus Luxury Decants lo más rápido posible y en perfectas condiciones.</p>
+            <ul>
+                <li><strong>Tiempos de procesamiento:</strong> Los pedidos se preparan en 24-48 horas hábiles.</li>
+                <li><strong>Tiempos de entrega:</strong> Dependiendo de tu ubicación, el envío estándar toma entre 3 a 5
+                    días hábiles.</li>
+                <li><strong>Empaquetado:</strong> Todos los envíos son discretos y seguros, protegiendo las botellas de
+                    cualquier daño.</li>
+            </ul>
+        </section>
+
+        <section id="devoluciones">
+            <h2>Política de Devoluciones</h2>
+            <p>Debido a la naturaleza de nuestros productos (decants de perfumería), aplicamos las siguientes
+                condiciones:</p>
+            <p>Por razones de higiene y seguridad, <strong>no aceptamos devoluciones de decants abiertos o
+                    probados</strong>. Si recibes un producto dañado o incorrecto, por favor contáctanos en las primeras
+                48 horas tras la recepción para gestionar un reemplazo.</p>
+        </section>
+
+        <section id="terminos">
+            <h2>Términos y Condiciones</h2>
+            <p>Al utilizar nuestro sitio web y realizar compras, aceptas nuestros términos de servicio. Nos reservamos
+                el derecho de modificar precios y disponibilidad sin previo aviso. Todos los productos son 100%
+                auténticos y decantados de las botellas originales.</p>
+        </section>
+
+        <a href="index.html" class="back-btn">← Volver al Inicio</a>
+    </div>
+
+    <!-- Lenis for Smooth Scroll -->
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
+    <script>
+        const lenis = new Lenis({
+            duration: 1.2,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            smooth: true
+        });
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+
+        // Mobile Menu Toggle
+        function toggleMenu() {
+            const nav = document.getElementById('mobile-nav');
+            const hamburger = document.querySelector('.hamburger');
+            nav.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        }
+
+        // Header hide on scroll
+        (function () {
+            const header = document.querySelector('header');
+            let lastScrollY = window.scrollY;
+            let ticking = false;
+
+            function updateHeader() {
+                const currentScrollY = window.scrollY;
+
+                if (currentScrollY > lastScrollY && currentScrollY > 100) {
+                    header.classList.add('header-hidden');
+                } else {
+                    header.classList.remove('header-hidden');
+                }
+
+                lastScrollY = currentScrollY;
+                ticking = false;
+            }
+
+            window.addEventListener('scroll', function () {
+                if (!ticking) {
+                    requestAnimationFrame(updateHeader);
+                    ticking = true;
+                }
+            });
+        })();
+    </script>
+
+</body>
+
+</html>

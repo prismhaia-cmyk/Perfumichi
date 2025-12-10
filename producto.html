@@ -1,0 +1,1970 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comprar Decant | Essence Decants España</title>
+
+    <!-- SEO Meta Tags (Dynamic values set by JS) -->
+    <meta name="description"
+        content="Compra decants de perfumes de lujo. Prueba fragancias nicho antes de comprar el frasco completo. Envío rápido a toda España.">
+    <meta name="keywords" content="comprar decant, decant perfume, muestra perfume, fragancia nicho">
+    <meta name="author" content="Essence Decants">
+    <meta name="robots" content="index, follow">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="apple-touch-icon" href="favicon.png">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="product">
+    <meta property="og:site_name" content="Essence Decants">
+    <meta property="og:locale" content="es_ES">
+
+    <!-- Structured Data - Product (values populated by JS) -->
+    <script type="application/ld+json" id="product-schema">
+    {
+        "@context": "https://schema.org",
+        "@type": "Product",
+        "name": "Decant de Perfume",
+        "description": "Decant de perfume de lujo",
+        "brand": {
+            "@type": "Brand",
+            "name": "Essence Decants"
+        },
+        "offers": {
+            "@type": "AggregateOffer",
+            "priceCurrency": "EUR",
+            "lowPrice": "5.99",
+            "highPrice": "49.99",
+            "offerCount": "3",
+            "availability": "https://schema.org/InStock"
+        },
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.9",
+            "reviewCount": "127"
+        }
+    }
+    </script>
+
+    <!-- EmailJS Script -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function () {
+            emailjs.init("CqUzROM1kCqA67-aR");
+            console.log("EmailJS initialized successfully");
+        })();
+    </script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #000000;
+            color: #ffffff;
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Header Styling */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 2rem 4rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            box-sizing: border-box;
+            background-color: #000000;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        header.header-hidden {
+            transform: translateY(-100%);
+        }
+
+        .logo-img {
+            height: 60px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        nav {
+            margin-left: auto;
+            margin-right: 3rem;
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: #ffffff;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+            opacity: 0.8;
+        }
+
+        nav a:hover {
+            opacity: 1;
+            color: #D4AF37;
+        }
+
+        /* Product Detail Container */
+        .product-container {
+            max-width: 1400px;
+            margin: 100px auto 30px;
+            padding: 0 2rem;
+            display: flex;
+            gap: 3rem;
+            align-items: flex-start;
+        }
+
+        .gallery-wrapper {
+            flex: 0 0 45%;
+            max-width: 550px;
+        }
+
+        .product-gallery {
+            background-color: #0a0a0a;
+            height: 500px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid #222;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-gallery img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .gallery-slide {
+            display: none;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .gallery-slide.active {
+            display: block;
+        }
+
+        .gallery-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: #D4AF37;
+            border: 1px solid #D4AF37;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.2rem;
+            transition: all 0.3s;
+            z-index: 10;
+        }
+
+        .gallery-btn:hover {
+            background-color: #D4AF37;
+            color: #000;
+        }
+
+        .gallery-btn.prev {
+            left: 20px;
+        }
+
+        .gallery-btn.next {
+            right: 20px;
+        }
+
+        /* Thumbnails */
+        .thumbnail-container {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            margin-top: 8px;
+        }
+
+        .thumbnail {
+            width: 60px;
+            height: 60px;
+            background-color: #111;
+            border: 1px solid #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: #555;
+            font-size: 0.7rem;
+        }
+
+        .thumbnail:hover,
+        .thumbnail.active {
+            border-color: #D4AF37;
+            color: #D4AF37;
+        }
+
+        .product-placeholder-img {
+            color: #333;
+            font-size: 3rem;
+        }
+
+        .product-info {
+            flex: 1;
+            max-width: 600px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .brand {
+            color: #D4AF37;
+            text-transform: uppercase;
+            letter-spacing: 0.25em;
+            font-size: 0.75rem;
+            margin-bottom: 0.3rem;
+            font-weight: 500;
+        }
+
+        h1 {
+            font-size: 2rem;
+            font-weight: 600;
+            margin: 0 0 0.6rem 0;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            line-height: 1.2;
+            color: #fff;
+        }
+
+        /* Social Proof - Compact */
+        .social-proof {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            margin-bottom: 0.8rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+        }
+
+        .stars {
+            color: #D4AF37;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+
+        .rating-text {
+            color: #D4AF37;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .review-count {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .review-count:hover {
+            color: #D4AF37;
+        }
+
+        .price {
+            font-size: 1.8rem;
+            color: #ffffff;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+        }
+
+        .description {
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+            font-size: 0.85rem;
+        }
+
+        .description p {
+            margin: 0;
+        }
+
+        /* Olfactory Notes - Compact Design */
+        .olfactory-breakdown {
+            background: #111;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .olfactory-title {
+            color: #D4AF37;
+            text-transform: uppercase;
+            font-size: 0.65rem;
+            letter-spacing: 0.15em;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+        }
+
+        .olfactory-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .olfactory-item {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.75);
+            padding: 0.5rem 0.6rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 6px;
+        }
+
+        .olfactory-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .olfactory-icon {
+            flex-shrink: 0;
+            width: 22px;
+            height: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #D4AF37;
+        }
+
+        .olfactory-icon svg {
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
+        }
+
+        .olfactory-content {
+            flex: 1;
+        }
+
+        .olfactory-label {
+            color: #D4AF37;
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.15rem;
+            font-weight: 600;
+        }
+
+        .olfactory-notes {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.75rem;
+            line-height: 1.4;
+        }
+
+        .options {
+            margin-bottom: 1rem;
+        }
+
+        .option-label {
+            display: block;
+            margin-bottom: 0.6rem;
+            color: rgba(255, 255, 255, 0.5);
+            text-transform: uppercase;
+            font-size: 0.65rem;
+            letter-spacing: 0.15em;
+        }
+
+        .size-btn-container {
+            position: relative;
+            flex: 1;
+        }
+
+        /* Premium Badges */
+        .badge {
+            position: absolute;
+            top: -10px;
+            right: 8px;
+            background: linear-gradient(135deg, #D4AF37 0%, #B8962E 100%);
+            color: #000;
+            padding: 3px 8px;
+            font-size: 0.55rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border-radius: 2px;
+            white-space: nowrap;
+            z-index: 2;
+            box-shadow: 0 2px 8px rgba(212, 175, 55, 0.3);
+        }
+
+        .size-selector {
+            display: flex;
+            gap: 0.8rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .size-btn {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: rgba(255, 255, 255, 0.8);
+            padding: 0.8rem 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.85rem;
+            width: 100%;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 500;
+            border-radius: 4px;
+        }
+
+        .size-btn:hover {
+            border-color: rgba(212, 175, 55, 0.5);
+            color: #D4AF37;
+        }
+
+        /* Active State - Solid Gold Background */
+        .size-btn.active,
+        .size-btn.active:hover {
+            background: #D4AF37;
+            border-color: #D4AF37;
+            color: #000;
+            font-weight: 600;
+        }
+
+        /* CTA Button - Compact */
+        .add-to-cart-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem;
+            background: #D4AF37;
+            color: #000;
+            border: 2px solid #D4AF37;
+            padding: 0.9rem 1.5rem;
+            width: 100%;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 1rem;
+            border-radius: 4px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .add-to-cart-btn:hover {
+            background: #fff;
+            color: #000;
+            border-color: #fff;
+        }
+
+        .add-to-cart-btn .cart-icon-svg {
+            width: 18px;
+            height: 18px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        /* New Optimizations Styles */
+
+        /* Social Proof */
+        .social-proof {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .stars {
+            color: #D4AF37;
+            font-size: 1.1rem;
+        }
+
+        .review-count {
+            color: #888;
+            font-size: 0.9rem;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+
+        /* Enhanced Size Selectors */
+        .size-selector {
+            display: flex;
+            gap: 1.5rem;
+            /* Increased gap for badges */
+            margin-top: 1.5rem;
+        }
+
+        .size-btn-container {
+            position: relative;
+        }
+
+        .size-btn {
+            padding: 1rem 1.5rem;
+            border: 1px solid #333;
+            background: transparent;
+            color: #fff;
+            cursor: pointer;
+            transition: all 0.3s;
+            min-width: 80px;
+            font-size: 1rem;
+        }
+
+        .size-btn.active,
+        .size-btn:hover {
+            border-color: #D4AF37;
+            color: #D4AF37;
+        }
+
+        /* Badges */
+        .badge {
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #D4AF37;
+            color: #000;
+            font-size: 0.6rem;
+            font-weight: bold;
+            padding: 2px 6px;
+            border-radius: 4px;
+            white-space: nowrap;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            z-index: 1;
+        }
+
+        .size-btn.highlighted {
+            border: 2px solid #D4AF37;
+            /* Thicker border for 5ml */
+        }
+
+        /* Trust Signals - Compact */
+        .trust-signals {
+            display: flex;
+            justify-content: space-between;
+            gap: 0.8rem;
+            padding: 0.8rem 1rem;
+            background: rgba(212, 175, 55, 0.03);
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            border-radius: 6px;
+        }
+
+        .trust-item {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.65rem;
+        }
+
+        .trust-icon {
+            color: #D4AF37;
+            font-size: 0.85rem;
+        }
+
+        /* Olfactory Breakdown */
+        .olfactory-breakdown {
+            margin-top: 2rem;
+            background: rgba(255, 255, 255, 0.03);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid #222;
+        }
+
+        .olfactory-title {
+            color: #D4AF37;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 0.1em;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid #333;
+            padding-bottom: 0.5rem;
+            display: inline-block;
+        }
+
+        .olfactory-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .olfactory-item {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-bottom: 0.8rem;
+            font-size: 0.95rem;
+            color: #ddd;
+        }
+
+        .note-icon {
+            font-size: 1.1rem;
+        }
+
+        /* Mobile Responsive */
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            z-index: 102;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 30px;
+            height: 2px;
+            background-color: #D4AF37;
+            margin: 6px 0;
+            transition: 0.4s;
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 1.5rem 2rem;
+            }
+
+            .hamburger {
+                display: block;
+            }
+
+            .hamburger.active span:nth-child(1) {
+                transform: rotate(-45deg) translate(-5px, 6px);
+            }
+
+            .hamburger.active span:nth-child(2) {
+                opacity: 0;
+            }
+
+            .hamburger.active span:nth-child(3) {
+                transform: rotate(45deg) translate(-5px, -6px);
+            }
+
+            nav {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100vh;
+                background-color: #000000;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                transform: translateX(100%);
+                transition: transform 0.5s ease-in-out;
+                z-index: 101;
+                margin: 0;
+                /* Reset margin for mobile */
+            }
+
+            nav.active {
+                transform: translateX(0);
+            }
+
+            nav ul {
+                flex-direction: column;
+                gap: 3rem;
+                text-align: center;
+            }
+
+            nav a {
+                font-size: 1.5rem;
+            }
+
+            .product-container {
+                flex-direction: column !important;
+                margin-top: 100px !important;
+                gap: 2rem !important;
+                padding: 0 !important;
+                align-items: center !important;
+                width: 100% !important;
+            }
+
+            .product-gallery {
+                width: calc(100% - 2rem) !important;
+                max-width: none !important;
+                height: auto !important;
+                aspect-ratio: 1 / 1 !important;
+                margin: 0 auto !important;
+                border-radius: 15px !important;
+                overflow: hidden !important;
+                display: flex !important;
+                justify-content: center !important;
+                align-items: center !important;
+            }
+
+            .product-gallery img {
+                width: 100% !important;
+                height: 100% !important;
+                object-fit: cover !important;
+                border-radius: 15px !important;
+            }
+        }
+
+        /* Lenis Recommended CSS */
+        html.lenis {
+            height: auto;
+        }
+
+        .lenis.lenis-smooth {
+            scroll-behavior: auto;
+        }
+
+        .lenis.lenis-smooth [data-lenis-prevent] {
+            overscroll-behavior: contain;
+        }
+
+        .lenis.lenis-stopped {
+            overflow: hidden;
+        }
+
+        .lenis.lenis-scrolling iframe {
+            pointer-events: none;
+        }
+
+        /* Cart Icon Styles */
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            position: relative;
+            z-index: 102;
+        }
+
+        .cart-icon-container {
+            position: relative;
+            cursor: pointer;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .cart-icon {
+            width: 24px;
+            height: 24px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            transition: stroke 0.3s;
+        }
+
+        .cart-icon-container:hover .cart-icon {
+            stroke: #D4AF37;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: #D4AF37;
+            color: #000;
+            font-size: 0.7rem;
+            font-weight: bold;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .cart-count.visible {
+            opacity: 1;
+        }
+
+        .user-controls {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            border: 1px solid #333;
+            padding: 0.6rem 1.2rem;
+            transition: border-color 0.3s;
+        }
+
+        .user-controls:hover {
+            border-color: #D4AF37;
+        }
+
+        .account-link {
+            color: #fff;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 0.1em;
+            transition: color 0.3s;
+        }
+
+        .account-link:hover {
+            color: #D4AF37;
+        }
+
+        /* Login Modal Styles */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .login-modal {
+            background-color: #111;
+            border: 1px solid #333;
+            padding: 2rem;
+            width: 100%;
+            max-width: 400px;
+            position: relative;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.8);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            color: #888;
+            cursor: pointer;
+            font-size: 1.5rem;
+            line-height: 1;
+        }
+
+        .modal-close:hover {
+            color: #fff;
+        }
+
+        .modal-title {
+            color: #D4AF37;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.8rem;
+            background-color: #000;
+            border: 1px solid #333;
+            color: #fff;
+            font-family: inherit;
+            box-sizing: border-box;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #D4AF37;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 1rem;
+            background-color: #D4AF37;
+            color: #000;
+            border: none;
+            text-transform: uppercase;
+            font-weight: bold;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 1rem;
+        }
+
+        .submit-btn:hover {
+            background-color: #fff;
+        }
+
+        .switch-form {
+            margin-top: 1.5rem;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #888;
+        }
+
+        .switch-link {
+            color: #D4AF37;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+
+        /* Cart Drawer Styles */
+        .cart-sidebar {
+            position: fixed;
+            top: 0;
+            right: -400px;
+            width: 100%;
+            max-width: 400px;
+            height: 100vh;
+            background-color: #111;
+            border-left: 1px solid #333;
+            z-index: 2000;
+            transition: right 0.4s ease-in-out;
+            display: flex;
+            flex-direction: column;
+            box-shadow: -5px 0 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .cart-sidebar.active {
+            right: 0;
+        }
+
+        .cart-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid #333;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .cart-header h2 {
+            margin: 0;
+            color: #D4AF37;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .close-cart {
+            color: #fff;
+            font-size: 2rem;
+            cursor: pointer;
+            line-height: 1;
+        }
+
+        .close-cart:hover {
+            color: #D4AF37;
+        }
+
+        .cart-items {
+            flex: 1;
+            padding: 1.5rem;
+            overflow-y: auto;
+        }
+
+        .empty-cart-msg {
+            color: #888;
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .cart-footer {
+            padding: 1.5rem;
+            border-top: 1px solid #333;
+            background-color: #0a0a0a;
+        }
+
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .checkout-btn {
+            width: 100%;
+            padding: 1rem;
+            background-color: #D4AF37;
+            color: #000;
+            border: none;
+            text-transform: uppercase;
+            font-weight: bold;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .checkout-btn:hover {
+            background-color: #fff;
+        }
+
+        .cart-overlay-bg {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1999;
+            backdrop-filter: blur(2px);
+        }
+
+        .cart-overlay-bg.active {
+            display: block;
+        }
+
+        .product-container {
+            display: flex;
+            gap: 3rem;
+            max-width: 1400px;
+            margin: 150px auto 4rem auto;
+            padding: 0 2rem;
+            align-items: flex-start;
+        }
+
+        .gallery-wrapper {
+            flex: 1;
+            max-width: 600px;
+        }
+
+        .product-gallery {
+            position: relative;
+            width: 100%;
+            height: 600px;
+            background: #0a0a0a;
+            border: 1px solid #222;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .product-gallery img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        @media (max-width: 1024px) {
+            .product-container {
+                flex-direction: column !important;
+                padding: 0 1rem !important;
+                align-items: center !important;
+                margin-top: 150px !important;
+            }
+
+            .gallery-wrapper {
+                width: 100% !important;
+                max-width: none !important;
+                display: flex !important;
+                flex-direction: column !important;
+                align-items: center !important;
+            }
+
+            .product-gallery {
+                width: 75% !important;
+                height: auto !important;
+                aspect-ratio: 1 / 1 !important;
+                border-radius: 15px !important;
+                border: none !important;
+                margin: 0 auto !important;
+            }
+
+            .product-gallery img {
+                width: 100% !important;
+                height: 100% !important;
+                object-fit: cover !important;
+                border-radius: 15px !important;
+            }
+
+            .gallery-thumbs {
+                justify-content: center !important;
+                margin-top: 1rem !important;
+            }
+        }
+
+        /* Cart Item Styles */
+        .cart-item {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #222;
+            position: relative;
+        }
+
+        .cart-item-img {
+            width: 70px;
+            height: 70px;
+            min-width: 70px;
+            background-color: #1a1a1a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 0.8rem;
+            color: #555;
+            border: 1px solid #333;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .cart-item-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .cart-item-details {
+            flex: 1;
+        }
+
+        .cart-item-title {
+            color: #fff;
+            font-size: 0.9rem;
+            margin-bottom: 0.3rem;
+            padding-right: 1.5rem;
+            /* Space for remove button */
+        }
+
+        .cart-item-variant {
+            color: #888;
+            font-size: 0.8rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .cart-item-price {
+            color: #D4AF37;
+            font-size: 0.9rem;
+        }
+
+        .cart-item-remove {
+            color: #555;
+            cursor: pointer;
+            font-size: 1.2rem;
+            position: absolute;
+            top: 0;
+            right: 0;
+            line-height: 1;
+        }
+
+        .cart-item-remove:hover {
+            color: #fff;
+        }
+    </style>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script type="text/javascript">
+        // Initialize EmailJS immediately after library loads
+        (function () {
+            emailjs.init("CqUzROM1kCqA67-aR");
+            console.log("EmailJS initialized successfully");
+        })();
+    </script>
+</head>
+
+<body>
+
+    <header>
+        <a href="index.html"><img src="logo.png" alt="Perfumichi Logo" class="logo-img"></a>
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="catalogo.html">Catálogo</a></li>
+                <li><a href="nicho.html">Luxury Perfumes</a></li>
+                <li><a href="woman.html">Woman</a></li>
+                <li><a href="politicas.html">Políticas</a></li>
+            </ul>
+        </nav>
+        <div class="header-actions">
+            <div class="user-controls">
+                <a href="#" class="account-link" style="color: #D4AF37;" onclick="toggleLoginBubble(event)">CUENTA</a>
+                <div class="cart-icon-container" onclick="toggleCart()">
+                    <svg class="cart-icon" viewBox="0 0 24 24">
+                        <circle cx="9" cy="21" r="1"></circle>
+                        <circle cx="20" cy="21" r="1"></circle>
+                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                    </svg>
+                    <span class="cart-count">0</span>
+                </div>
+            </div>
+            <div class="hamburger" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </header>
+
+    <div class="product-container">
+        <div class="gallery-wrapper">
+            <div class="product-gallery">
+                <!-- Carousel Slides -->
+                <div class="gallery-slide active" id="slide-0">
+                    <img id="main-product-image"
+                        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+                        alt="Product">
+                </div>
+                <div class="gallery-slide" id="slide-1">
+                    <img id="secondary-product-image"
+                        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+                        alt="Product">
+                </div>
+                <div class="gallery-slide" id="slide-2">
+                    <img src="fotos/perfumichi-decants.png" alt="Perfumichi Decants">
+                </div>
+                <div class="gallery-slide" id="slide-3">
+                    <img src="fotos/perfumichi-social.jpg" alt="Perfumichi Social">
+                </div>
+                <!-- Navigation Buttons -->
+                <button class="gallery-btn prev" onclick="prevSlide()">❮</button>
+                <button class="gallery-btn next" onclick="nextSlide()">❯</button>
+            </div>
+            <!-- Thumbnails -->
+            <div class="thumbnail-container" id="thumbnail-container">
+                <div class="thumbnail active" onclick="goToSlide(0)">
+                    <img id="thumb-0" src="" alt="Thumbnail 1" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+                <div class="thumbnail" onclick="goToSlide(1)">
+                    <img id="thumb-1" src="" alt="Thumbnail 2" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+                <div class="thumbnail" onclick="goToSlide(2)">
+                    <img src="fotos/perfumichi-decants.png" alt="Perfumichi Decants"
+                        style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+                <div class="thumbnail" onclick="goToSlide(3)">
+                    <img src="fotos/perfumichi-social.jpg" alt="Perfumichi Social"
+                        style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+            </div>
+        </div>
+        <div class="product-info">
+            <div class="brand">Boadicea The Victorious</div>
+            <h1>Supercharged Blue Sapphire</h1>
+
+            <!-- Social Proof - Premium -->
+            <div class="social-proof">
+                <div class="stars">★★★★★</div>
+                <span class="rating-text">4.9/5</span>
+                <span class="review-count">• 127 Opiniones</span>
+            </div>
+
+            <div class="price">25.00€</div>
+
+            <div class="description">
+                <p>Una fragancia que evoca la riqueza y el misterio de la antigua ciudad de Alejandría. Notas profundas
+                    de oud, lavanda y canela se entrelazan para crear una experiencia olfativa inolvidable y lujosa.</p>
+            </div>
+
+            <!-- Olfactory Breakdown - Premium Design with Icons -->
+            <div class="olfactory-breakdown">
+                <div class="olfactory-title">Pirámide Olfativa</div>
+                <ul class="olfactory-list">
+                    <li class="olfactory-item">
+                        <div class="olfactory-icon">
+                            <!-- Salida Icon - Citrus/Volatile -->
+                            <svg viewBox="0 0 24 24">
+                                <path
+                                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z" />
+                            </svg>
+                        </div>
+                        <div class="olfactory-content">
+                            <div class="olfactory-label">Salida</div>
+                            <div class="olfactory-notes">Lavanda, Palo de Rosa, Canela, Manzana</div>
+                        </div>
+                    </li>
+                    <li class="olfactory-item">
+                        <div class="olfactory-icon">
+                            <!-- Corazón Icon - Flower -->
+                            <svg viewBox="0 0 24 24">
+                                <path
+                                    d="M12 22c4.97 0 9-4.03 9-9-4.97 0-9 4.03-9 9zM5.6 10.25c0 1.38 1.12 2.5 2.5 2.5.53 0 1.01-.16 1.42-.44l-.02.19c0 1.38 1.12 2.5 2.5 2.5s2.5-1.12 2.5-2.5l-.02-.19c.4.28.89.44 1.42.44 1.38 0 2.5-1.12 2.5-2.5 0-1-.59-1.85-1.43-2.25.84-.4 1.43-1.25 1.43-2.25 0-1.38-1.12-2.5-2.5-2.5-.53 0-1.01.16-1.42.44l.02-.19C14.5 2.12 13.38 1 12 1S9.5 2.12 9.5 3.5l.02.19c-.4-.28-.89-.44-1.42-.44-1.38 0-2.5 1.12-2.5 2.5 0 1 .59 1.85 1.43 2.25-.84.4-1.43 1.25-1.43 2.25zM12 5.5c1.38 0 2.5 1.12 2.5 2.5s-1.12 2.5-2.5 2.5S9.5 9.38 9.5 8s1.12-2.5 2.5-2.5zM3 13c0 4.97 4.03 9 9 9 0-4.97-4.03-9-9-9z" />
+                            </svg>
+                        </div>
+                        <div class="olfactory-content">
+                            <div class="olfactory-label">Corazón</div>
+                            <div class="olfactory-notes">Lirio de los Valles, Rosa, Cedro</div>
+                        </div>
+                    </li>
+                    <li class="olfactory-item">
+                        <div class="olfactory-icon">
+                            <!-- Fondo Icon - Wood/Base -->
+                            <svg viewBox="0 0 24 24">
+                                <path
+                                    d="M17 12h2c.55 0 1 .45 1 1s-.45 1-1 1h-2c-.55 0-1-.45-1-1s.45-1 1-1zm-3.17 5.66c.39-.39.39-1.02 0-1.41l-.71-.71c-.39-.39-1.02-.39-1.41 0s-.39 1.02 0 1.41l.71.71c.39.39 1.02.39 1.41 0zM12 17c.55 0 1 .45 1 1v2c0 .55-.45 1-1 1s-1-.45-1-1v-2c0-.55.45-1 1-1zm0-12c.55 0 1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1v2c0 .55.45 1 1 1zm-5 5H5c-.55 0-1 .45-1 1s.45 1 1 1h2c.55 0 1-.45 1-1s-.45-1-1-1zm1.17-3.83c.39.39 1.02.39 1.41 0s.39-1.02 0-1.41l-.71-.71c-.39-.39-1.02-.39-1.41 0s-.39 1.02 0 1.41l.71.71zm9.66 1.41c.39-.39.39-1.02 0-1.41l-.71-.71c-.39-.39-1.02-.39-1.41 0s-.39 1.02 0 1.41l.71.71c.39.39 1.02.39 1.41 0zM12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5z" />
+                            </svg>
+                        </div>
+                        <div class="olfactory-content">
+                            <div class="olfactory-label">Fondo</div>
+                            <div class="olfactory-notes">Ámbar, Almizcle, Oud, Sándalo, Vainilla</div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="options">
+                <span class="option-label">Selecciona tu tamaño</span>
+                <div class="size-selector">
+                    <div class="size-btn-container">
+                        <button class="size-btn active">3ml</button>
+                    </div>
+                    <div class="size-btn-container">
+                        <span class="badge">Popular</span>
+                        <button class="size-btn">5ml</button>
+                    </div>
+                    <div class="size-btn-container">
+                        <span class="badge">Mejor Valor</span>
+                        <button class="size-btn">10ml</button>
+                    </div>
+                </div>
+            </div>
+
+            <button class="add-to-cart-btn">
+                <svg class="cart-icon-svg" viewBox="0 0 24 24">
+                    <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <path d="M16 10a4 4 0 0 1-8 0"></path>
+                </svg>
+                Añadir al Carrito
+            </button>
+
+            <!-- Trust Signals -->
+            <div class="trust-signals">
+                <div class="trust-item">
+                    <span class="trust-icon">✓</span>
+                    <span>100% Auténtico Garantizado</span>
+                </div>
+                <div class="trust-item">
+                    <span class="trust-icon">✈</span>
+                    <span>Envío Seguro 24/48h</span>
+                </div>
+                <div class="trust-item">
+                    <span class="trust-icon">🔒</span>
+                    <span>Pago Protegido</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    </div>
+
+    <!-- Cart Overlay -->
+    <div class="cart-overlay-bg" id="cartOverlay" onclick="toggleCart()"></div>
+
+    <!-- Cart Drawer -->
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h2>Tu Cesta</h2>
+            <span class="close-cart" onclick="toggleCart()">&times;</span>
+        </div>
+        <div class="cart-items">
+            <!-- Items will be injected here via JS -->
+            <p class="empty-cart-msg">Tu cesta está vacía.</p>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total:</span>
+                <span>0.00€</span>
+            </div>
+            <button class="checkout-btn">Tramitar Pedido</button>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div class="modal-overlay" id="loginModal">
+        <div class="login-modal">
+            <span class="modal-close" onclick="closeLoginModal()">&times;</span>
+            <h2 class="modal-title" id="modalTitle">Iniciar Sesión</h2>
+
+            <!-- Login Form -->
+            <form id="loginForm">
+                <div class="form-group">
+                    <label class="form-label">Email</label>
+                    <input type="email" class="form-input" placeholder="tu@email.com">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Contraseña</label>
+                    <input type="password" class="form-input" placeholder="********">
+                </div>
+                <button type="submit" class="submit-btn">Entrar</button>
+                <div class="switch-form">
+                    ¿No tienes cuenta? <span class="switch-link" onclick="toggleFormMode()">Regístrate</span>
+                </div>
+            </form>
+
+            <!-- Register Form -->
+            <form id="registerForm" style="display: none;">
+                <div class="form-group">
+                    <label class="form-label">Nombre Completo</label>
+                    <input type="text" class="form-input" placeholder="Tu Nombre">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Email</label>
+                    <input type="email" class="form-input" placeholder="tu@email.com">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Contraseña</label>
+                    <input type="password" class="form-input" placeholder="********">
+                </div>
+                <button type="submit" class="submit-btn">Crear Cuenta</button>
+                <div class="switch-form">
+                    ¿Ya tienes cuenta? <span class="switch-link" onclick="toggleFormMode()">Inicia Sesión</span>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Lenis for Smooth Scroll -->
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
+    <script>
+        const lenis = new Lenis({
+            duration: 1.0,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            smooth: true,
+            touchMultiplier: 2
+        });
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+
+        // Mobile Menu Toggle
+        function toggleMenu() {
+            const nav = document.getElementById('mobile-nav');
+            const hamburger = document.querySelector('.hamburger');
+            nav.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        }
+
+        // Size Selector Logic - Updates price based on selected size
+        document.querySelectorAll('.size-btn').forEach(btn => {
+            btn.addEventListener('click', function () {
+                document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+
+                // Update displayed price based on selected size
+                const selectedSize = this.textContent.trim();
+                const priceElement = document.querySelector('.price');
+                if (productPrices[selectedSize] && productPrices[selectedSize] > 0) {
+                    // Format price with comma as decimal separator
+                    const formattedPrice = productPrices[selectedSize].toFixed(2).replace('.', ',');
+                    priceElement.textContent = formattedPrice + '€';
+                }
+            });
+        });
+
+        // === CAROUSEL LOGIC ===
+        let currentSlide = 0;
+        const totalSlides = 4;
+
+        function showSlide(index) {
+            const slides = document.querySelectorAll('.gallery-slide');
+            const thumbnails = document.querySelectorAll('.thumbnail');
+
+            slides.forEach((slide, i) => {
+                slide.classList.toggle('active', i === index);
+            });
+
+            thumbnails.forEach((thumb, i) => {
+                thumb.classList.toggle('active', i === index);
+            });
+
+            currentSlide = index;
+        }
+
+        function nextSlide() {
+            showSlide((currentSlide + 1) % totalSlides);
+        }
+
+        function prevSlide() {
+            showSlide((currentSlide - 1 + totalSlides) % totalSlides);
+        }
+
+        function goToSlide(index) {
+            showSlide(index);
+        }
+
+        // === SECONDARY IMAGE MAPPING ===
+        const secondaryImageMap = {
+            // === LUXURY PERFUMES (NICHO) ===
+            'blue-sapphire': 'fotos/fotos nicho_2/Boadicea The Victorious - Supercharged Blue Sapphire.jpg',
+            'hanuman': 'fotos/fotos nicho_2/Boadicea The Victorious - Hanuman.jpg',
+            'opal': 'fotos/fotos nicho_2/Boadicea The Victorious - Opal.jpg',
+            'harmonious': 'fotos/fotos nicho_2/Boadicea The Victorious - Harmonious.jpg',
+            'blonde-amber': 'fotos/fotos nicho_2/Clive Christian - Blonde Amber.jpg',
+            'hedonistic': 'fotos/fotos nicho_2/Clive Christian - Addictive Arts Hedonistic.jpg',
+            'rock-rose': 'fotos/fotos nicho_2/Clive Christian - Rock Rose.jpg',
+            'nefs': 'fotos/fotos nicho_2/Nishane - Nefs.jpg',
+            'isola-blu': 'fotos/fotos nicho_2/Roja Parfums - Isola Blu.jpg',
+            'reflection-45': 'fotos/fotos nicho_2/Amouage - Reflection 45.jpg',
+            'outlands': 'fotos/fotos nicho_2/Amouage - Outlands.jpg',
+            'absolu-aventus': 'fotos/fotos nicho_2/Creed - Absolu Aventus.jpg',
+            'ombre-nomade': 'fotos/fotos nicho_2/Louis Vuitton - Ombre Nomade.jpg',
+            '1872': 'fotos/fotos nicho_2/Clive Christian - 1872 Original Collection.jpg',
+            'x-masculine': 'fotos/fotos nicho_2/Clive Christian - X Masculine.jpg',
+            'centaurus': 'fotos/fotos nicho_2/Creed - Centaurus.jpg',
+            'alexandria-ii': 'fotos/fotos nicho_2/Xerjoff - Alexandria II.jpg',
+            'manhattan': 'fotos/fotos nicho_2/Roja Parfums - Manhattan.jpg',
+            'dionisio': 'fotos/fotos nicho_2/Tiziana Terenzi - Dionisio.jpg',
+            'oud-wood': 'fotos/fotos nicho_2/Tom Ford - Oud Wood.jpg',
+            // === WOMAN ===
+            'apom': 'fotos/woman2fotos/APOM - Masion Francis kurkdjian.jpg',
+            'azrak': 'fotos/woman2fotos/Azrak - boadicea the victorious.jpg',
+            'bianco-latte': 'fotos/woman2fotos/bianco latte- giardini di toscana.jpg',
+            'erotika-maximale': 'fotos/woman2fotos/Erotika Maximale- new notes.jpg',
+            'fetiche-la-rose': 'fotos/woman2fotos/Fetiche la rose- christian louboutin.jpg',
+            'gris-charnel': 'fotos/woman2fotos/gris charnel- bdk parfums.jpg',
+            'gris-dior': 'fotos/woman2fotos/gris dior- Christian dior.jpg',
+            'iperborea': 'fotos/woman2fotos/Iperborea- Lorenzo Villoresi Firenze.jpg',
+            'la-prima': 'fotos/woman2fotos/La prima- Milano Fragranze.jpg',
+            'lira': 'fotos/woman2fotos/Lira Casamorati - xerjoff.jpg',
+            'lune-feline': 'fotos/woman2fotos/Lune Feline- Atelier des ors.jpg',
+            'marfa': 'fotos/woman2fotos/Marfa- Memo Paris.jpg',
+            'musk-therapy': 'fotos/woman2fotos/Musk therapy- initio.jpg',
+            'one-umbrella': 'fotos/woman2fotos/one umbrella for two - floraiku.jpg',
+            'paragon': 'fotos/woman2fotos/Paragon initio.jpg',
+            'poets-berlin': 'fotos/woman2fotos/Poets of berlin- Vilhelm Parfumeire.jpg',
+            'rouge-malachite': 'fotos/woman2fotos/Rouge Malachite- Armani Pive.jpg',
+            'sharing-concept': 'fotos/woman2fotos/Sharing concept- corel.jpg',
+            'sonic-flower': 'fotos/woman2fotos/Sonic flower- room 1015.jpg',
+            'code-emotion': 'fotos/woman2fotos/The code of emotion - Francesca bianchi.jpg',
+            '28-daniel': 'fotos/woman2fotos/28 Daniel Josier.jpg',
+            'oud-orange': 'fotos/woman2fotos/Oud Orange Intense- Fragance du Bois.jpg',
+            'tilia': 'fotos/woman2fotos/Tilia- Marc Antonie Barrois.jpg',
+            'silky-woods': 'fotos/woman2fotos/silky woods- gold field y banks.jpg',
+            'greenwich': 'fotos/woman2fotos/Greenwich Village - bond n9.jpg',
+            'impadia': 'fotos/woman2fotos/Impadia- charnel.jpg',
+            // === CATALOGO CONTINUACION ===
+            'ambre-tabac': 'fotos/CATALOGO/catalogo continuacion/fotos 2 catalogo/ambre tabac daniel josier2.jpg',
+            'interlude-black-iris': 'fotos/CATALOGO/catalogo continuacion/fotos 2 catalogo/amouage interlude black iriz.png',
+            'interlude': 'fotos/CATALOGO/catalogo continuacion/fotos 2 catalogo/amouage interlude2.jpg',
+            'jubilation-40': 'fotos/CATALOGO/catalogo continuacion/fotos 2 catalogo/Amouage jubilation 402.jpg',
+            'opus-xiv': 'fotos/CATALOGO/catalogo continuacion/fotos 2 catalogo/Amouage opus XIV royal tobacco2.jpg',
+            'reflection-man': 'fotos/CATALOGO/catalogo continuacion/fotos 2 catalogo/Amouage reflection man2.jpg',
+            'purpose': 'fotos/CATALOGO/catalogo continuacion/fotos 2 catalogo/amouage purpose2.jpg',
+            'back-to-black': 'fotos/CATALOGO/catalogo continuacion/fotos 2 catalogo/back to black kilian2.jpg',
+            'smoking-hot': 'fotos/CATALOGO/catalogo continuacion/fotos 2 catalogo/Kiliam Smoking hot2.jpg',
+            'wavechild': 'fotos/CATALOGO/catalogo continuacion/fotos 2 catalogo/wave child room 10152.jpg',
+            'naxos': 'fotos/CATALOGO/catalogo continuacion/fotos 2 catalogo/xerjoff naxos2.jpg',
+            'ara': 'fotos/CATALOGO/catalogo continuacion/fotos 2 catalogo/ara mallo 2.jpg',
+            'amiri': 'fotos/CATALOGO/catalogo continuacion/fotos 2 catalogo/arabian oud amiri2.jpg',
+            'cargo-nuit': 'fotos/CATALOGO/catalogo continuacion/fotos 2 catalogo/cargo de nuit prada2.jpg',
+            'cuir-ysl': 'fotos/CATALOGO/catalogo continuacion/fotos 2 catalogo/cuir yves laurent2.jpg',
+            'curis': 'fotos/CATALOGO/catalogo continuacion/fotos 2 catalogo/cuirs carner barcelona2.jpg',
+            'd600': 'fotos/CATALOGO/catalogo continuacion/fotos 2 catalogo/D600 carner barcelona2.jpg',
+            'jara': 'fotos/CATALOGO/catalogo continuacion/fotos 2 catalogo/jara ponsa barcelona2.jpg',
+            'la-capitale': 'fotos/CATALOGO/catalogo continuacion/fotos 2 catalogo/la capitale xerjoff2.jpg',
+            'leather-shot': 'fotos/CATALOGO/catalogo continuacion/fotos 2 catalogo/leather shot olfative studio2.jpg',
+            'ora': 'fotos/CATALOGO/catalogo continuacion/fotos 2 catalogo/ora mallo parfums2.jpg',
+            'proibito': 'fotos/CATALOGO/catalogo continuacion/fotos 2 catalogo/probito unico perfume2.jpg',
+            'purple-rain': 'fotos/CATALOGO/catalogo continuacion/fotos 2 catalogo/purple rain2.JPG',
+            'under-my-skin': 'fotos/CATALOGO/catalogo continuacion/fotos 2 catalogo/under my skin francesca bianchi2.jpg',
+            // === CATALOGO CONTINUACION 2 ===
+            '6-place-saint-sulpice': 'fotos/CATALOGO/catalogo continuacion/fotos 2 catalogo/6 place saint sulpice t laurent2.jpg',
+            'angels-share': 'fotos/CATALOGO/catalogo continuacion/fotos 2 catalogo/Angels share kilian2.jpg',
+            'ani': 'fotos/CATALOGO/catalogo continuacion/fotos 2 catalogo/Ani Nishane2.jpg',
+            'bahar': 'fotos/CATALOGO/catalogo continuacion/fotos 2 catalogo/bahar the spirit of dubai2.jpg',
+            'colonia-oud': 'fotos/CATALOGO/catalogo continuacion/fotos 2 catalogo/colonia leather acqua di parma2.jpg',
+            'crab-apple-blossom': 'fotos/CATALOGO/catalogo continuacion/fotos 2 catalogo/crab apple pie clive christian2.jpg',
+            'creation-e': 'fotos/CATALOGO/catalogo continuacion/fotos 2 catalogo/Enigma parfum cologne parfums2.jpg',
+            'duran-duran': 'fotos/CATALOGO/catalogo continuacion/fotos 2 catalogo/black moonlight duran xerjoff.jpg',
+            'fanfare': 'fotos/CATALOGO/catalogo continuacion/fotos 2 catalogo/fanfare thameen2.jpg',
+            'god-of-fire': 'fotos/CATALOGO/catalogo continuacion/fotos 2 catalogo/god od fire stephan rt lucas2.jpg',
+            'invisible-but-cool': 'fotos/CATALOGO/catalogo continuacion/fotos 2 catalogo/invisible but cool ramon monegal2.jpg',
+            'iris-cartagena': 'fotos/CATALOGO/catalogo continuacion/fotos 2 catalogo/iris cartagena 502 bon parfumer.jpg',
+            'iris-shot': 'fotos/CATALOGO/catalogo continuacion/fotos 2 catalogo/iris shot olfative studio2.jpg',
+            'meydan': 'fotos/CATALOGO/catalogo continuacion/fotos 2 catalogo/Meydan Spirit of Duba2.jpg',
+            'musc-ravageur': 'fotos/CATALOGO/catalogo continuacion/fotos 2 catalogo/musc ravagne fredericj 2020.jpg',
+            'obscura': 'fotos/CATALOGO/catalogo continuacion/fotos 2 catalogo/obscura ylusia parfums2.jpg',
+            'overdose': 'fotos/CATALOGO/catalogo continuacion/fotos 2 catalogo/overdose oman luxury2.jpg',
+            'oikb': 'fotos/CATALOGO/catalogo continuacion/fotos 2 catalogo/oikb santi burgas2.jpg',
+            'piper-nigrum': 'fotos/CATALOGO/catalogo continuacion/fotos 2 catalogo/piper nigrum lorenzo frineze2.jpg',
+            'promise': 'fotos/CATALOGO/catalogo continuacion/fotos 2 catalogo/promise frederico malle2.jpg',
+            'siesta': 'fotos/CATALOGO/catalogo continuacion/fotos 2 catalogo/siesta ramon monegal2.jpg',
+            'signature-heart-attack': 'fotos/CATALOGO/catalogo continuacion/fotos 2 catalogo/heart attack daniel josier2.jpg',
+            'tango': 'fotos/CATALOGO/catalogo continuacion/fotos 2 catalogo/tango masque milano 2.jpg',
+            'the-black-knight': 'fotos/CATALOGO/catalogo continuacion/fotos 2 catalogo/the black knight francesca bianchi2.jpg',
+            'the-lovers-tale': 'fotos/CATALOGO/catalogo continuacion/fotos 2 catalogo/the lovers tale francesca bianchi2.jpg',
+            'via-cavour': 'fotos/CATALOGO/catalogo continuacion/fotos 2 catalogo/via cavour 1 xerjoff.jpg',
+            'apex-eau-intense': 'fotos/CATALOGO/catalogo continuacion/fotos 2 catalogo/apex eau roja parfums2.jpg',
+            'absolue-osmanthe': 'fotos/CATALOGO/catalogo continuacion/fotos 2 catalogo/absolue d osmanthe2.jpg',
+            'dark-souls': 'fotos/CATALOGO/catalogo continuacion/fotos 2 catalogo/Dark souls mala sombre2.jpg',
+            'drunk-lovers': 'fotos/CATALOGO/catalogo continuacion/fotos 2 catalogo/drunk lovers born to standout2.jpg',
+            'erba-gold': 'fotos/CATALOGO/catalogo continuacion/fotos 2 catalogo/erba gold xerjoff2.jpg',
+            'erba-pura': 'fotos/CATALOGO/catalogo continuacion/fotos 2 catalogo/erba pura xerjoff2.jpg',
+            'golden-dallah': 'fotos/CATALOGO/catalogo continuacion/fotos 2 catalogo/golden dallah xerjoff2.jpg',
+            'hypnotizing-fire': 'fotos/CATALOGO/catalogo continuacion/fotos 2 catalogo/hipnotizing fire harmonis2.jpg',
+            'le-notti-di-goa': 'fotos/CATALOGO/catalogo continuacion/fotos 2 catalogo/le notti di goa sapna sasva2.jpg',
+            'pacific-rock-moss': 'fotos/CATALOGO/catalogo continuacion/fotos 2 catalogo/pacific rock moss goldfieldybanks2.jpg',
+            'patchouli-of-under': 'fotos/CATALOGO/catalogo continuacion/fotos 2 catalogo/patchouli of the under ectiumss2.jpg',
+            'soho-superz': 'fotos/CATALOGO/catalogo continuacion/fotos 2 catalogo/soho superz budapest2.jpg',
+            'starlight': 'fotos/CATALOGO/catalogo continuacion/fotos 2 catalogo/starlight xerjoff2.jpg',
+            'the-essence': 'fotos/CATALOGO/catalogo continuacion/fotos 2 catalogo/the essence francseca bianchi2.jpg',
+            'torino-25': 'fotos/CATALOGO/catalogo continuacion/fotos 2 catalogo/torino 25 xerjoff2.jpg',
+            'velvet-iris': 'fotos/CATALOGO/catalogo continuacion/fotos 2 catalogo/velvet iris essential parfums2.jpg',
+            'iommi': 'fotos/CATALOGO/catalogo continuacion/fotos 2 catalogo/tommy lommi xerjoff2.jpg',
+            // === CATALOGO ORIGINAL (con fotos secundarias) ===
+            'for-attention': 'fotos/CATALOGO/catalogo continuacion/fotos 2 catalogo/for attention niviru2.jpg',
+            'summer-hammer': 'fotos/CATALOGO/catalogo continuacion/fotos 2 catalogo/summer hummer lorenzo pazzaglia2.jpg',
+            'van-sea': 'fotos/CATALOGO/catalogo continuacion/fotos 2 catalogo/van sea lorenzo pazzaglia2.jpg',
+            'sublimizia': 'fotos/CATALOGO/catalogo continuacion/fotos 2 catalogo/stand out bruno perrucci2.jpg',
+            'tangy-caper': 'fotos/CATALOGO/catalogo continuacion/fotos 2 catalogo/tangy caper daniel josier.jpg',
+            'the-moon': 'fotos/CATALOGO/catalogo continuacion/fotos 2 catalogo/th moon frederic malle2.jpg',
+            // === FOTOS RESTANTES ===
+            'african-leather': 'fotos/CATALOGO/fotos restantes/African leather memo paris2.jpg',
+            'althair': 'fotos/CATALOGO/fotos restantes/Althair parfums de marly.jpg',
+            'ambre-abysses': 'fotos/CATALOGO/fotos restantes/Ambre des abysses- Houbigant.jpg',
+            'apple-brandy': 'fotos/CATALOGO/fotos restantes/Apple brandy on the rocks kilian..png',
+            'arabians-tonka': 'fotos/CATALOGO/fotos restantes/Arabians tonka montale.jpg',
+            'au-coeur-desert': 'fotos/CATALOGO/fotos restantes/AU coeur du desert tauer perfumes.jpg',
+            'aventus-cologne': 'fotos/CATALOGO/fotos restantes/Aventus cologne creed.jpg',
+            'babycat': 'fotos/CATALOGO/fotos restantes/Babycat-YSL.jpg',
+            'battito-dali': 'fotos/CATALOGO/fotos restantes/Battito dAli Profumum Roma.jpg',
+            'bodacious': 'fotos/CATALOGO/fotos restantes/Bodacious Boadicea the Victorious.jpg',
+            'bois-imperial': 'fotos/CATALOGO/fotos restantes/Bois imperial Essential parfums.jpg',
+            'by-fireplace': 'fotos/CATALOGO/fotos restantes/By the fireplace-Maison Margiela.jpg',
+            'elysium-cologne': 'fotos/CATALOGO/fotos restantes/Elysium Parfum cologne roja parfums.jpg',
+            'ganymede': 'fotos/CATALOGO/fotos restantes/Ganymede- marc antoine barrois.jpg',
+            'glistening': 'fotos/CATALOGO/fotos restantes/Glistening Boadicea the victorious.jpg',
+            'grand-soir': 'fotos/CATALOGO/fotos restantes/Grand Soir maison francis kurkdjian.jpg',
+            'green-irish-tweed': 'fotos/CATALOGO/fotos restantes/Green irish tweed-creed.jpg',
+            'halfeti': 'fotos/CATALOGO/fotos restantes/Halfeti Penhaligons.jpg',
+            'il-padrino': 'fotos/CATALOGO/fotos restantes/II padrino - sospiro.jpg',
+            'imagination': 'fotos/CATALOGO/fotos restantes/Imagination louis vuitton.jpg',
+            'instant-crush': 'fotos/CATALOGO/fotos restantes/Instant crush mancera.jpg',
+            'iris-nazarena': 'fotos/CATALOGO/fotos restantes/iris nazarena aedes de venustas.jpg',
+            'lamar': 'fotos/CATALOGO/fotos restantes/Lamar-kajal.jpg',
+            'layton': 'fotos/CATALOGO/fotos restantes/Layton Parfums marly.jpg',
+            'le-beau': 'fotos/CATALOGO/fotos restantes/le beau - jean paul gaultier.jpg',
+            'lord-george': 'fotos/CATALOGO/fotos restantes/The tragedy of lord george - penhalignos.jpg',
+            'masculin-pluriel': 'fotos/CATALOGO/fotos restantes/Masculin pluriel maison francis kurkdjian.jpg',
+            'no5': 'fotos/CATALOGO/fotos restantes/n5 rosendo mateu.jpg',
+            'no7': 'fotos/CATALOGO/fotos restantes/n7 rosendo mateu.jpg',
+            'orpheon': 'fotos/CATALOGO/fotos restantes/orpheon- dipthyque.jpg',
+            'oud-maracuja': 'fotos/CATALOGO/fotos restantes/oud maracuja maison crivelli.jpg',
+            'oud-satin-mood': 'fotos/CATALOGO/fotos restantes/oud satin mood maison francis kurkdjian.jpg',
+            'oud-voyager': 'fotos/CATALOGO/fotos restantes/oud voyager tom ford.jpg',
+            'oudh-boruzz': 'fotos/CATALOGO/fotos restantes/Oudh al boruzz asrar indonesia.jpg',
+            'sartorial': 'fotos/CATALOGO/fotos restantes/sartorial penhaligons.jpg',
+            'side-effect': 'fotos/CATALOGO/fotos restantes/Side effect - initio.jpg',
+            'tobacco-vanille': 'fotos/CATALOGO/fotos restantes/tobacco vanille- tom ford.jpg',
+            'torino21': 'fotos/CATALOGO/fotos restantes/Torino 21 xerjoff.jpg',
+            'triumph-bacchus': 'fotos/CATALOGO/fotos restantes/Triumph of bacchus-argos.jpg',
+            'tuxedo': 'fotos/CATALOGO/fotos restantes/Tuxedo ysl.jpg',
+            'vibrato': 'fotos/CATALOGO/fotos restantes/Vibrato sospiro.jpg',
+            'virgin-island-water': 'fotos/CATALOGO/fotos restantes/Virgin island water creed.jpg',
+            'cuero-flor': 'fotos/CATALOGO/fotos restantes/habit rouge parfum guerlain.jpg',
+            'aqua-pura': 'fotos/CATALOGO/fotos restantes/aqua pura fragrance world2.jpg',
+            'apex': 'fotos/CATALOGO/fotos restantes/apex roja parfums2.jpg'
+        };
+
+        // Dynamic Product Loading from URL Parameters
+        let productPrices = { '3ml': 0, '5ml': 0, '10ml': 0 };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            const id = params.get('id');
+            const name = params.get('name');
+            const brand = params.get('brand');
+            const price = params.get('price');
+            const price3ml = params.get('price3ml');
+            const price5ml = params.get('price5ml');
+            const price10ml = params.get('price10ml');
+            const img = params.get('img');
+            const desc = params.get('desc');
+
+            // Store prices for size selector
+            if (price3ml) productPrices['3ml'] = parseFloat(price3ml.replace(',', '.'));
+            if (price5ml) productPrices['5ml'] = parseFloat(price5ml.replace(',', '.'));
+            if (price10ml) productPrices['10ml'] = parseFloat(price10ml.replace(',', '.'));
+
+            // Fallback to single price if no individual prices provided
+            if (!price3ml && price) {
+                const singlePrice = parseFloat(price.replace(',', '.'));
+                productPrices['3ml'] = singlePrice;
+                productPrices['5ml'] = singlePrice;
+                productPrices['10ml'] = singlePrice;
+            }
+
+            // Update product details
+            if (name) {
+                document.querySelector('h1').textContent = name;
+                document.title = name + " - Perfumichi";
+            }
+            if (brand) document.querySelector('.brand').textContent = brand;
+
+            // Show initial price (3ml is default active)
+            if (price3ml) {
+                document.querySelector('.price').textContent = price3ml.replace('.', ',') + '€';
+            } else if (price) {
+                document.querySelector('.price').textContent = price + '€';
+            }
+
+
+            if (desc) document.querySelector('.description p').textContent = desc;
+
+            // Update olfactory notes if provided
+            const notasSalida = params.get('notasSalida');
+            const notasCorazon = params.get('notasCorazon');
+            const notasFondo = params.get('notasFondo');
+
+            if (notasSalida) {
+                const salidaElement = document.querySelector('.olfactory-list .olfactory-item:nth-child(1) .olfactory-notes');
+                if (salidaElement) salidaElement.textContent = notasSalida;
+            }
+            if (notasCorazon) {
+                const corazonElement = document.querySelector('.olfactory-list .olfactory-item:nth-child(2) .olfactory-notes');
+                if (corazonElement) corazonElement.textContent = notasCorazon;
+            }
+            if (notasFondo) {
+                const fondoElement = document.querySelector('.olfactory-list .olfactory-item:nth-child(3) .olfactory-notes');
+                if (fondoElement) fondoElement.textContent = notasFondo;
+            }
+
+            // Update main product image (Slide 1)
+            if (img) {
+                const mainImage = document.getElementById('main-product-image');
+                const thumb0 = document.getElementById('thumb-0');
+                if (mainImage) {
+                    mainImage.src = img;
+                    mainImage.alt = name || 'Product';
+                }
+                if (thumb0) thumb0.src = img;
+            }
+
+            // Update secondary product image (Slide 2)
+            const secondaryImg = secondaryImageMap[id];
+            const secondaryImage = document.getElementById('secondary-product-image');
+            const thumb1 = document.getElementById('thumb-1');
+
+            if (secondaryImg) {
+                if (secondaryImage) {
+                    secondaryImage.src = secondaryImg;
+                    secondaryImage.alt = name || 'Product';
+                }
+                if (thumb1) thumb1.src = secondaryImg;
+            } else {
+                // Hide second slide and thumbnail if no secondary image
+                const slide1 = document.getElementById('slide-1');
+                if (slide1) slide1.style.display = 'none';
+                if (thumb1) thumb1.parentElement.style.display = 'none';
+                // Hide navigation buttons
+                document.querySelectorAll('.gallery-btn').forEach(btn => btn.style.display = 'none');
+            }
+        });
+        // Add to Cart Button Logic
+        const addToCartBtn = document.querySelector('.add-to-cart-btn');
+        if (addToCartBtn) {
+            addToCartBtn.addEventListener('click', function () {
+                const sizeBtn = document.querySelector('.size-btn.active');
+                const size = sizeBtn ? sizeBtn.textContent : '3ml';
+
+                const priceText = document.querySelector('.price').textContent;
+                const price = parseFloat(priceText.replace('€', '').trim()) || 25.00;
+
+                const title = document.querySelector('h1').textContent;
+
+                // Get image from main product image element
+                const mainImg = document.getElementById('main-product-image');
+                const image = mainImg ? mainImg.outerHTML : '<div class="product-placeholder-img">IMG</div>';
+
+                const newItem = {
+                    id: Date.now(),
+                    title: title,
+                    price: price,
+                    size: size,
+                    image: image,
+                    quantity: 1
+                };
+
+                // Save to LocalStorage
+                let cart = getCart();
+                cart.push(newItem);
+                localStorage.setItem('cart', JSON.stringify(cart));
+
+                // Update UI
+                renderCart();
+                updateCartCount();
+                toggleCart();
+            });
+        }
+        // --- MOBILE MENU TOGGLE ---
+        function toggleMenu() {
+            const nav = document.getElementById('mobile-nav');
+            const hamburger = document.querySelector('.hamburger');
+            nav.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        }
+
+        // Login Modal Logic
+        const modal = document.getElementById('loginModal');
+        const loginForm = document.getElementById('loginForm');
+        const registerForm = document.getElementById('registerForm');
+        const modalTitle = document.getElementById('modalTitle');
+
+        function openLoginModal(e) {
+            e.preventDefault();
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden'; // Prevent scrolling
+        }
+
+        function closeLoginModal() {
+            modal.classList.remove('active');
+            document.body.style.overflow = ''; // Restore scrolling
+        }
+
+        function toggleFormMode() {
+            if (loginForm.style.display === 'none') {
+                loginForm.style.display = 'block';
+                registerForm.style.display = 'none';
+                modalTitle.textContent = 'Iniciar Sesión';
+            } else {
+                loginForm.style.display = 'none';
+                registerForm.style.display = 'block';
+                modalTitle.textContent = 'Crear Cuenta';
+            }
+        }
+
+        // Close modal when clicking outside
+        if (modal) {
+            modal.addEventListener('click', function (e) {
+                if (e.target === modal) {
+                    closeLoginModal();
+                }
+            });
+        }
+    </script>
+
+    <!-- CART LOGIC -->
+    <script type="module" src="js/cart.js"></script>
+
+    <!-- LOGIN BUBBLE -->
+    <div id="login-bubble" class="login-bubble hidden">
+        <div class="bubble-arrow"></div>
+        <div class="bubble-content">
+            <h3 id="bubble-title">Iniciar Sesión</h3>
+
+            <!-- Login Form -->
+            <form id="bubble-login-form" onsubmit="handleBubbleLogin(event)">
+                <div class="bubble-input-group">
+                    <input type="email" id="bubble-email" placeholder="Email" required>
+                </div>
+                <div class="bubble-input-group">
+                    <input type="password" id="bubble-password" placeholder="Contraseña" required>
+                </div>
+                <button type="submit" class="bubble-btn">ENTRAR</button>
+            </form>
+
+            <!-- Register Form (Hidden by default) -->
+            <form id="bubble-register-form" class="hidden" onsubmit="handleBubbleRegister(event)">
+                <div class="bubble-input-group">
+                    <input type="text" id="bubble-reg-name" placeholder="Nombre" required>
+                </div>
+                <div class="bubble-input-group">
+                    <input type="email" id="bubble-reg-email" placeholder="Email" required>
+                </div>
+                <div class="bubble-input-group">
+                    <input type="password" id="bubble-reg-password" placeholder="Contraseña" required>
+                </div>
+                <button type="submit" class="bubble-btn">REGISTRARSE</button>
+            </form>
+
+            <div class="bubble-divider">O</div>
+
+            <button class="bubble-google-btn" onclick="handleBubbleGoogleLogin()">
+                <svg width="14" height="14" viewBox="0 0 18 18">
+                    <path
+                        d="M17.64 9.2c0-.637-.057-1.252-.164-1.841H9v3.481h4.844a4.14 4.14 0 0 1-1.796 2.716v2.259h2.908c1.702-1.567 2.684-3.875 2.684-6.615z"
+                        fill="#4285F4"></path>
+                    <path
+                        d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.715H.957v2.332A8.997 8.997 0 0 0 9 18z"
+                        fill="#34A853"></path>
+                    <path
+                        d="M3.964 10.71A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.71V4.958H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.042l3.007-2.332z"
+                        fill="#FBBC05"></path>
+                    <path
+                        d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 0 0 .957 4.958L3.964 7.29C4.672 5.159 6.656 3.58 9 3.58z"
+                        fill="#EA4335"></path>
+                </svg>
+                Google
+            </button>
+
+            <p class="bubble-switch-text">
+                <span id="bubble-switch-msg">¿No tienes cuenta?</span>
+                <span id="bubble-switch-action" onclick="toggleBubbleForm()">Regístrate</span>
+            </p>
+        </div>
+    </div>
+
+    <link rel="stylesheet" href="css/auth.css">
+
+    <!-- FIREBASE SDK & LOGIC -->
+    <script type="module" src="js/auth.js"></script>
+
+    <!-- Header hide on scroll -->
+    <script>
+        (function () {
+            const header = document.querySelector('header');
+            let lastScrollY = window.scrollY;
+            let ticking = false;
+
+            function updateHeader() {
+                const currentScrollY = window.scrollY;
+
+                if (currentScrollY > lastScrollY && currentScrollY > 100) {
+                    header.classList.add('header-hidden');
+                } else {
+                    header.classList.remove('header-hidden');
+                }
+
+                lastScrollY = currentScrollY;
+                ticking = false;
+            }
+
+            window.addEventListener('scroll', function () {
+                if (!ticking) {
+                    requestAnimationFrame(updateHeader);
+                    ticking = true;
+                }
+            });
+        })();
+    </script>
+</body>
+
+</html>

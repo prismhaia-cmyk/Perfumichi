@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Essentials - Perfumichi</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #000000;
+            color: #ffffff;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Header Styling (Same as Index) */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 2rem 4rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            box-sizing: border-box;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.7) 100%);
+            backdrop-filter: blur(5px);
+        }
+
+        .logo-img {
+            height: 60px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: #ffffff;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+            opacity: 0.8;
+        }
+
+        nav a:hover {
+            opacity: 1;
+            color: #D4AF37;
+        }
+
+        /* Catalog Container */
+        .catalog-container {
+            max-width: 1200px;
+            margin: 150px auto 50px;
+            padding: 0 2rem;
+        }
+
+        h1 {
+            font-size: 3rem;
+            font-weight: 300;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: #D4AF37;
+            text-align: center;
+            margin-bottom: 3rem;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+        }
+
+        /* Product Grid */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            /* Force 4 columns */
+            gap: 2rem;
+        }
+
+        /* Responsive Grid */
+        @media (max-width: 1200px) {
+            .product-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 992px) {
+            .product-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .product-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Product Card */
+        .product-card {
+            background: rgba(20, 20, 20, 0.5);
+            border: 1px solid #333;
+            padding: 1.5rem 1rem 1rem 1rem;
+            /* Reduced bottom padding */
+            text-align: center;
+            transition: transform 0.3s, border-color 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            /* Clickable */
+            text-decoration: none;
+            /* Remove link underline */
+            color: inherit;
+            /* Inherit text color */
+            border-radius: 20px;
+            /* Rounded corners */
+            overflow: hidden;
+            /* Ensure content respects rounded corners */
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            border-color: #D4AF37;
+        }
+
+        .product-image-placeholder {
+            width: 100%;
+            height: 250px;
+            /* Fixed height */
+            background-color: #1a1a1a;
+            /* Dark grey placeholder */
+            margin-bottom: 1.5rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #333;
+            font-size: 2rem;
+            border: 1px dashed #333;
+        }
+
+        .product-title {
+            font-size: 1.2rem;
+            font-weight: 500;
+            margin: 0.5rem 0;
+            letter-spacing: 0.05em;
+        }
+
+        .product-brand {
+            font-size: 0.9rem;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-price {
+            font-size: 1.1rem;
+            color: #D4AF37;
+            margin-bottom: 1.5rem;
+            font-weight: bold;
+        }
+
+        .add-btn {
+            padding: 0.8rem 2rem;
+            border: 1px solid #D4AF37;
+            background: transparent;
+            color: #D4AF37;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .add-btn:hover {
+            background: #D4AF37;
+            color: #000000;
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
+        }
+
+        /* Mobile Menu Styles */
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            z-index: 102;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 30px;
+            height: 2px;
+            background-color: #D4AF37;
+            margin: 6px 0;
+            transition: 0.4s;
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 1.5rem 2rem;
+            }
+
+            .hamburger {
+                display: block;
+            }
+
+            .hamburger.active span:nth-child(1) {
+                transform: rotate(-45deg) translate(-5px, 6px);
+            }
+
+            .hamburger.active span:nth-child(2) {
+                opacity: 0;
+            }
+
+            .hamburger.active span:nth-child(3) {
+                transform: rotate(45deg) translate(-5px, -6px);
+            }
+
+            nav {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100vh;
+                background-color: #000000;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                transform: translateX(100%);
+                transition: transform 0.5s ease-in-out;
+                z-index: 101;
+            }
+
+            nav.active {
+                transform: translateX(0);
+            }
+
+            nav ul {
+                flex-direction: column;
+                gap: 3rem;
+                text-align: center;
+            }
+
+            nav a {
+                font-size: 1.5rem;
+            }
+
+            .catalog-container {
+                margin-top: 100px;
+            }
+        }
+
+        /* Lenis Recommended CSS */
+        html.lenis {
+            height: auto;
+        }
+
+        .lenis.lenis-smooth {
+            scroll-behavior: auto;
+        }
+
+        .lenis.lenis-smooth [data-lenis-prevent] {
+            overscroll-behavior: contain;
+        }
+
+        .lenis.lenis-stopped {
+            overflow: hidden;
+        }
+
+        .lenis.lenis-scrolling iframe {
+            pointer-events: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <a href="index.html"><img src="logo.png" alt="Perfumichi Logo" class="logo-img"></a>
+        <div class="hamburger" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <nav id="mobile-nav">
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="catalogo.html">Catálogo</a></li>
+                <li><a href="nicho.html">Luxury Perfumes</a></li>
+                <li><a href="politicas.html">Políticas</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="catalog-container">
+        <h1>Essentials Collection</h1>
+
+        <div class="product-grid">
+            <!-- Product 1 -->
+            <a href="producto.html" class="product-card">
+                <div class="product-image-placeholder">IMG</div>
+                <div class="product-brand">Dior</div>
+                <div class="product-title">Sauvage Elixir</div>
+                <div class="product-price">22.00€</div>
+                <span class="add-btn">Ver Detalles</span>
+            </a>
+
+            <!-- Product 2 -->
+            <a href="producto.html" class="product-card">
+                <div class="product-image-placeholder">IMG</div>
+                <div class="product-brand">Chanel</div>
+                <div class="product-title">Bleu de Chanel Parfum</div>
+                <div class="product-price">24.00€</div>
+                <span class="add-btn">Ver Detalles</span>
+            </a>
+
+            <!-- Product 3 -->
+            <a href="producto.html" class="product-card">
+                <div class="product-image-placeholder">IMG</div>
+                <div class="product-brand">Armani</div>
+                <div class="product-title">Acqua di Giò Profumo</div>
+                <div class="product-price">18.00€</div>
+                <span class="add-btn">Ver Detalles</span>
+            </a>
+
+            <!-- Product 4 -->
+            <a href="producto.html" class="product-card">
+                <div class="product-image-placeholder">IMG</div>
+                <div class="product-brand">Versace</div>
+                <div class="product-title">Eros Flame</div>
+                <div class="product-price">15.00€</div>
+                <span class="add-btn">Ver Detalles</span>
+            </a>
+
+            <!-- Product 5 -->
+            <a href="producto.html" class="product-card">
+                <div class="product-image-placeholder">IMG</div>
+                <div class="product-brand">YSL</div>
+                <div class="product-title">Y Eau de Parfum</div>
+                <div class="product-price">19.00€</div>
+                <span class="add-btn">Ver Detalles</span>
+            </a>
+
+            <!-- Product 6 -->
+            <a href="producto.html" class="product-card">
+                <div class="product-image-placeholder">IMG</div>
+                <div class="product-brand">Prada</div>
+                <div class="product-title">L'Homme Intense</div>
+                <div class="product-price">20.00€</div>
+                <span class="add-btn">Ver Detalles</span>
+            </a>
+
+            <!-- Product 7 -->
+            <a href="producto.html" class="product-card">
+                <div class="product-image-placeholder">IMG</div>
+                <div class="product-brand">Jean Paul Gaultier</div>
+                <div class="product-title">Le Male Le Parfum</div>
+                <div class="product-price">18.50€</div>
+                <span class="add-btn">Ver Detalles</span>
+            </a>
+
+            <!-- Product 8 -->
+            <a href="producto.html" class="product-card">
+                <div class="product-image-placeholder">IMG</div>
+                <div class="product-brand">Viktor&Rolf</div>
+                <div class="product-title">Spicebomb Extreme</div>
+                <div class="product-price">21.00€</div>
+                <span class="add-btn">Ver Detalles</span>
+            </a>
+
+            <!-- Product 9 -->
+            <a href="producto.html" class="product-card">
+                <div class="product-image-placeholder">IMG</div>
+                <div class="product-brand">Dolce & Gabbana</div>
+                <div class="product-title">The One EDP</div>
+                <div class="product-price">17.00€</div>
+                <span class="add-btn">Ver Detalles</span>
+            </a>
+
+            <!-- Product 10 -->
+            <a href="producto.html" class="product-card">
+                <div class="product-image-placeholder">IMG</div>
+                <div class="product-brand">Hermès</div>
+                <div class="product-title">Terre d'Hermès</div>
+                <div class="product-price">23.00€</div>
+                <span class="add-btn">Ver Detalles</span>
+            </a>
+
+            <!-- Product 11 -->
+            <a href="producto.html" class="product-card">
+                <div class="product-image-placeholder">IMG</div>
+                <div class="product-brand">Tom Ford</div>
+                <div class="product-title">Ombré Leather</div>
+                <div class="product-price">25.00€</div>
+                <span class="add-btn">Ver Detalles</span>
+            </a>
+
+            <!-- Product 12 -->
+            <a href="producto.html" class="product-card">
+                <div class="product-image-placeholder">IMG</div>
+                <div class="product-brand">Mancera</div>
+                <div class="product-title">Cedrat Boise</div>
+                <div class="product-price">16.00€</div>
+                <span class="add-btn">Ver Detalles</span>
+            </a>
+
+            <!-- Product 13 -->
+            <a href="producto.html" class="product-card">
+                <div class="product-image-placeholder">IMG</div>
+                <div class="product-brand">Montblanc</div>
+                <div class="product-title">Explorer</div>
+                <div class="product-price">14.00€</div>
+                <span class="add-btn">Ver Detalles</span>
+            </a>
+
+            <!-- Product 14 -->
+            <a href="producto.html" class="product-card">
+                <div class="product-image-placeholder">IMG</div>
+                <div class="product-brand">Azzaro</div>
+                <div class="product-title">Wanted by Night</div>
+                <div class="product-price">15.50€</div>
+                <span class="add-btn">Ver Detalles</span>
+            </a>
+
+            <!-- Product 15 -->
+            <a href="producto.html" class="product-card">
+                <div class="product-image-placeholder">IMG</div>
+                <div class="product-brand">Paco Rabanne</div>
+                <div class="product-title">1 Million Elixir</div>
+                <div class="product-price">18.00€</div>
+                <span class="add-btn">Ver Detalles</span>
+            </a>
+
+            <!-- Product 16 -->
+            <a href="producto.html" class="product-card">
+                <div class="product-image-placeholder">IMG</div>
+                <div class="product-brand">Valentino</div>
+                <div class="product-title">Uomo Intense</div>
+                <div class="product-price">20.50€</div>
+                <span class="add-btn">Ver Detalles</span>
+            </a>
+
+            <!-- Product 17 -->
+            <a href="producto.html" class="product-card">
+                <div class="product-image-placeholder">IMG</div>
+                <div class="product-brand">Givenchy</div>
+                <div class="product-title">Gentleman Reserve Privée</div>
+                <div class="product-price">21.50€</div>
+                <span class="add-btn">Ver Detalles</span>
+            </a>
+
+            <!-- Product 18 -->
+            <a href="producto.html" class="product-card">
+                <div class="product-image-placeholder">IMG</div>
+                <div class="product-brand">Guerlain</div>
+                <div class="product-title">L'Homme Idéal EDP</div>
+                <div class="product-price">22.50€</div>
+                <span class="add-btn">Ver Detalles</span>
+            </a>
+
+            <!-- Product 19 -->
+            <a href="producto.html" class="product-card">
+                <div class="product-image-placeholder">IMG</div>
+                <div class="product-brand">Bvlgari</div>
+                <div class="product-title">Man in Black</div>
+                <div class="product-price">19.50€</div>
+                <span class="add-btn">Ver Detalles</span>
+            </a>
+
+            <!-- Product 20 -->
+            <a href="producto.html" class="product-card">
+                <div class="product-image-placeholder">IMG</div>
+                <div class="product-brand">Rasasi</div>
+                <div class="product-title">Hawas</div>
+                <div class="product-price">16.50€</div>
+                <span class="add-btn">Ver Detalles</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Lenis for Smooth Scroll -->
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
+    <script>
+        const lenis = new Lenis({
+            duration: 1.5,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            smooth: true
+        });
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+
+        // Mobile Menu Toggle
+        function toggleMenu() {
+            const nav = document.getElementById('mobile-nav');
+            const hamburger = document.querySelector('.hamburger');
+            nav.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        }
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,446 @@
+{% schema %}
+{
+  "name": "Landing Perfumichi",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Hero Image (Perfume Bottle)"
+    },
+    {
+      "type": "image_picker",
+      "id": "decants_image",
+      "label": "Decants Image (Collection)"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo_image",
+      "label": "Logo Image"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent Color (Gold)",
+      "default": "#D4AF37"
+    },
+    {
+      "type": "url",
+      "id": "catalog_link",
+      "label": "Catalog Link",
+      "default": "/collections/all"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Landing Perfumichi",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}
+
+{% style %}
+    .landing-perfumichi-section {
+        background-color: #000000;
+        color: #ffffff;
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        overflow-x: hidden;
+        position: relative;
+    }
+
+    /* Lenis Recommended CSS */
+    html.lenis { height: auto; }
+    .lenis.lenis-smooth { scroll-behavior: auto; }
+    .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+    .lenis.lenis-stopped { overflow: hidden; }
+    .lenis.lenis-scrolling iframe { pointer-events: none; }
+
+    /* 2D Image Styling */
+    #hero-image {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        height: 65vh;
+        width: auto;
+        z-index: 1;
+        pointer-events: none;
+        object-fit: contain;
+        -webkit-mask-image: radial-gradient(circle at center, black 50%, transparent 100%);
+        mask-image: radial-gradient(circle at center, black 50%, transparent 100%);
+    }
+
+    /* Second Image (Decants) Styling */
+    #decants-image {
+        position: fixed;
+        top: 50%;
+        right: 0%;
+        transform: translate(0, -50%);
+        height: 65vh;
+        width: auto;
+        z-index: 1;
+        pointer-events: none;
+        object-fit: contain;
+        opacity: 0;
+        -webkit-mask-image: radial-gradient(circle at center, black 40%, transparent 85%);
+        mask-image: radial-gradient(circle at center, black 40%, transparent 85%);
+    }
+
+    .landing-section {
+        height: 100vh;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        box-sizing: border-box;
+        padding: 2rem;
+        z-index: 2;
+    }
+
+    .landing-perfumichi-section h1 {
+        font-size: 2.2rem;
+        font-weight: 300;
+        letter-spacing: 0.4em;
+        text-transform: uppercase;
+        margin: 0;
+        text-align: center;
+        line-height: 1.4;
+        max-width: 90%;
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+    }
+
+    .landing-perfumichi-section h2 {
+        font-size: 3rem;
+        font-weight: 300;
+        letter-spacing: 0.15em;
+        margin-bottom: 1rem;
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+    }
+
+    .landing-perfumichi-section p {
+        font-size: 1.2rem;
+        line-height: 1.6;
+        max-width: 500px;
+        color: #cccccc;
+        text-shadow: 0 1px 5px rgba(0, 0, 0, 0.8);
+    }
+
+    .content-right {
+        margin-left: auto;
+        margin-right: 5%;
+        width: 45%;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .content-left {
+        margin-right: auto;
+        margin-left: 10%;
+        text-align: left;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .content-center {
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background: radial-gradient(circle, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0) 70%);
+        padding: 2rem;
+        border-radius: 50%;
+    }
+
+    .btn {
+        display: inline-block;
+        margin-top: 2rem;
+        padding: 1rem 3rem;
+        border: 1px solid {{ section.settings.accent_color }};
+        color: {{ section.settings.accent_color }};
+        text-decoration: none;
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        transition: all 0.3s ease;
+    }
+
+    .btn:hover {
+        background-color: {{ section.settings.accent_color }};
+        color: #000000;
+        box-shadow: 0 0 15px {{ section.settings.accent_color | color_modify: 'alpha', 0.4 }};
+    }
+
+    #section-1 { justify-content: center; }
+    #section-2 { justify-content: flex-end; }
+    #section-3 { justify-content: flex-start; }
+    #section-4 { justify-content: center; text-align: center; }
+
+    .big-cta-btn {
+        font-size: 1.2rem;
+        padding: 1rem 2.5rem;
+        border: 2px solid {{ section.settings.accent_color }};
+        background-color: transparent;
+        color: {{ section.settings.accent_color }};
+        text-decoration: none;
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        transition: all 0.5s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .big-cta-btn:hover {
+        background-color: {{ section.settings.accent_color }};
+        color: #000000;
+        box-shadow: 0 0 30px {{ section.settings.accent_color | color_modify: 'alpha', 0.6 }};
+    }
+
+    /* Header Styling */
+    .custom-header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        padding: 2rem 4rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 100;
+        box-sizing: border-box;
+        background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 100%);
+    }
+
+    .logo-img {
+        height: 60px;
+        width: auto;
+        object-fit: contain;
+        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
+    }
+
+    .custom-nav ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        gap: 2rem;
+    }
+
+    .custom-nav a {
+        color: #ffffff;
+        text-decoration: none;
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        font-size: 0.9rem;
+        transition: color 0.3s, opacity 0.3s;
+        opacity: 0.8;
+    }
+
+    .custom-nav a:hover {
+        opacity: 1;
+        color: {{ section.settings.accent_color }};
+    }
+
+    /* Mobile Menu Styles */
+    .hamburger { display: none; cursor: pointer; z-index: 102; }
+    .hamburger span { display: block; width: 30px; height: 2px; background-color: {{ section.settings.accent_color }}; margin: 6px 0; transition: 0.4s; }
+
+    @media (max-width: 768px) {
+        .custom-header { padding: 1.5rem 2rem; }
+        .hamburger { display: block; }
+        .hamburger.active span:nth-child(1) { transform: rotate(-45deg) translate(-5px, 6px); }
+        .hamburger.active span:nth-child(2) { opacity: 0; }
+        .hamburger.active span:nth-child(3) { transform: rotate(45deg) translate(-5px, -6px); }
+        
+        .custom-nav {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+            background-color: #000000; display: flex; justify-content: center; align-items: center;
+            transform: translateX(100%); transition: transform 0.5s ease-in-out; z-index: 101;
+        }
+        .custom-nav.active { transform: translateX(0); }
+        .custom-nav ul { flex-direction: column; gap: 3rem; text-align: center; }
+        .custom-nav a { font-size: 1.5rem; }
+
+        .landing-perfumichi-section h1 { font-size: 1.5rem; letter-spacing: 0.2em; max-width: 100%; }
+        .landing-perfumichi-section h2 { font-size: 2rem; text-align: center; }
+        .landing-perfumichi-section p { font-size: 1rem; text-align: center; padding: 0 1rem; }
+        
+        .content-right, .content-left, .content-center { width: 100%; margin: 0; align-items: center; text-align: center; padding: 0 1rem; box-sizing: border-box; }
+        #section-2, #section-3 { justify-content: center; }
+        
+        #hero-image { height: 40vh; }
+        #decants-image { height: 40vh; right: 50%; transform: translate(50%, -50%); }
+    }
+{% endstyle %}
+
+<div class="landing-perfumichi-section">
+
+    <!-- Header -->
+    <header class="custom-header">
+        {% if section.settings.logo_image %}
+            <img src="{{ section.settings.logo_image | image_url }}" alt="Perfumichi Logo" class="logo-img">
+        {% else %}
+            <img src="{{ 'logo.png' | file_url }}" alt="Perfumichi Logo" class="logo-img">
+        {% endif %}
+        
+        <div class="hamburger" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <nav class="custom-nav" id="mobile-nav">
+            <ul>
+                <li><a href="#" onclick="lenis.scrollTo(0); return false;">Inicio</a></li>
+                <li><a href="{{ section.settings.catalog_link }}">Catálogo</a></li>
+                <li><a href="#">Essentials</a></li>
+                <li><a href="#">Nicho</a></li>
+                <li><a href="{{ pages.politicas.url | default: '#' }}">Políticas</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Image (First Bottle) -->
+    {% if section.settings.hero_image %}
+        <img id="hero-image" src="{{ section.settings.hero_image | image_url }}" alt="Luxury Perfume Bottle">
+    {% else %}
+        <img id="hero-image" src="{{ 'perfume.png' | file_url }}" alt="Luxury Perfume Bottle">
+    {% endif %}
+
+    <!-- Decants Image (Second Image) -->
+    {% if section.settings.decants_image %}
+        <img id="decants-image" src="{{ section.settings.decants_image | image_url }}" alt="Decants Collection">
+    {% else %}
+        <img id="decants-image" src="{{ 'decants.jpg' | file_url }}" alt="Decants Collection">
+    {% endif %}
+
+    <section id="section-1" class="landing-section">
+        <div class="content-center">
+            <h1>El lujo de estrenar<br>una nueva esencia cada día.</h1>
+            <a href="{{ section.settings.catalog_link }}" class="btn">Ver Catálogo</a>
+        </div>
+    </section>
+
+    <section id="section-2" class="landing-section">
+        <div class="content-right">
+            <h2>El Arte de la Alta Perfumería</h2>
+            <p>No necesitas la botella entera para vivir la experiencia completa. Adéntrate en una selección curada de
+                las joyas olfativas más exclusivas del mundo.</p>
+            <a href="{{ section.settings.catalog_link }}" class="btn">Explorar Colección</a>
+        </div>
+    </section>
+
+    <section id="section-3" class="landing-section">
+        <div class="content-left">
+            <h2>Luxury Decants</h2>
+            <p>Descubre la libertad de portar las fragancias más exclusivas del mundo en un formato diseñado para la
+                excelencia. En Perfumichi nuestros Luxury Decants no son simples muestras; son cápsulas de sofisticación
+                en negro mate que protegen la integridad de cada nota olfativa.</p>
+            <a href="{{ section.settings.catalog_link }}" class="btn">Compra Ahora</a>
+        </div>
+    </section>
+
+    <section id="section-4" class="landing-section">
+        <div class="content-center">
+            <h2>¿Listo para descubrir tu esencia?</h2>
+            <br>
+            <a href="{{ section.settings.catalog_link }}" class="big-cta-btn">Ver Catálogo Completo</a>
+        </div>
+    </section>
+
+</div>
+
+<!-- Libraries -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
+
+<script>
+    // --- LENIS SMOOTH SCROLL SETUP ---
+    const lenis = new Lenis({
+        duration: 2.5,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        smooth: true
+    });
+
+    function raf(time) {
+        lenis.raf(time);
+        requestAnimationFrame(raf);
+    }
+
+    requestAnimationFrame(raf);
+
+    // --- MOBILE MENU TOGGLE ---
+    function toggleMenu() {
+        const nav = document.getElementById('mobile-nav');
+        const hamburger = document.querySelector('.hamburger');
+        nav.classList.toggle('active');
+        hamburger.classList.toggle('active');
+    }
+
+    // Close menu when a link is clicked
+    document.querySelectorAll('.custom-nav a').forEach(link => {
+        link.addEventListener('click', () => {
+            const nav = document.getElementById('mobile-nav');
+            const hamburger = document.querySelector('.hamburger');
+            if (nav.classList.contains('active')) {
+                nav.classList.remove('active');
+                hamburger.classList.remove('active');
+            }
+        });
+    });
+
+    // --- GSAP ANIMATIONS ---
+    gsap.registerPlugin(ScrollTrigger);
+
+    const heroImage = document.getElementById('hero-image');
+    const decantsImage = document.getElementById('decants-image');
+
+    // Timeline
+    const tl = gsap.timeline({
+        scrollTrigger: {
+            trigger: ".landing-perfumichi-section",
+            start: "top top",
+            end: "bottom bottom",
+            scrub: 2
+        }
+    });
+
+    // --- PHASE 1: Section 1 -> Section 2 ---
+    tl.to(heroImage, {
+        xPercent: 0,
+        left: "30%",
+        scale: 0.7,
+        duration: 1,
+        ease: "power1.inOut"
+    }, "phase1");
+
+    // --- PHASE 2: Section 2 -> Section 3 ---
+    tl.to(heroImage, {
+        left: "0%",
+        opacity: 0,
+        duration: 1,
+        ease: "power1.inOut"
+    }, "phase2");
+
+    tl.fromTo(decantsImage,
+        { x: 100, opacity: 0 },
+        {
+            x: 0,
+            opacity: 1,
+            duration: 1,
+            ease: "power1.inOut"
+        },
+        "phase2");
+
+    // --- PHASE 3: Section 3 -> Section 4 ---
+    tl.to(decantsImage, {
+        opacity: 0,
+        x: 100,
+        duration: 1,
+        ease: "power1.inOut"
+    }, "phase3");
+
+</script>
