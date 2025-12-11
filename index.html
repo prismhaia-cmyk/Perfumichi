@@ -545,7 +545,9 @@
             align-items: center;
             z-index: 100;
             box-sizing: border-box;
-            background-color: #000000;
+            background: linear-gradient(180deg, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.8) 70%, transparent 100%);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             transition: transform 0.3s ease-in-out;
         }
 
