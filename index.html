@@ -1779,6 +1779,7 @@
                     start: "bottom 70%",
                     end: "bottom 20%",
                     scrub: 0.5,
+                    once: true,
                     onEnter: () => {
                         // Show the flying element ONLY when scrolling past hero
                         flyingPerfume.style.display = 'block';
@@ -1810,23 +1811,6 @@
                         flyingPerfume.style.opacity = '0';
                         // Trigger carousel start event
                         window.dispatchEvent(new CustomEvent('startSection2Carousel'));
-                    },
-                    onEnterBack: () => {
-                        // Resume animation when scrolling back
-                        animationComplete = false;
-                        // Stop carousel and show flying element again
-                        window.dispatchEvent(new CustomEvent('stopSection2Carousel'));
-                        flyingPerfume.style.display = 'block';
-                        flyingPerfume.style.opacity = '1';
-                        gsap.set(flyingPerfume, {
-                            position: 'fixed'
-                        });
-                    },
-                    onLeaveBack: () => {
-                        // Hide when scrolling back to top
-                        flyingPerfume.style.display = 'none';
-                        flyingPerfume.style.opacity = '0';
-                        flyingPerfume.style.zIndex = '-1';
                     },
                     onUpdate: (self) => {
                         // Don't update if animation is complete
