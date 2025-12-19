@@ -3467,19 +3467,23 @@
                     updatePagination();
                 }
 
-                // Filter Buttons Interaction
+                // Filter Buttons Interaction - Now uses unified filterState
                 const filterBtns = document.querySelectorAll('.filter-btn');
                 filterBtns.forEach(btn => {
                     btn.addEventListener('click', function () {
                         filterBtns.forEach(b => b.classList.remove('active'));
                         this.classList.add('active');
                         const filter = this.getAttribute('data-filter');
-                        // Clear search when changing filter
+                        // Update unified filterState
+                        filterState.category = filter;
+                        // Clear search when changing category
+                        filterState.search = '';
                         const searchInput = document.getElementById('searchInput');
                         const searchClear = document.getElementById('searchClear');
                         if (searchInput) searchInput.value = '';
                         if (searchClear) searchClear.style.display = 'none';
-                        applyFilter(filter);
+                        // Apply all filters using unified function
+                        applyFilters();
                     });
                 });
 
@@ -3503,8 +3507,8 @@
                     });
                 }
 
-                // Initial Load
-                applyFilter('all');
+                // Initial Load - Use unified filter system
+                applyFilters();
             }
         });
     </script>
@@ -3651,8 +3655,9 @@
 
     <!-- Filter System JavaScript -->
     <script>
-        // Filter State
+        // Filter State - Unified for all filter types
         const filterState = {
+            category: 'all',
             prices: [],
             brands: [],
             sort: 'price-desc',
@@ -3699,6 +3704,13 @@
             });
         }
 
+        // Check if product matches category filter
+        function matchesCategoryFilter(product) {
+            if (filterState.category === 'all') return true;
+            const productCategory = product.getAttribute('data-category');
+            return productCategory === filterState.category;
+        }
+
         // Check if product matches brand filter
         function matchesBrandFilter(product) {
             if (filterState.brands.length === 0) return true;
@@ -3722,7 +3734,8 @@
 
             // Filter products
             products.forEach(product => {
-                const matches = matchesPriceFilter(product) &&
+                const matches = matchesCategoryFilter(product) &&
+                    matchesPriceFilter(product) &&
                     matchesBrandFilter(product) &&
                     matchesSearch(product);
                 product.style.display = matches ? '' : 'none';
@@ -3755,7 +3768,8 @@
         // Update filter UI state
         function updateFilterUI() {
             const activeCount = filterState.prices.length + filterState.brands.length +
-                (filterState.sort !== 'price-desc' ? 1 : 0);
+                (filterState.sort !== 'price-desc' ? 1 : 0) +
+                (filterState.category !== 'all' ? 1 : 0);
 
             const clearBtn = document.getElementById('clearFiltersBtn');
             const mobileCount = document.getElementById('mobileFilterCount');
@@ -3849,11 +3863,17 @@
 
         // Clear all filters
         function clearAllFilters() {
+            filterState.category = 'all';
             filterState.prices = [];
             filterState.brands = [];
             filterState.sort = 'price-desc';
 
-            // Reset UI
+            // Reset UI - Category buttons
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            const allBtn = document.querySelector('.filter-btn[data-filter="all"]');
+            if (allBtn) allBtn.classList.add('active');
+
+            // Reset UI - Dropdowns
             document.querySelectorAll('.filter-option').forEach(o => {
                 o.classList.remove('selected');
                 const checkbox = o.querySelector('input[type="checkbox"]');
