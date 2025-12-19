@@ -843,6 +843,350 @@
             color: #fff;
         }
 
+        /* Dropdown Filter Styles */
+        .dropdown-filters {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            padding: 0 1rem;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .filter-dropdown {
+            position: relative;
+        }
+
+        .filter-dropdown-btn {
+            padding: 0.7rem 1.5rem;
+            background: rgba(20, 20, 20, 0.8);
+            border: 1px solid #333;
+            color: #fff;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 25px;
+            font-family: inherit;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .filter-dropdown-btn:hover {
+            border-color: #D4AF37;
+            color: #D4AF37;
+        }
+
+        .filter-dropdown-btn.active {
+            border-color: #D4AF37;
+            color: #D4AF37;
+        }
+
+        .filter-dropdown-btn svg {
+            width: 12px;
+            height: 12px;
+            transition: transform 0.3s;
+        }
+
+        .filter-dropdown.open .filter-dropdown-btn svg {
+            transform: rotate(180deg);
+        }
+
+        .filter-dropdown-menu {
+            position: absolute;
+            top: calc(100% + 8px);
+            left: 50%;
+            transform: translateX(-50%);
+            background: #111;
+            border: 1px solid #333;
+            border-radius: 12px;
+            min-width: 200px;
+            max-height: 300px;
+            overflow-y: auto;
+            z-index: 100;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .filter-dropdown.open .filter-dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .filter-dropdown-menu::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .filter-dropdown-menu::-webkit-scrollbar-track {
+            background: #222;
+        }
+
+        .filter-dropdown-menu::-webkit-scrollbar-thumb {
+            background: #D4AF37;
+            border-radius: 3px;
+        }
+
+        .filter-option {
+            padding: 0.8rem 1.2rem;
+            color: #aaa;
+            cursor: pointer;
+            transition: all 0.2s;
+            border-bottom: 1px solid #222;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .filter-option:last-child {
+            border-bottom: none;
+        }
+
+        .filter-option:hover {
+            background: rgba(212, 175, 55, 0.1);
+            color: #D4AF37;
+        }
+
+        .filter-option.selected {
+            background: rgba(212, 175, 55, 0.15);
+            color: #D4AF37;
+        }
+
+        .filter-option input[type="checkbox"] {
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            border: 1px solid #555;
+            border-radius: 3px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .filter-option input[type="checkbox"]:checked {
+            background: #D4AF37;
+            border-color: #D4AF37;
+        }
+
+        .filter-option input[type="checkbox"]:checked::after {
+            content: '✓';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #000;
+            font-size: 10px;
+            font-weight: bold;
+        }
+
+        .clear-filters-btn {
+            padding: 0.7rem 1.5rem;
+            background: transparent;
+            border: 1px solid #D4AF37;
+            color: #D4AF37;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 25px;
+            font-family: inherit;
+            display: none;
+        }
+
+        .clear-filters-btn.visible {
+            display: inline-flex;
+            opacity: 1;
+        }
+
+        .clear-filters-btn:hover {
+            background: #D4AF37;
+            color: #000;
+        }
+
+        .active-filters-count {
+            background: #D4AF37;
+            color: #000;
+            font-size: 0.7rem;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+        }
+
+        /* Mobile Filter Drawer */
+        .mobile-filter-toggle {
+            display: none;
+            width: 100%;
+            padding: 1rem;
+            background: rgba(20, 20, 20, 0.8);
+            border: 1px solid #333;
+            color: #fff;
+            font-size: 1rem;
+            cursor: pointer;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: inherit;
+        }
+
+        .mobile-filter-toggle svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .filter-drawer-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 2000;
+            backdrop-filter: blur(3px);
+        }
+
+        .filter-drawer-overlay.active {
+            display: block;
+        }
+
+        .filter-drawer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            max-height: 70vh;
+            background: #111;
+            border-top: 1px solid #333;
+            border-radius: 20px 20px 0 0;
+            z-index: 2001;
+            transform: translateY(100%);
+            transition: transform 0.4s ease;
+            overflow-y: auto;
+        }
+
+        .filter-drawer.active {
+            transform: translateY(0);
+        }
+
+        .filter-drawer-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem;
+            border-bottom: 1px solid #333;
+            position: sticky;
+            top: 0;
+            background: #111;
+            z-index: 1;
+        }
+
+        .filter-drawer-title {
+            color: #D4AF37;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .filter-drawer-close {
+            color: #fff;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .filter-drawer-content {
+            padding: 1rem;
+        }
+
+        .filter-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .filter-section-title {
+            color: #fff;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid #333;
+        }
+
+        .filter-section-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .filter-chip {
+            padding: 0.6rem 1rem;
+            background: rgba(20, 20, 20, 0.8);
+            border: 1px solid #333;
+            color: #aaa;
+            font-size: 0.8rem;
+            cursor: pointer;
+            border-radius: 20px;
+            transition: all 0.2s;
+        }
+
+        .filter-chip.selected {
+            background: #D4AF37;
+            border-color: #D4AF37;
+            color: #000;
+        }
+
+        .filter-drawer-footer {
+            padding: 1rem 1.5rem;
+            border-top: 1px solid #333;
+            display: flex;
+            gap: 1rem;
+            position: sticky;
+            bottom: 0;
+            background: #111;
+        }
+
+        .filter-drawer-btn {
+            flex: 1;
+            padding: 1rem;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+
+        .filter-drawer-btn.secondary {
+            background: transparent;
+            border: 1px solid #555;
+            color: #888;
+        }
+
+        .filter-drawer-btn.primary {
+            background: #D4AF37;
+            border: none;
+            color: #000;
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            .dropdown-filters {
+                display: none;
+            }
+
+            .mobile-filter-toggle {
+                display: flex;
+            }
+        }
+
         /* Pagination Styles */
         .product-card.hidden {
             display: none !important;
@@ -914,6 +1258,7 @@
             padding: 15px 45px 15px 50px;
             background: rgba(20, 20, 20, 0.8);
             border: 1px solid #333;
+            box-sizing: border-box;
             border-radius: 30px;
             color: #fff;
             font-size: 1rem;
@@ -1014,6 +1359,95 @@
     <div class="catalog-container">
         <h1>Luxury Parfums</h1>
 
+        <!-- Mobile Filter Toggle -->
+        <button class="mobile-filter-toggle" onclick="openFilterDrawer()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="4" y1="21" x2="4" y2="14"></line>
+                <line x1="4" y1="10" x2="4" y2="3"></line>
+                <line x1="12" y1="21" x2="12" y2="12"></line>
+                <line x1="12" y1="8" x2="12" y2="3"></line>
+                <line x1="20" y1="21" x2="20" y2="16"></line>
+                <line x1="20" y1="12" x2="20" y2="3"></line>
+                <line x1="1" y1="14" x2="7" y2="14"></line>
+                <line x1="9" y1="8" x2="15" y2="8"></line>
+                <line x1="17" y1="16" x2="23" y2="16"></line>
+            </svg>
+            Filtros
+            <span class="active-filters-count" id="mobileFilterCount" style="display: none;">0</span>
+        </button>
+
+        <!-- Desktop Dropdown Filters -->
+        <div class="dropdown-filters">
+            <!-- Price Filter -->
+            <div class="filter-dropdown" id="priceDropdown">
+                <button class="filter-dropdown-btn" onclick="toggleDropdown('priceDropdown')">
+                    💰 Precio
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="6 9 12 15 18 9"></polyline>
+                    </svg>
+                </button>
+                <div class="filter-dropdown-menu">
+                    <div class="filter-option" data-price="0-10" onclick="selectPriceFilter(this)">
+                        <input type="checkbox"> Hasta 10€
+                    </div>
+                    <div class="filter-option" data-price="10-20" onclick="selectPriceFilter(this)">
+                        <input type="checkbox"> 10€ - 20€
+                    </div>
+                    <div class="filter-option" data-price="20-30" onclick="selectPriceFilter(this)">
+                        <input type="checkbox"> 20€ - 30€
+                    </div>
+                    <div class="filter-option" data-price="30-50" onclick="selectPriceFilter(this)">
+                        <input type="checkbox"> 30€ - 50€
+                    </div>
+                    <div class="filter-option" data-price="50+" onclick="selectPriceFilter(this)">
+                        <input type="checkbox"> Más de 50€
+                    </div>
+                </div>
+            </div>
+
+            <!-- Brand Filter -->
+            <div class="filter-dropdown" id="brandDropdown">
+                <button class="filter-dropdown-btn" onclick="toggleDropdown('brandDropdown')">
+                    🏷️ Marca
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="6 9 12 15 18 9"></polyline>
+                    </svg>
+                </button>
+                <div class="filter-dropdown-menu" id="brandMenu">
+                    <!-- Brands will be populated dynamically -->
+                </div>
+            </div>
+
+            <!-- Sort Filter -->
+            <div class="filter-dropdown" id="sortDropdown">
+                <button class="filter-dropdown-btn" onclick="toggleDropdown('sortDropdown')">
+                    📊 Ordenar
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="6 9 12 15 18 9"></polyline>
+                    </svg>
+                </button>
+                <div class="filter-dropdown-menu">
+                    <div class="filter-option selected" data-sort="price-desc" onclick="selectSortFilter(this)">
+                        Precio: Mayor a Menor
+                    </div>
+                    <div class="filter-option" data-sort="price-asc" onclick="selectSortFilter(this)">
+                        Precio: Menor a Mayor
+                    </div>
+                    <div class="filter-option" data-sort="name-asc" onclick="selectSortFilter(this)">
+                        Nombre: A-Z
+                    </div>
+                    <div class="filter-option" data-sort="name-desc" onclick="selectSortFilter(this)">
+                        Nombre: Z-A
+                    </div>
+                </div>
+            </div>
+
+            <!-- Clear Filters Button -->
+            <button class="clear-filters-btn" id="clearFiltersBtn" onclick="clearAllFilters()">
+                ✕ Limpiar filtros
+            </button>
+        </div>
+
         <!-- Search Bar -->
         <div class="search-container">
             <div class="search-wrapper">
@@ -1027,7 +1461,6 @@
         </div>
 
         <div class="product-grid">
-            <!-- Product 1: Supercharged Blue Sapphire -->
             <a href="producto.html?id=blue-sapphire&name=BTV%20Blue%20Sapphire%20Supercharged&brand=Boadicea%20The%20Victorious&price3ml=48,99&price5ml=77,95&price10ml=149,90&img=fotos/boadicea-1.jpg&desc=C%C3%BAspide%20del%20lujo%20real%20con%20maderas%20preciosas%20y%20destellos%20c%C3%ADtricos.%20Versi%C3%B3n%20vibrante%20con%20vitalidad%20aldeh%C3%ADdica%20y%20estela%20kilom%C3%A9trica.&notasSalida=Naranja%2C%20Lim%C3%B3n%2C%20Aldeh%C3%ADdos&notasCorazon=Rosa%2C%20Cardamomo%2C%20Jasm%C3%ADn%2C%20Pimienta&notasFondo=Oud%20Camboyano%2C%20Ambar%2C%20Patchul%C3%AD"
                 class="product-card">
                 <img src="fotos/boadicea-1.jpg" alt="Supercharged Blue Sapphire" class="product-image">
@@ -1037,7 +1470,6 @@
                 <span class="add-btn">Ver Detalles</span>
             </a>
 
-            <!-- Product 2: Hanuman -->
             <a href="producto.html?id=hanuman&name=BTV%20Hanuman&brand=Boadicea%20The%20Victorious&price3ml=46,99&price5ml=74,95&price10ml=143,90&img=fotos/btvanhuman.png&desc=Tributo%20a%20la%20deidad%20mono%20con%20flor%20de%20naranjo%20y%20magnolia.%20Una%20%22limpieza%20de%20lujo%22%20et%C3%A9rea%2C%20vibrante%20y%20de%20incre%C3%ADble%20persistencia.&notasSalida=Lim%C3%B3n%2C%20Bergamota%2C%20Flor%20de%20Azahar&notasCorazon=Neroli%2C%20Magnolia%2C%20Ciclamen&notasFondo=Vetiver%2C%20Almizcle%2C%20S%C3%A1ndalo%2C%20Ambar"
                 class="product-card">
                 <img src="fotos/btvanhuman.png" alt="Hanuman" class="product-image">
@@ -1047,7 +1479,6 @@
                 <span class="add-btn">Ver Detalles</span>
             </a>
 
-            <!-- Product 3: Opal -->
             <a href="producto.html?id=opal&name=BTV%20Opal&brand=Boadicea%20The%20Victorious&price3ml=46,99&price5ml=74,95&price10ml=143,90&img=fotos/btvopal.png&desc=Captura%20la%20iridiscencia%20con%20flores%20delicadas%20sobre%20resinas%20c%C3%A1lidas.%20Textura%20sedosa%20de%20segunda%20piel%20con%20ylang-ylang%20y%20almizcles.&notasSalida=Ylang-ylang%2C%20Bergamota&notasCorazon=Rosa%20turca%2C%20Jasm%C3%ADn%20Sambac&notasFondo=Ambar%2C%20S%C3%A1ndalo%2C%20Almizcle%2C%20Vainilla"
                 class="product-card">
                 <img src="fotos/btvopal.png" alt="Opal" class="product-image">
@@ -1057,17 +1488,6 @@
                 <span class="add-btn">Ver Detalles</span>
             </a>
 
-            <!-- Product 4: Harmonious -->
-            <a href="producto.html?id=harmonious&name=BTV%20Harmonious&brand=Boadicea%20The%20Victorious&price3ml=14,99&price5ml=23,95&price10ml=44,90&img=fotos/btvharmonious.png&desc=Equilibrio%20zen%20de%20maderas%20nobles%2C%20co%C3%B1ac%20y%20azafr%C3%A1n.%20Suavidad%20de%20cachemira%20que%20invita%20a%20la%20intimidad%20con%20presencia%20magn%C3%A9tica.&notasSalida=Bergamota%2C%20Azafr%C3%A1n%2C%20Ron%2C%20Co%C3%B1ac&notasCorazon=Rosa%20de%20mayo%2C%20Madera%20de%20Cachemira%2C%20Orris&notasFondo=S%C3%A1ndalo%2C%20Almizcle%2C%20Ambar%2C%20Cuero"
-                class="product-card">
-                <img src="fotos/btvharmonious.png" alt="Harmonious" class="product-image">
-                <div class="product-brand">Boadicea</div>
-                <div class="product-title">Harmonious</div>
-                <div class="product-price">Desde 14,99€</div>
-                <span class="add-btn">Ver Detalles</span>
-            </a>
-
-            <!-- Product 5: Blonde Amber -->
             <a href="producto.html?id=blonde-amber&name=Clive%20Christian%20Blonde%20Amber&brand=Clive%20Christian&price3ml=45,99&price5ml=73,95&price10ml=141,90&img=fotos/clive-christian_blonde-amber.png&desc=Tributo%20al%20Art%20D%C3%A9co%2C%20c%C3%A1lido%20y%20embriagador%20con%20tabaco%20rubio%20y%20frutas%20secas.%20Evoca%20resinas%20antiguas%20y%20maderas%20pulidas%20con%20sofisticaci%C3%B3n.&notasSalida=Naranja%20amarga%2C%20Jengibre%2C%20Ron%2C%20Cardamomo&notasCorazon=Tabaco%20rubio%2C%20Orris%2C%20S%C3%A1ndalo%2C%20Nardos&notasFondo=Vetiver%2C%20Mirra%2C%20Pachuli%2C%20Haba%20Tonka"
                 class="product-card">
                 <img src="fotos/clive-christian_blonde-amber.png" alt="Blonde Amber" class="product-image">
@@ -1077,7 +1497,6 @@
                 <span class="add-btn">Ver Detalles</span>
             </a>
 
-            <!-- Product 6: Addictive Arts Hedonistic -->
             <a href="producto.html?id=hedonistic&name=Clive%20Christian%20Hedonistic&brand=Clive%20Christian&price3ml=45,99&price5ml=73,95&price10ml=141,90&img=fotos/clive-crhistian-hadonistic.png&desc=Incita%20al%20placer%20sensorial%20con%20apertura%20c%C3%ADtrica%20y%20coraz%C3%B3n%20oscuro%20de%20cuero.%20Contraste%20seductor%20entre%20brillo%20energ%C3%A9tico%20y%20fondo%20narc%C3%B3tico.&notasSalida=Bergamota%2C%20Pomelo%2C%20Neroli&notasCorazon=Cereza%20negra%2C%20Salvia%2C%20Tabaco&notasFondo=Ambar%2C%20Cuero%2C%20L%C3%A1dano%2C%20Musgo"
                 class="product-card">
                 <img src="fotos/clive-crhistian-hadonistic.png" alt="Addictive Arts Hedonistic" class="product-image">
@@ -1087,7 +1506,6 @@
                 <span class="add-btn">Ver Detalles</span>
             </a>
 
-            <!-- Product 7: Rock Rose -->
             <a href="producto.html?id=rock-rose&name=Clive%20Christian%20Rock%20Rose&brand=Clive%20Christian&price3ml=45,99&price5ml=73,95&price10ml=141,90&img=fotos/clivecristhianrockrose.png&desc=Foug%C3%A8re%20moderno%20donde%20la%20jara%20aporta%20calidez%20resinosa%20a%20estructura%20fresca.%20Proyecta%20autoridad%20y%20distinci%C3%B3n%20brit%C3%A1nica.&notasSalida=Bergamota%2C%20Pimienta%20negra%2C%20Neroli&notasCorazon=Lavanda%2C%20Violeta%2C%20Rock%20rose%20(Jara)&notasFondo=Cacao%2C%20Pachuli%2C%20Ambar%2C%20Vetiver"
                 class="product-card">
                 <img src="fotos/clivecristhianrockrose.png" alt="Rock Rose" class="product-image">
@@ -1097,77 +1515,6 @@
                 <span class="add-btn">Ver Detalles</span>
             </a>
 
-            <!-- Product 8: Nefs -->
-            <a href="producto.html?id=nefs&name=Nishane%20Nefs&brand=Nishane&price3ml=44,99&price5ml=72,95&price10ml=138,90&img=fotos/nisane-nefs.png&desc=Oriental%20lujoso%20que%20redefine%20la%20opulencia%20con%20miel%2C%20oud%20y%20whisky.%20Fragancia%20de%20contrastes%20que%20rezuma%20dinero%20y%20exclusividad.&notasSalida=Miel%2C%20Violeta%2C%20Salvia%2C%20Azafr%C3%A1n%2C%20Higo&notasCorazon=Rosa%2C%20Osmanto%2C%20Geranio%2C%20Jasm%C3%ADn%2C%20Nuez%20moscada&notasFondo=Oud%2C%20Vainilla%2C%20Whisky%2C%20Cuero%2C%20Ambar%2C%20Canela"
-                class="product-card">
-                <img src="fotos/nisane-nefs.png" alt="Nefs" class="product-image">
-                <div class="product-brand">Nishane</div>
-                <div class="product-title">Nefs</div>
-                <div class="product-price">Desde 44,99€</div>
-                <span class="add-btn">Ver Detalles</span>
-            </a>
-
-            <!-- Product 9: Isola Blu -->
-            <a href="producto.html?id=isola-blu&name=Roja%20Isola%20Blu&brand=Roja%20Parfums&price3ml=37,99&price5ml=60,95&price10ml=116,90&img=fotos/roja-isola-blu.png&desc=Definici%C3%B3n%20de%20vacaciones%20de%20lujo%2C%20c%C3%ADtrico%20sofisticado%20con%20base%20compleja.%20Captura%20la%20brisa%20marina%20y%20limoneros%20con%20calidad%20inmensa.&notasSalida=Lim%C3%B3n%2C%20Bergamota%2C%20Lima%2C%20Lavanda%2C%20Tomillo&notasCorazon=Manzana%2C%20Grosella%20negra%2C%20Flor%20de%20naranjo%2C%20Coco&notasFondo=Hierba%20mate%2C%20Pimienta%20rosa%2C%20An%C3%ADs%2C%20Pachuli%2C%20%C3%81mbar%20gris"
-                class="product-card">
-                <img src="fotos/roja-isola-blu.png" alt="Isola Blu" class="product-image">
-                <div class="product-brand">Roja Parfums</div>
-                <div class="product-title">Isola Blu</div>
-                <div class="product-price">Desde 37,99€</div>
-                <span class="add-btn">Ver Detalles</span>
-            </a>
-
-            <!-- Product 10: Reflection 45 -->
-            <a href="producto.html?id=reflection-45&name=Amouage%20Reflection%2045&brand=Amouage&price3ml=19,99&price5ml=31,95&price10ml=61,90&img=fotos/amouragereflection45.png&desc=Versi%C3%B3n%20extracto%20que%20a%C3%B1ade%20densidad%20resinosa%20y%20especiada%20al%20cl%C3%A1sico%20floral.%20Textura%20oleosa%20y%20rica%20con%20mirra%20y%20opop%C3%B3naco.&notasSalida=Benju%C3%AD%2C%20Pimienta%20rosa%2C%20Salvia%2C%20Lavanda&notasCorazon=Jasm%C3%ADn%2C%20Iris%2C%20Neroli%2C%20Ang%C3%A9lica&notasFondo=S%C3%A1ndalo%2C%20Vetiver%2C%20Pachuli%2C%20Mirra%2C%20Opop%C3%B3naco"
-                class="product-card">
-                <img src="fotos/amouragereflection45.png" alt="Reflection 45" class="product-image">
-                <div class="product-brand">Amouage</div>
-                <div class="product-title">Reflection 45</div>
-                <div class="product-price">Desde 19,99€</div>
-                <span class="add-btn">Ver Detalles</span>
-            </a>
-
-            <!-- Product 11: Outlands -->
-            <a href="producto.html?id=outlands&name=Amouage%20Outlands&brand=Amouage&price3ml=17,99&price5ml=27,95&price10ml=52,90&img=fotos/aumage%20outlands.png&desc=Traves%C3%ADa%20ex%C3%B3tica%20de%20contrastes%20con%20especias%20fr%C3%ADas%2C%20resinas%20e%20incienso.%20Perfil%20futurista%20que%20evoca%20paisajes%20inexplorados.&notasSalida=Cardamomo%2C%20Bergamota%2C%20Lim%C3%B3n%2C%20Incienso&notasCorazon=Pachuli%2C%20Azafr%C3%A1n%2C%20Notas%20bals%C3%A1micas&notasFondo=Ambar%2C%20Notas%20amaderadas%2C%20Almizcle"
-                class="product-card">
-                <img src="fotos/aumage outlands.png" alt="Outlands" class="product-image">
-                <div class="product-brand">Amouage</div>
-                <div class="product-title">Outlands</div>
-                <div class="product-price">Desde 17,99€</div>
-                <span class="add-btn">Ver Detalles</span>
-            </a>
-
-            <!-- Product 12: Absolu Aventus -->
-            <a href="producto.html?id=absolu-aventus&name=Creed%20Absolu%20Aventus&brand=Creed&price3ml=13,99&price5ml=22,95&price10ml=42,90&img=fotos/creed-absolu-aventus.png&desc=Edici%C3%B3n%20limitada%20m%C3%A1s%20oscura%20y%20madura%20con%20%C3%A9nfasis%20en%20pomelo%20y%20especias.%20Perfil%20seco%20y%20nocturno%20para%20amantes%20del%20estilo%20vintage.&notasSalida=Bergamota%2C%20Grosella%20negra%2C%20Pomelo&notasCorazon=Jengibre%2C%20Canela%2C%20Cardamomo%2C%20Cidra&notasFondo=Pimienta%20rosa%2C%20Pachul%C3%AD%2C%20Vetiver"
-                class="product-card">
-                <img src="fotos/creed-absolu-aventus.png" alt="Absolu Aventus" class="product-image">
-                <div class="product-brand">Creed</div>
-                <div class="product-title">Absolu Aventus</div>
-                <div class="product-price">Desde 13,99€</div>
-                <span class="add-btn">Ver Detalles</span>
-            </a>
-
-            <!-- Product 13: Ombre Nomade -->
-            <a href="producto.html?id=ombre-nomade&name=LV%20Ombre%20Nomade&brand=Louis%20Vuitton&price3ml=11,99&price5ml=19,95&price10ml=36,90&img=fotos/LVombrenomade.png&desc=Tit%C3%A1n%20del%20oud%20moderno%2C%20oscuro%2C%20ahumado%20y%20con%20frambuesa.%20Estela%20kilom%C3%A9trica%20que%20define%20el%20%22olor%20a%20riqueza%22%20contempor%C3%A1neo.&notasSalida=Frambuesa%2C%20Geranio&notasCorazon=Rosa%2C%20Azafr%C3%A1n&notasFondo=Oud%2C%20Benju%C3%AD%2C%20Incienso%2C%20Madera%20de%20%C3%A1mbar%2C%20Abedul"
-                class="product-card">
-                <img src="fotos/LVombrenomade.png" alt="Ombre Nomade" class="product-image">
-                <div class="product-brand">Louis Vuitton</div>
-                <div class="product-title">Ombre Nomade</div>
-                <div class="product-price">Desde 11,99€</div>
-                <span class="add-btn">Ver Detalles</span>
-            </a>
-
-            <!-- Product 14: 1872 Original Collection -->
-            <a href="producto.html?id=1872&name=Clive%201872&brand=Clive%20Christian&price3ml=29,99&price5ml=46,95&price10ml=90,90&img=fotos/clive-1872.png&desc=Quintaesencia%20cl%C3%A1sica%20brit%C3%A1nica%2C%20verde%2C%20c%C3%ADtrica%20y%20herb%C3%A1cea.%20Elegancia%20atemporal%20con%20longevidad%20inusual%20en%20su%20perfil%20fresco.&notasSalida=Lima%2C%20Pomelo%2C%20Petitgrain%2C%20Bergamota&notasCorazon=Salvia%2C%20Fresia%2C%20Cempas%C3%BAchil&notasFondo=Cedro%2C%20Pachul%C3%AD%2C%20Almizcle%2C%20Incienso"
-                class="product-card">
-                <img src="fotos/clive-1872.png" alt="1872 Original Collection" class="product-image">
-                <div class="product-brand">Clive Christian</div>
-                <div class="product-title">1872 Original</div>
-                <div class="product-price">Desde 29,99€</div>
-                <span class="add-btn">Ver Detalles</span>
-            </a>
-
-            <!-- Product 15: X Masculine -->
             <a href="producto.html?id=x-masculine&name=Clive%20X%20Masculine&brand=Clive%20Christian&price3ml=45,99&price5ml=73,95&price10ml=141,90&img=fotos/clive-crhistian-xmasculine.png&desc=Legendario%20por%20su%20complejidad%20especiada%20de%20canela%2C%20iris%20y%20maderas.%20Equilibra%20calidez%20picante%20con%20frescura%20estructural%20magistral.&notasSalida=Ruibarbo%2C%20Pi%C3%B1a%2C%20Bergamota&notasCorazon=Iris%2C%20Piment%C3%B3n%2C%20Jasm%C3%ADn&notasFondo=Cedro%2C%20Canela%2C%20Ambar%2C%20Musgo%20de%20roble%2C%20Vetiver"
                 class="product-card">
                 <img src="fotos/clive-crhistian-xmasculine.png" alt="X Masculine" class="product-image">
@@ -1177,37 +1524,42 @@
                 <span class="add-btn">Ver Detalles</span>
             </a>
 
-            <!-- Product 16: Centaurus -->
-            <a href="producto.html?id=centaurus&name=Creed%20Centaurus&brand=Creed&price3ml=9,99&price5ml=15,95&price10ml=29,90&img=fotos/creed-centaurus.png&desc=Nueva%20direcci%C3%B3n%20oriental%20de%20la%20marca%2C%20c%C3%A1lida%20y%20especiada.%20Explora%20territorios%20de%20tabaco%20y%20resinas%20evocando%20fuerza%20mitol%C3%B3gica.&notasSalida=Especias%2C%20Tabaco&notasCorazon=Maderas%2C%20Resinas&notasFondo=Ambar%2C%20Vainilla%2C%20Cuero"
+            <a href="producto.html?id=nefs&name=Nishane%20Nefs&brand=Nishane&price3ml=44,99&price5ml=72,95&price10ml=138,90&img=fotos/nisane-nefs.png&desc=Oriental%20lujoso%20que%20redefine%20la%20opulencia%20con%20miel%2C%20oud%20y%20whisky.%20Fragancia%20de%20contrastes%20que%20rezuma%20dinero%20y%20exclusividad.&notasSalida=Miel%2C%20Violeta%2C%20Salvia%2C%20Azafr%C3%A1n%2C%20Higo&notasCorazon=Rosa%2C%20Osmanto%2C%20Geranio%2C%20Jasm%C3%ADn%2C%20Nuez%20moscada&notasFondo=Oud%2C%20Vainilla%2C%20Whisky%2C%20Cuero%2C%20Ambar%2C%20Canela"
                 class="product-card">
-                <img src="fotos/creed-centaurus.png" alt="Centaurus" class="product-image">
-                <div class="product-brand">Creed</div>
-                <div class="product-title">Centaurus</div>
-                <div class="product-price">Desde 9,99€</div>
+                <img src="fotos/nisane-nefs.png" alt="Nefs" class="product-image">
+                <div class="product-brand">Nishane</div>
+                <div class="product-title">Nefs</div>
+                <div class="product-price">Desde 44,99€</div>
                 <span class="add-btn">Ver Detalles</span>
             </a>
 
-            <!-- Product 17: Alexandria II -->
-            <a href="producto.html?id=alexandria-ii&name=Xerjoff%20Alexandria%20II&brand=Xerjoff&price3ml=23,99&price5ml=37,95&price10ml=72,90&img=fotos/xerjoff-alexandria-ll.png&desc=Edici%C3%B3n%20conmemorativa%20m%C3%A1s%20ahumada%20y%20rica%20en%20oud%20que%20la%20original.%20Profundiza%20en%20notas%20oscuras%20evocando%20antig%C3%BCedad%20y%20solemnidad.&notasSalida=Lavanda%2C%20Palisandro%2C%20Canela%2C%20Manzana&notasCorazon=Rosa%20b%C3%BAlgara%2C%20Cedro%2C%20Lirio%20de%20los%20valles&notasFondo=Oud%20de%20Laos%2C%20Ambar%2C%20S%C3%A1ndalo%2C%20Vainilla%2C%20Almizcle"
+            <a href="producto.html?id=isola-blu&name=Roja%20Isola%20Blu&brand=Roja%20Parfums&price3ml=37,99&price5ml=60,95&price10ml=116,90&img=fotos/roja-isola-blu.png&desc=Definici%C3%B3n%20de%20vacaciones%20de%20lujo%2C%20c%C3%ADtrico%20sofisticado%20con%20base%20compleja.%20Captura%20la%20brisa%20marina%20y%20limoneros%20con%20calidad%20inmensa.&notasSalida=Lim%C3%B3n%2C%20Bergamota%2C%20Lima%2C%20Lavanda%2C%20Tomillo&notasCorazon=Manzana%2C%20Grosella%20negra%2C%20Flor%20de%20naranjo%2C%20Coco&notasFondo=Hierba%20mate%2C%20Pimienta%20rosa%2C%20An%C3%ADs%2C%20Pachuli%2C%20%C3%81mbar%20gris"
                 class="product-card">
-                <img src="fotos/xerjoff-alexandria-ll.png" alt="Alexandria II" class="product-image">
-                <div class="product-brand">Xerjoff</div>
-                <div class="product-title">Alexandria II</div>
-                <div class="product-price">Desde 23,99€</div>
-                <span class="add-btn">Ver Detalles</span>
-            </a>
-
-            <!-- Product 18: Manhattan -->
-            <a href="producto.html?id=manhattan&name=Roja%20Manhattan&brand=Roja%20Parfums&price3ml=16,99&price5ml=25,95&price10ml=49,90&img=fotos/rojamanhattam.png&desc=Tributo%20nocturno%20a%20NY%20con%20tabaco%2C%20vainilla%20y%20especias%20vibrantes.%20Captura%20el%20glamour%20art%20deco%20y%20la%20energ%C3%ADa%20de%20la%20ciudad.&notasSalida=Bergamota%2C%20Lavanda%2C%20Albahaca&notasCorazon=Rosa%20de%20mayo%2C%20Jasm%C3%ADn%2C%20Heliotropo%2C%20Coco&notasFondo=Tabaco%2C%20Vainilla%2C%20Pino%2C%20Vetiver%2C%20Almizcle"
-                class="product-card">
-                <img src="fotos/rojamanhattam.png" alt="Manhattan" class="product-image">
+                <img src="fotos/roja-isola-blu.png" alt="Isola Blu" class="product-image">
                 <div class="product-brand">Roja Parfums</div>
-                <div class="product-title">Manhattan</div>
-                <div class="product-price">Desde 16,99€</div>
+                <div class="product-title">Isola Blu</div>
+                <div class="product-price">Desde 37,99€</div>
                 <span class="add-btn">Ver Detalles</span>
             </a>
 
-            <!-- Product 17: Dionisio -->
+            <a href="producto.html?id=1872&name=Clive%201872&brand=Clive%20Christian&price3ml=29,99&price5ml=46,95&price10ml=90,90&img=fotos/clive-1872.png&desc=Quintaesencia%20cl%C3%A1sica%20brit%C3%A1nica%2C%20verde%2C%20c%C3%ADtrica%20y%20herb%C3%A1cea.%20Elegancia%20atemporal%20con%20longevidad%20inusual%20en%20su%20perfil%20fresco.&notasSalida=Lima%2C%20Pomelo%2C%20Petitgrain%2C%20Bergamota&notasCorazon=Salvia%2C%20Fresia%2C%20Cempas%C3%BAchil&notasFondo=Cedro%2C%20Pachul%C3%AD%2C%20Almizcle%2C%20Incienso"
+                class="product-card">
+                <img src="fotos/clive-1872.png" alt="1872 Original Collection" class="product-image">
+                <div class="product-brand">Clive Christian</div>
+                <div class="product-title">1872 Original</div>
+                <div class="product-price">Desde 29,99€</div>
+                <span class="add-btn">Ver Detalles</span>
+            </a>
+
+            <a href="producto.html?id=oud-wood&name=Tom%20Ford%20Oud%20Wood%20Parfum&brand=Tom%20Ford&price3ml=27,99&price5ml=44,95&price10ml=85,90&img=fotos/tomford-oud-wood.png&desc=Versi%C3%B3n%20intensa%2C%20m%C3%A1s%20rica%2C%20densa%20y%20especiada%20del%20cl%C3%A1sico.%20A%C3%B1ade%20cuerpo%20de%20resinas%20y%20cardamomo%20para%20mayor%20longevidad.&notasSalida=Pimienta%20rosa%2C%20Cardamomo%2C%20Romero&notasCorazon=Oud%2C%20S%C3%A1ndalo%2C%20Vetiver&notasFondo=Haba%20Tonka%2C%20Ambar%2C%20Vainilla"
+                class="product-card">
+                <img src="fotos/tomford-oud-wood.png" alt="Oud Wood" class="product-image">
+                <div class="product-brand">Tom Ford</div>
+                <div class="product-title">Oud Wood</div>
+                <div class="product-price">Desde 27,99€</div>
+                <span class="add-btn">Ver Detalles</span>
+            </a>
+
             <a href="producto.html?id=dionisio&name=Dionisio&brand=Tiziana%20Terenzi&price3ml=24,99&price5ml=41,95&price10ml=79,90&img=fotos/tiziana-terenzi-dioniso-2022.png&desc=Extracto%20de%20perfume%20centrado%20en%20la%20vainilla%20m%C3%A1s%20lujosa%20y%20feromonas.%20Aroma%20narc%C3%B3tico%2C%20dulce%20y%20animal%20con%20una%20duraci%C3%B3n%20eterna.&notasSalida=%C3%81mbar%20gris%2C%20Almizcle%2C%20Feromonas&notasCorazon=Vainilla%20de%20Tahit%C3%AD%2C%20Jazm%C3%ADn&notasFondo=Vainilla%20de%20Madagascar%2C%20Oud%2C%20Almizcle"
                 class="product-card">
                 <img src="fotos/tiziana-terenzi-dioniso-2022.png" alt="Dionisio" class="product-image">
@@ -1217,13 +1569,75 @@
                 <span class="add-btn">Ver Detalles</span>
             </a>
 
-            <!-- Product 20: Oud Wood -->
-            <a href="producto.html?id=oud-wood&name=Tom%20Ford%20Oud%20Wood%20Parfum&brand=Tom%20Ford&price3ml=27,99&price5ml=44,95&price10ml=85,90&img=fotos/tomford-oud-wood.png&desc=Versi%C3%B3n%20intensa%2C%20m%C3%A1s%20rica%2C%20densa%20y%20especiada%20del%20cl%C3%A1sico.%20A%C3%B1ade%20cuerpo%20de%20resinas%20y%20cardamomo%20para%20mayor%20longevidad.&notasSalida=Pimienta%20rosa%2C%20Cardamomo%2C%20Romero&notasCorazon=Oud%2C%20S%C3%A1ndalo%2C%20Vetiver&notasFondo=Haba%20Tonka%2C%20Ambar%2C%20Vainilla"
+            <a href="producto.html?id=alexandria-ii&name=Xerjoff%20Alexandria%20II&brand=Xerjoff&price3ml=23,99&price5ml=37,95&price10ml=72,90&img=fotos/xerjoff-alexandria-ll.png&desc=Edici%C3%B3n%20conmemorativa%20m%C3%A1s%20ahumada%20y%20rica%20en%20oud%20que%20la%20original.%20Profundiza%20en%20notas%20oscuras%20evocando%20antig%C3%BCedad%20y%20solemnidad.&notasSalida=Lavanda%2C%20Palisandro%2C%20Canela%2C%20Manzana&notasCorazon=Rosa%20b%C3%BAlgara%2C%20Cedro%2C%20Lirio%20de%20los%20valles&notasFondo=Oud%20de%20Laos%2C%20Ambar%2C%20S%C3%A1ndalo%2C%20Vainilla%2C%20Almizcle"
                 class="product-card">
-                <img src="fotos/tomford-oud-wood.png" alt="Oud Wood" class="product-image">
-                <div class="product-brand">Tom Ford</div>
-                <div class="product-title">Oud Wood</div>
-                <div class="product-price">Desde 27,99€</div>
+                <img src="fotos/xerjoff-alexandria-ll.png" alt="Alexandria II" class="product-image">
+                <div class="product-brand">Xerjoff</div>
+                <div class="product-title">Alexandria II</div>
+                <div class="product-price">Desde 23,99€</div>
+                <span class="add-btn">Ver Detalles</span>
+            </a>
+
+            <a href="producto.html?id=reflection-45&name=Amouage%20Reflection%2045&brand=Amouage&price3ml=19,99&price5ml=31,95&price10ml=61,90&img=fotos/amouragereflection45.png&desc=Versi%C3%B3n%20extracto%20que%20a%C3%B1ade%20densidad%20resinosa%20y%20especiada%20al%20cl%C3%A1sico%20floral.%20Textura%20oleosa%20y%20rica%20con%20mirra%20y%20opop%C3%B3naco.&notasSalida=Benju%C3%AD%2C%20Pimienta%20rosa%2C%20Salvia%2C%20Lavanda&notasCorazon=Jasm%C3%ADn%2C%20Iris%2C%20Neroli%2C%20Ang%C3%A9lica&notasFondo=S%C3%A1ndalo%2C%20Vetiver%2C%20Pachuli%2C%20Mirra%2C%20Opop%C3%B3naco"
+                class="product-card">
+                <img src="fotos/amouragereflection45.png" alt="Reflection 45" class="product-image">
+                <div class="product-brand">Amouage</div>
+                <div class="product-title">Reflection 45</div>
+                <div class="product-price">Desde 19,99€</div>
+                <span class="add-btn">Ver Detalles</span>
+            </a>
+
+            <a href="producto.html?id=outlands&name=Amouage%20Outlands&brand=Amouage&price3ml=17,99&price5ml=27,95&price10ml=52,90&img=fotos/aumage%20outlands.png&desc=Traves%C3%ADa%20ex%C3%B3tica%20de%20contrastes%20con%20especias%20fr%C3%ADas%2C%20resinas%20e%20incienso.%20Perfil%20futurista%20que%20evoca%20paisajes%20inexplorados.&notasSalida=Cardamomo%2C%20Bergamota%2C%20Lim%C3%B3n%2C%20Incienso&notasCorazon=Pachuli%2C%20Azafr%C3%A1n%2C%20Notas%20bals%C3%A1micas&notasFondo=Ambar%2C%20Notas%20amaderadas%2C%20Almizcle"
+                class="product-card">
+                <img src="fotos/aumage outlands.png" alt="Outlands" class="product-image">
+                <div class="product-brand">Amouage</div>
+                <div class="product-title">Outlands</div>
+                <div class="product-price">Desde 17,99€</div>
+                <span class="add-btn">Ver Detalles</span>
+            </a>
+
+            <a href="producto.html?id=manhattan&name=Roja%20Manhattan&brand=Roja%20Parfums&price3ml=16,99&price5ml=25,95&price10ml=49,90&img=fotos/rojamanhattam.png&desc=Tributo%20nocturno%20a%20NY%20con%20tabaco%2C%20vainilla%20y%20especias%20vibrantes.%20Captura%20el%20glamour%20art%20deco%20y%20la%20energ%C3%ADa%20de%20la%20ciudad.&notasSalida=Bergamota%2C%20Lavanda%2C%20Albahaca&notasCorazon=Rosa%20de%20mayo%2C%20Jasm%C3%ADn%2C%20Heliotropo%2C%20Coco&notasFondo=Tabaco%2C%20Vainilla%2C%20Pino%2C%20Vetiver%2C%20Almizcle"
+                class="product-card">
+                <img src="fotos/rojamanhattam.png" alt="Manhattan" class="product-image">
+                <div class="product-brand">Roja Parfums</div>
+                <div class="product-title">Manhattan</div>
+                <div class="product-price">Desde 16,99€</div>
+                <span class="add-btn">Ver Detalles</span>
+            </a>
+
+            <a href="producto.html?id=harmonious&name=BTV%20Harmonious&brand=Boadicea%20The%20Victorious&price3ml=14,99&price5ml=23,95&price10ml=44,90&img=fotos/btvharmonious.png&desc=Equilibrio%20zen%20de%20maderas%20nobles%2C%20co%C3%B1ac%20y%20azafr%C3%A1n.%20Suavidad%20de%20cachemira%20que%20invita%20a%20la%20intimidad%20con%20presencia%20magn%C3%A9tica.&notasSalida=Bergamota%2C%20Azafr%C3%A1n%2C%20Ron%2C%20Co%C3%B1ac&notasCorazon=Rosa%20de%20mayo%2C%20Madera%20de%20Cachemira%2C%20Orris&notasFondo=S%C3%A1ndalo%2C%20Almizcle%2C%20Ambar%2C%20Cuero"
+                class="product-card">
+                <img src="fotos/btvharmonious.png" alt="Harmonious" class="product-image">
+                <div class="product-brand">Boadicea</div>
+                <div class="product-title">Harmonious</div>
+                <div class="product-price">Desde 14,99€</div>
+                <span class="add-btn">Ver Detalles</span>
+            </a>
+
+            <a href="producto.html?id=absolu-aventus&name=Creed%20Absolu%20Aventus&brand=Creed&price3ml=13,99&price5ml=22,95&price10ml=42,90&img=fotos/creed-absolu-aventus.png&desc=Edici%C3%B3n%20limitada%20m%C3%A1s%20oscura%20y%20madura%20con%20%C3%A9nfasis%20en%20pomelo%20y%20especias.%20Perfil%20seco%20y%20nocturno%20para%20amantes%20del%20estilo%20vintage.&notasSalida=Bergamota%2C%20Grosella%20negra%2C%20Pomelo&notasCorazon=Jengibre%2C%20Canela%2C%20Cardamomo%2C%20Cidra&notasFondo=Pimienta%20rosa%2C%20Pachul%C3%AD%2C%20Vetiver"
+                class="product-card">
+                <img src="fotos/creed-absolu-aventus.png" alt="Absolu Aventus" class="product-image">
+                <div class="product-brand">Creed</div>
+                <div class="product-title">Absolu Aventus</div>
+                <div class="product-price">Desde 13,99€</div>
+                <span class="add-btn">Ver Detalles</span>
+            </a>
+
+            <a href="producto.html?id=ombre-nomade&name=LV%20Ombre%20Nomade&brand=Louis%20Vuitton&price3ml=11,99&price5ml=19,95&price10ml=36,90&img=fotos/LVombrenomade.png&desc=Tit%C3%A1n%20del%20oud%20moderno%2C%20oscuro%2C%20ahumado%20y%20con%20frambuesa.%20Estela%20kilom%C3%A9trica%20que%20define%20el%20%22olor%20a%20riqueza%22%20contempor%C3%A1neo.&notasSalida=Frambuesa%2C%20Geranio&notasCorazon=Rosa%2C%20Azafr%C3%A1n&notasFondo=Oud%2C%20Benju%C3%AD%2C%20Incienso%2C%20Madera%20de%20%C3%A1mbar%2C%20Abedul"
+                class="product-card">
+                <img src="fotos/LVombrenomade.png" alt="Ombre Nomade" class="product-image">
+                <div class="product-brand">Louis Vuitton</div>
+                <div class="product-title">Ombre Nomade</div>
+                <div class="product-price">Desde 11,99€</div>
+                <span class="add-btn">Ver Detalles</span>
+            </a>
+
+            <a href="producto.html?id=centaurus&name=Creed%20Centaurus&brand=Creed&price3ml=9,99&price5ml=15,95&price10ml=29,90&img=fotos/creed-centaurus.png&desc=Nueva%20direcci%C3%B3n%20oriental%20de%20la%20marca%2C%20c%C3%A1lida%20y%20especiada.%20Explora%20territorios%20de%20tabaco%20y%20resinas%20evocando%20fuerza%20mitol%C3%B3gica.&notasSalida=Especias%2C%20Tabaco&notasCorazon=Maderas%2C%20Resinas&notasFondo=Ambar%2C%20Vainilla%2C%20Cuero"
+                class="product-card">
+                <img src="fotos/creed-centaurus.png" alt="Centaurus" class="product-image">
+                <div class="product-brand">Creed</div>
+                <div class="product-title">Centaurus</div>
+                <div class="product-price">Desde 9,99€</div>
                 <span class="add-btn">Ver Detalles</span>
             </a>
         </div>
@@ -1426,6 +1840,8 @@
     <!-- FIREBASE SDK & LOGIC -->
     <script type="module" src="js/auth.js"></script>
 
+
+
     <!-- Header hide on scroll -->
     <script>
         (function () {
@@ -1586,6 +2002,332 @@
                 // Initial Load
                 updatePagination();
             }
+        });
+    </script>
+    <!-- Filter System JavaScript -->
+    <script>
+        // Filter State
+        const filterState = {
+            prices: [],
+            brands: [],
+            sort: 'price-desc',
+            search: ''
+        };
+
+        // Get all products
+        function getProducts() {
+            return Array.from(document.querySelectorAll('.product-card'));
+        }
+
+        // Extract price from product
+        function getProductPrice(product) {
+            const priceMatch = product.href.match(/price3ml=(\d+),(\d+)/);
+            if (priceMatch) {
+                return parseFloat(`${priceMatch[1]}.${priceMatch[2]}`);
+            }
+            const priceText = product.querySelector('.product-price')?.textContent || '';
+            const match = priceText.match(/(\d+),(\d+)/);
+            return match ? parseFloat(`${match[1]}.${match[2]}`) : 0;
+        }
+
+        // Extract brand from product
+        function getProductBrand(product) {
+            return product.querySelector('.product-brand')?.textContent || '';
+        }
+
+        // Extract name from product
+        function getProductName(product) {
+            return product.querySelector('.product-title')?.textContent || '';
+        }
+
+        // Check if product matches price filter
+        function matchesPriceFilter(product) {
+            if (filterState.prices.length === 0) return true;
+            const price = getProductPrice(product);
+            return filterState.prices.some(range => {
+                if (range === '0-10') return price <= 10;
+                if (range === '10-20') return price > 10 && price <= 20;
+                if (range === '20-30') return price > 20 && price <= 30;
+                if (range === '30-50') return price > 30 && price <= 50;
+                if (range === '50+') return price > 50;
+                return false;
+            });
+        }
+
+        // Check if product matches brand filter
+        function matchesBrandFilter(product) {
+            if (filterState.brands.length === 0) return true;
+            const brand = getProductBrand(product).toLowerCase();
+            return filterState.brands.some(b => brand.includes(b.toLowerCase()));
+        }
+
+        // Check if product matches search
+        function matchesSearch(product) {
+            if (!filterState.search) return true;
+            const name = getProductName(product).toLowerCase();
+            const brand = getProductBrand(product).toLowerCase();
+            const search = filterState.search.toLowerCase();
+            return name.includes(search) || brand.includes(search);
+        }
+
+        // Apply all filters
+        function applyFilters() {
+            const products = getProducts();
+            const grid = document.querySelector('.product-grid');
+
+            // Filter products
+            products.forEach(product => {
+                const matches = matchesPriceFilter(product) &&
+                    matchesBrandFilter(product) &&
+                    matchesSearch(product);
+                product.style.display = matches ? '' : 'none';
+            });
+
+            // Sort products
+            const visibleProducts = products.filter(p => p.style.display !== 'none');
+            visibleProducts.sort((a, b) => {
+                switch (filterState.sort) {
+                    case 'price-asc':
+                        return getProductPrice(a) - getProductPrice(b);
+                    case 'price-desc':
+                        return getProductPrice(b) - getProductPrice(a);
+                    case 'name-asc':
+                        return getProductName(a).localeCompare(getProductName(b));
+                    case 'name-desc':
+                        return getProductName(b).localeCompare(getProductName(a));
+                    default:
+                        return 0;
+                }
+            });
+
+            // Reorder in DOM
+            visibleProducts.forEach(p => grid.appendChild(p));
+
+            // Update UI
+            updateFilterUI();
+        }
+
+        // Update filter UI state
+        function updateFilterUI() {
+            const activeCount = filterState.prices.length + filterState.brands.length +
+                (filterState.sort !== 'price-desc' ? 1 : 0);
+
+            const clearBtn = document.getElementById('clearFiltersBtn');
+            const mobileCount = document.getElementById('mobileFilterCount');
+
+            if (clearBtn) {
+                clearBtn.classList.toggle('visible', activeCount > 0);
+            }
+
+            if (mobileCount) {
+                mobileCount.style.display = activeCount > 0 ? 'flex' : 'none';
+                mobileCount.textContent = activeCount;
+            }
+        }
+
+        // Toggle dropdown
+        function toggleDropdown(id) {
+            const dropdown = document.getElementById(id);
+            const isOpen = dropdown.classList.contains('open');
+
+            // Close all dropdowns
+            document.querySelectorAll('.filter-dropdown').forEach(d => d.classList.remove('open'));
+
+            // Toggle this one
+            if (!isOpen) {
+                dropdown.classList.add('open');
+            }
+        }
+
+        // Close dropdowns when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.filter-dropdown')) {
+                document.querySelectorAll('.filter-dropdown').forEach(d => d.classList.remove('open'));
+            }
+        });
+
+        // Select price filter
+        function selectPriceFilter(element) {
+            const price = element.dataset.price;
+            const checkbox = element.querySelector('input[type="checkbox"]');
+            const isSelected = element.classList.contains('selected');
+
+            if (isSelected) {
+                element.classList.remove('selected');
+                checkbox.checked = false;
+                filterState.prices = filterState.prices.filter(p => p !== price);
+            } else {
+                element.classList.add('selected');
+                checkbox.checked = true;
+                filterState.prices.push(price);
+            }
+
+            applyFilters();
+        }
+
+        // Select sort filter
+        function selectSortFilter(element) {
+            const sort = element.dataset.sort;
+
+            // Update UI
+            element.closest('.filter-dropdown-menu').querySelectorAll('.filter-option').forEach(o => {
+                o.classList.remove('selected');
+            });
+            element.classList.add('selected');
+
+            // Update state
+            filterState.sort = sort;
+            applyFilters();
+
+            // Close dropdown
+            document.querySelectorAll('.filter-dropdown').forEach(d => d.classList.remove('open'));
+        }
+
+        // Select brand filter
+        function selectBrandFilter(element) {
+            const brand = element.dataset.brand;
+            const checkbox = element.querySelector('input[type="checkbox"]');
+            const isSelected = element.classList.contains('selected');
+
+            if (isSelected) {
+                element.classList.remove('selected');
+                checkbox.checked = false;
+                filterState.brands = filterState.brands.filter(b => b !== brand);
+            } else {
+                element.classList.add('selected');
+                checkbox.checked = true;
+                filterState.brands.push(brand);
+            }
+
+            applyFilters();
+        }
+
+        // Clear all filters
+        function clearAllFilters() {
+            filterState.prices = [];
+            filterState.brands = [];
+            filterState.sort = 'price-desc';
+
+            // Reset UI
+            document.querySelectorAll('.filter-option').forEach(o => {
+                o.classList.remove('selected');
+                const checkbox = o.querySelector('input[type="checkbox"]');
+                if (checkbox) checkbox.checked = false;
+            });
+
+            document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('selected'));
+
+            // Set default sort
+            const defaultSort = document.querySelector('.filter-option[data-sort="price-desc"]');
+            if (defaultSort) defaultSort.classList.add('selected');
+
+            const defaultMobileSort = document.querySelector('.filter-chip[data-sort="price-desc"]');
+            if (defaultMobileSort) defaultMobileSort.classList.add('selected');
+
+            applyFilters();
+        }
+
+        // Mobile filter drawer
+        function openFilterDrawer() {
+            document.getElementById('filterDrawerOverlay').classList.add('active');
+            document.getElementById('filterDrawer').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeFilterDrawer() {
+            document.getElementById('filterDrawerOverlay').classList.remove('active');
+            document.getElementById('filterDrawer').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        function applyFiltersAndClose() {
+            applyFilters();
+            closeFilterDrawer();
+        }
+
+        // Toggle mobile filter chip
+        function toggleMobileFilter(element, type) {
+            if (type === 'sort') {
+                // Only one sort option can be selected
+                document.querySelectorAll('#mobileSortOptions .filter-chip').forEach(c => c.classList.remove('selected'));
+                element.classList.add('selected');
+                filterState.sort = element.dataset.sort;
+            } else if (type === 'price') {
+                const price = element.dataset.price;
+                if (element.classList.contains('selected')) {
+                    element.classList.remove('selected');
+                    filterState.prices = filterState.prices.filter(p => p !== price);
+                } else {
+                    element.classList.add('selected');
+                    filterState.prices.push(price);
+                }
+            } else if (type === 'brand') {
+                const brand = element.dataset.brand;
+                if (element.classList.contains('selected')) {
+                    element.classList.remove('selected');
+                    filterState.brands = filterState.brands.filter(b => b !== brand);
+                } else {
+                    element.classList.add('selected');
+                    filterState.brands.push(brand);
+                }
+            }
+        }
+
+        // Populate brand filters
+        function populateBrandFilters() {
+            const products = getProducts();
+            const brands = new Set();
+
+            products.forEach(p => {
+                const brand = getProductBrand(p);
+                if (brand) brands.add(brand);
+            });
+
+            const sortedBrands = Array.from(brands).sort();
+
+            // Desktop brand menu
+            const brandMenu = document.getElementById('brandMenu');
+            if (brandMenu) {
+                brandMenu.innerHTML = sortedBrands.map(brand => `
+                    <div class="filter-option" data-brand="${brand}" onclick="selectBrandFilter(this)">
+                        <input type="checkbox"> ${brand}
+                    </div>
+                `).join('');
+            }
+
+            // Mobile brand chips
+            const mobileBrandOptions = document.getElementById('mobileBrandOptions');
+            if (mobileBrandOptions) {
+                mobileBrandOptions.innerHTML = sortedBrands.map(brand => `
+                    <div class="filter-chip" data-brand="${brand}" onclick="toggleMobileFilter(this, 'brand')">${brand}</div>
+                `).join('');
+            }
+        }
+
+        // Search functionality
+        document.addEventListener('DOMContentLoaded', function () {
+            const searchInput = document.getElementById('searchInput');
+            const searchClear = document.getElementById('searchClear');
+
+            if (searchInput) {
+                searchInput.addEventListener('input', function () {
+                    filterState.search = this.value;
+                    searchClear.style.display = this.value ? 'block' : 'none';
+                    applyFilters();
+                });
+            }
+
+            if (searchClear) {
+                searchClear.addEventListener('click', function () {
+                    searchInput.value = '';
+                    filterState.search = '';
+                    this.style.display = 'none';
+                    applyFilters();
+                });
+            }
+
+            // Populate brands on load
+            populateBrandFilters();
         });
     </script>
 </body>

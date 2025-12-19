@@ -832,6 +832,350 @@
             color: #fff;
         }
 
+        /* Dropdown Filter Styles */
+        .dropdown-filters {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            padding: 0 1rem;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .filter-dropdown {
+            position: relative;
+        }
+
+        .filter-dropdown-btn {
+            padding: 0.7rem 1.5rem;
+            background: rgba(20, 20, 20, 0.8);
+            border: 1px solid #333;
+            color: #fff;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 25px;
+            font-family: inherit;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .filter-dropdown-btn:hover {
+            border-color: #D4AF37;
+            color: #D4AF37;
+        }
+
+        .filter-dropdown-btn.active {
+            border-color: #D4AF37;
+            color: #D4AF37;
+        }
+
+        .filter-dropdown-btn svg {
+            width: 12px;
+            height: 12px;
+            transition: transform 0.3s;
+        }
+
+        .filter-dropdown.open .filter-dropdown-btn svg {
+            transform: rotate(180deg);
+        }
+
+        .filter-dropdown-menu {
+            position: absolute;
+            top: calc(100% + 8px);
+            left: 50%;
+            transform: translateX(-50%);
+            background: #111;
+            border: 1px solid #333;
+            border-radius: 12px;
+            min-width: 200px;
+            max-height: 300px;
+            overflow-y: auto;
+            z-index: 100;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .filter-dropdown.open .filter-dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .filter-dropdown-menu::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .filter-dropdown-menu::-webkit-scrollbar-track {
+            background: #222;
+        }
+
+        .filter-dropdown-menu::-webkit-scrollbar-thumb {
+            background: #D4AF37;
+            border-radius: 3px;
+        }
+
+        .filter-option {
+            padding: 0.8rem 1.2rem;
+            color: #aaa;
+            cursor: pointer;
+            transition: all 0.2s;
+            border-bottom: 1px solid #222;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .filter-option:last-child {
+            border-bottom: none;
+        }
+
+        .filter-option:hover {
+            background: rgba(212, 175, 55, 0.1);
+            color: #D4AF37;
+        }
+
+        .filter-option.selected {
+            background: rgba(212, 175, 55, 0.15);
+            color: #D4AF37;
+        }
+
+        .filter-option input[type="checkbox"] {
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            border: 1px solid #555;
+            border-radius: 3px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .filter-option input[type="checkbox"]:checked {
+            background: #D4AF37;
+            border-color: #D4AF37;
+        }
+
+        .filter-option input[type="checkbox"]:checked::after {
+            content: '✓';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #000;
+            font-size: 10px;
+            font-weight: bold;
+        }
+
+        .clear-filters-btn {
+            padding: 0.7rem 1.5rem;
+            background: transparent;
+            border: 1px solid #D4AF37;
+            color: #D4AF37;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 25px;
+            font-family: inherit;
+            display: none;
+        }
+
+        .clear-filters-btn.visible {
+            display: inline-flex;
+            opacity: 1;
+        }
+
+        .clear-filters-btn:hover {
+            background: #D4AF37;
+            color: #000;
+        }
+
+        .active-filters-count {
+            background: #D4AF37;
+            color: #000;
+            font-size: 0.7rem;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+        }
+
+        /* Mobile Filter Drawer */
+        .mobile-filter-toggle {
+            display: none;
+            width: 100%;
+            padding: 1rem;
+            background: rgba(20, 20, 20, 0.8);
+            border: 1px solid #333;
+            color: #fff;
+            font-size: 1rem;
+            cursor: pointer;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: inherit;
+        }
+
+        .mobile-filter-toggle svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .filter-drawer-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 2000;
+            backdrop-filter: blur(3px);
+        }
+
+        .filter-drawer-overlay.active {
+            display: block;
+        }
+
+        .filter-drawer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            max-height: 70vh;
+            background: #111;
+            border-top: 1px solid #333;
+            border-radius: 20px 20px 0 0;
+            z-index: 2001;
+            transform: translateY(100%);
+            transition: transform 0.4s ease;
+            overflow-y: auto;
+        }
+
+        .filter-drawer.active {
+            transform: translateY(0);
+        }
+
+        .filter-drawer-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem;
+            border-bottom: 1px solid #333;
+            position: sticky;
+            top: 0;
+            background: #111;
+            z-index: 1;
+        }
+
+        .filter-drawer-title {
+            color: #D4AF37;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .filter-drawer-close {
+            color: #fff;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .filter-drawer-content {
+            padding: 1rem;
+        }
+
+        .filter-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .filter-section-title {
+            color: #fff;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid #333;
+        }
+
+        .filter-section-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .filter-chip {
+            padding: 0.6rem 1rem;
+            background: rgba(20, 20, 20, 0.8);
+            border: 1px solid #333;
+            color: #aaa;
+            font-size: 0.8rem;
+            cursor: pointer;
+            border-radius: 20px;
+            transition: all 0.2s;
+        }
+
+        .filter-chip.selected {
+            background: #D4AF37;
+            border-color: #D4AF37;
+            color: #000;
+        }
+
+        .filter-drawer-footer {
+            padding: 1rem 1.5rem;
+            border-top: 1px solid #333;
+            display: flex;
+            gap: 1rem;
+            position: sticky;
+            bottom: 0;
+            background: #111;
+        }
+
+        .filter-drawer-btn {
+            flex: 1;
+            padding: 1rem;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+
+        .filter-drawer-btn.secondary {
+            background: transparent;
+            border: 1px solid #555;
+            color: #888;
+        }
+
+        .filter-drawer-btn.primary {
+            background: #D4AF37;
+            border: none;
+            color: #000;
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            .dropdown-filters {
+                display: none;
+            }
+
+            .mobile-filter-toggle {
+                display: flex;
+            }
+        }
+
         /* Pagination Styles */
         .product-card.hidden {
             display: none !important;
@@ -903,6 +1247,7 @@
             padding: 15px 45px 15px 50px;
             background: rgba(20, 20, 20, 0.8);
             border: 1px solid #333;
+            box-sizing: border-box;
             border-radius: 30px;
             color: #fff;
             font-size: 1rem;
@@ -1003,6 +1348,95 @@
     <div class="catalog-container">
         <h1>Woman Collection</h1>
 
+        <!-- Mobile Filter Toggle -->
+        <button class="mobile-filter-toggle" onclick="openFilterDrawer()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="4" y1="21" x2="4" y2="14"></line>
+                <line x1="4" y1="10" x2="4" y2="3"></line>
+                <line x1="12" y1="21" x2="12" y2="12"></line>
+                <line x1="12" y1="8" x2="12" y2="3"></line>
+                <line x1="20" y1="21" x2="20" y2="16"></line>
+                <line x1="20" y1="12" x2="20" y2="3"></line>
+                <line x1="1" y1="14" x2="7" y2="14"></line>
+                <line x1="9" y1="8" x2="15" y2="8"></line>
+                <line x1="17" y1="16" x2="23" y2="16"></line>
+            </svg>
+            Filtros
+            <span class="active-filters-count" id="mobileFilterCount" style="display: none;">0</span>
+        </button>
+
+        <!-- Desktop Dropdown Filters -->
+        <div class="dropdown-filters">
+            <!-- Price Filter -->
+            <div class="filter-dropdown" id="priceDropdown">
+                <button class="filter-dropdown-btn" onclick="toggleDropdown('priceDropdown')">
+                    💰 Precio
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="6 9 12 15 18 9"></polyline>
+                    </svg>
+                </button>
+                <div class="filter-dropdown-menu">
+                    <div class="filter-option" data-price="0-10" onclick="selectPriceFilter(this)">
+                        <input type="checkbox"> Hasta 10€
+                    </div>
+                    <div class="filter-option" data-price="10-20" onclick="selectPriceFilter(this)">
+                        <input type="checkbox"> 10€ - 20€
+                    </div>
+                    <div class="filter-option" data-price="20-30" onclick="selectPriceFilter(this)">
+                        <input type="checkbox"> 20€ - 30€
+                    </div>
+                    <div class="filter-option" data-price="30-50" onclick="selectPriceFilter(this)">
+                        <input type="checkbox"> 30€ - 50€
+                    </div>
+                    <div class="filter-option" data-price="50+" onclick="selectPriceFilter(this)">
+                        <input type="checkbox"> Más de 50€
+                    </div>
+                </div>
+            </div>
+
+            <!-- Brand Filter -->
+            <div class="filter-dropdown" id="brandDropdown">
+                <button class="filter-dropdown-btn" onclick="toggleDropdown('brandDropdown')">
+                    🏷️ Marca
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="6 9 12 15 18 9"></polyline>
+                    </svg>
+                </button>
+                <div class="filter-dropdown-menu" id="brandMenu">
+                    <!-- Brands will be populated dynamically -->
+                </div>
+            </div>
+
+            <!-- Sort Filter -->
+            <div class="filter-dropdown" id="sortDropdown">
+                <button class="filter-dropdown-btn" onclick="toggleDropdown('sortDropdown')">
+                    📊 Ordenar
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="6 9 12 15 18 9"></polyline>
+                    </svg>
+                </button>
+                <div class="filter-dropdown-menu">
+                    <div class="filter-option selected" data-sort="price-desc" onclick="selectSortFilter(this)">
+                        Precio: Mayor a Menor
+                    </div>
+                    <div class="filter-option" data-sort="price-asc" onclick="selectSortFilter(this)">
+                        Precio: Menor a Mayor
+                    </div>
+                    <div class="filter-option" data-sort="name-asc" onclick="selectSortFilter(this)">
+                        Nombre: A-Z
+                    </div>
+                    <div class="filter-option" data-sort="name-desc" onclick="selectSortFilter(this)">
+                        Nombre: Z-A
+                    </div>
+                </div>
+            </div>
+
+            <!-- Clear Filters Button -->
+            <button class="clear-filters-btn" id="clearFiltersBtn" onclick="clearAllFilters()">
+                ✕ Limpiar filtros
+            </button>
+        </div>
+
         <!-- Search Bar -->
         <div class="search-container">
             <div class="search-wrapper">
@@ -1016,17 +1450,15 @@
         </div>
 
         <div class="product-grid">
-            <!-- Product 1: APOM -->
-            <a href="producto.html?id=apom&name=APOM&brand=Maison%20Francis%20Kurkdjian&price3ml=11,99&price5ml=18,95&price10ml=34,90&img=fotos/MUJER/APOM%20–%20Maison%20Francis%20Kurkdjian.jpg&desc=%C3%8Dntima%20y%20luminosa%20combinaci%C3%B3n%20de%20flor%20de%20azahar%20y%20cedro.%20Elegancia%20limpia%20y%20simple%20que%20equilibra%20dulzura%20y%20sequedad.&notasSalida=Flor%20de%20azahar&notasCorazon=Ylang-ylang&notasFondo=Cedro%20de%20Virginia"
+            <a href="producto.html?id=oud-orange&name=Oud%20Orange%20Intense&brand=Fragrance%20du%20Bois&price3ml=29,99&price5ml=47,95&price10ml=91,90&img=fotos/MUJER/Oud%2C%20Vainilla%2C%20Coco..JPG&desc=Oud%20gourmand%20y%20afrutado%20con%20coco%20y%20vainilla%20solar.%20Oud%20natural%20certificado%20que%20contrasta%20con%20apertura%20tropical.&notasSalida=Coco%2C%20Notas%20frutales&notasCorazon=Vainilla%20Bourbon&notasFondo=Oud%20vintage%20100%25%20puro%2C%20Almizcle"
                 class="product-card">
-                <img src="fotos/MUJER/APOM – Maison Francis Kurkdjian.jpg" alt="APOM" class="product-image">
-                <div class="product-brand">Maison Francis Kurkdjian</div>
-                <div class="product-title">APOM</div>
-                <div class="product-price">Desde 11,99€</div>
+                <img src="fotos/MUJER/Oud, Vainilla, Coco..JPG" alt="Oud Orange Intense" class="product-image">
+                <div class="product-brand">Fragrance du Bois</div>
+                <div class="product-title">Oud Orange Intense</div>
+                <div class="product-price">Desde 29,99€</div>
                 <span class="add-btn">Ver Detalles</span>
             </a>
 
-            <!-- Product 2: Azrak -->
             <a href="producto.html?id=azrak&name=Azrak&brand=Boadicea%20the%20Victorious&price3ml=18,99&price5ml=29,95&price10ml=57,90&img=fotos/MUJER/⁠Azrak%20–%20Boadicea%20the%20Victorious.jpg&desc=Inspirado%20en%20el%20mar%2C%20combina%20frescura%20compleja%20con%20oud%20real%20limpio.%20Aroma%20aristocr%C3%A1tico%20y%20m%C3%ADstico%20ideal%20para%20climas%20c%C3%A1lidos.&notasSalida=Pi%C3%B1a%2C%20Lim%C3%B3n%2C%20Cardamomo%2C%20Casis&notasCorazon=Rosa%2C%20Jasm%C3%ADn%2C%20Especias%2C%20Violeta&notasFondo=Oud%2C%20Almizcle%2C%20Ambar%2C%20Notas%20amaderadas"
                 class="product-card">
                 <img src="fotos/MUJER/⁠Azrak – Boadicea the Victorious.jpg" alt="Azrak" class="product-image">
@@ -1036,68 +1468,6 @@
                 <span class="add-btn">Ver Detalles</span>
             </a>
 
-            <!-- Product 3: Bianco Latte -->
-            <a href="producto.html?id=bianco-latte&name=Bianco%20Latte&brand=Giardini%20di%20Toscana&price3ml=5,99&price5ml=8,95&price10ml=15,90&img=fotos/MUJER/Bianco%20Latte%20–%20Giardini%20di%20Toscana.jpg&desc=Gourmand%20viral%20de%20confort%20l%C3%A1cteo%2C%20caramelo%20y%20miel.%20Abrazo%20comestible%20que%20huele%20a%20leche%20con%20galletas%20y%20dura%20todo%20el%20d%C3%ADa.&notasSalida=Caramelo&notasCorazon=Miel%2C%20Cumarina&notasFondo=Vainilla%2C%20Almizcle%20blanco"
-                class="product-card">
-                <img src="fotos/MUJER/Bianco Latte – Giardini di Toscana.jpg" alt="Bianco Latte" class="product-image">
-                <div class="product-brand">Giardini di Toscana</div>
-                <div class="product-title">Bianco Latte</div>
-                <div class="product-price">Desde 5,99€</div>
-                <span class="add-btn">Ver Detalles</span>
-            </a>
-
-            <!-- Product 4: Erotika Maximale -->
-            <a href="producto.html?id=erotika-maximale&name=Erotika%20Maximale&brand=New%20Notes&price3ml=14,99&price5ml=23,95&price10ml=45,90&img=fotos/MUJER/Erotika%20Maximale%20–%20New%20Notes.jpg&desc=Extracto%20c%C3%A1lido%2C%20animal%20y%20especiado%20dise%C3%B1ado%20para%20el%20deseo.%20Perfil%20carnal%20moderno%20sin%20olor%20a%20antiguo.&notasSalida=Especias%20picantes&notasCorazon=Notas%20florales%20carnales&notasFondo=Ambar%2C%20Almizcle%2C%20Notas%20animales"
-                class="product-card">
-                <img src="fotos/MUJER/Erotika Maximale – New Notes.jpg" alt="Erotika Maximale" class="product-image">
-                <div class="product-brand">New Notes</div>
-                <div class="product-title">Erotika Maximale</div>
-                <div class="product-price">Desde 14,99€</div>
-                <span class="add-btn">Ver Detalles</span>
-            </a>
-
-            <!-- Product 5: Fétiche La Rose -->
-            <a href="producto.html?id=fetiche-la-rose&name=F%C3%A9tiche%20La%20Rose&brand=Christian%20Louboutin&price3ml=10,99&price5ml=17,95&price10ml=32,90&img=fotos/MUJER/F%C3%A9tiche%20La%20Rose%20–%20Christian%20Louboutin.JPG&desc=Rosa%20glamurosa%20y%20potente%20con%20matices%20frutales%20y%20base%20sexy.%20Llamativa%20y%20seductora%2C%20estilo%20de%20suela%20roja%20hecho%20perfume.&notasSalida=Notas%20frutales%20rojas&notasCorazon=Rosa%20opulenta&notasFondo=Pachuli%2C%20Vainilla"
-                class="product-card">
-                <img src="fotos/MUJER/Fétiche La Rose – Christian Louboutin.JPG" alt="Fétiche La Rose"
-                    class="product-image">
-                <div class="product-brand">Christian Louboutin</div>
-                <div class="product-title">Fétiche La Rose</div>
-                <div class="product-price">Desde 10,99€</div>
-                <span class="add-btn">Ver Detalles</span>
-            </a>
-
-            <!-- Product 6: Flor de Tilo (Tilia) -->
-            <a href="producto.html?id=tilia&name=Tilia&brand=Marc-Antoine%20Barrois&price3ml=8,99&price5ml=13,95&price10ml=25,90&img=fotos/MUJER/%20Flor%20de%20Tilo%2C%20Jazm%C3%ADn%2C%20Almizcle.JPG&desc=Oda%20luminosa%20a%20la%20flor%20del%20tilo%20con%20notas%20melosas%20y%20solares.%20Abrazo%20floral%20con%20difusi%C3%B3n%20moderna%20y%20aireada.&notasSalida=Lima%2C%20Genista&notasCorazon=Tilo%2C%20Jasm%C3%ADn%2C%20Heliotropo&notasFondo=Vetiver%2C%20Ambroxan%2C%20Georgywood"
-                class="product-card">
-                <img src="fotos/MUJER/ Flor de Tilo, Jazmín, Almizcle.JPG" alt="Tilia" class="product-image">
-                <div class="product-brand">Perfume Collection</div>
-                <div class="product-title">Tilia</div>
-                <div class="product-price">Desde 8,99€</div>
-                <span class="add-btn">Ver Detalles</span>
-            </a>
-
-            <!-- Product 7: Gris Charnel -->
-            <a href="producto.html?id=gris-charnel&name=Gris%20Charnel&brand=BDK%20Parfums&price3ml=6,99&price5ml=10,95&price10ml=20,90&img=fotos/MUJER/⁠Gris%20Charnel%20–%20BDK%20Parfums.jpg&desc=Iris%20moderno%20y%20limpio%20resaltando%20facetas%20almendradas%20y%20secas.%20Minimalista%20y%20art%C3%ADstico%20con%20calidez%20de%20haba%20tonka.&notasSalida=Cardamomo%2C%20Aldeh%C3%ADdos%2C%20Pimienta%20rosa&notasCorazon=Iris%2C%20Almendra%2C%20Semillas%20de%20zanahoria&notasFondo=Cedro%2C%20Vetiver%2C%20Ambroxan"
-                class="product-card">
-                <img src="fotos/MUJER/⁠Gris Charnel – BDK Parfums.jpg" alt="Gris Charnel" class="product-image">
-                <div class="product-brand">BDK Parfums</div>
-                <div class="product-title">Gris Charnel</div>
-                <div class="product-price">Desde 6,99€</div>
-                <span class="add-btn">Ver Detalles</span>
-            </a>
-
-            <!-- Product 8: Gris Dior -->
-            <a href="producto.html?id=gris-dior&name=Gris%20Dior&brand=Christian%20Dior&price3ml=11,99&price5ml=19,95&price10ml=36,90&img=fotos/MUJER/Gris%20Dior%20–%20Christian%20Dior.jpg&desc=Chipre%20moderno%20gris%20perla%20con%20rosa%20y%20musgo%20de%20roble.%20Sofisticaci%C3%B3n%20melanc%C3%B3lica%20y%20elegante%20que%20trasciende%20g%C3%A9neros.&notasSalida=Bergamota%2C%20Pomelo&notasCorazon=Rosa%2C%20Jasm%C3%ADn%2C%20Fresa%2C%20Ylang-ylang&notasFondo=Pachuli%2C%20Musgo%20de%20roble%2C%20S%C3%A1ndalo%2C%20%C3%81mbar%2C%20Cedro"
-                class="product-card">
-                <img src="fotos/MUJER/Gris Dior – Christian Dior.jpg" alt="Gris Dior" class="product-image">
-                <div class="product-brand">Christian Dior</div>
-                <div class="product-title">Gris Dior</div>
-                <div class="product-price">Desde 12,99€</div>
-                <span class="add-btn">Ver Detalles</span>
-            </a>
-
-            <!-- Product 9: Grosella Negra (Greenwich Village) -->
             <a href="producto.html?id=greenwich&name=Greenwich%20Village&brand=Bond%20n%C2%B09&price3ml=18,99&price5ml=29,95&price10ml=57,90&img=fotos/MUJER/Grosella%20Negra%2C%20Lichi%2C%20Almizcle..jpg&desc=Tributo%20vibrante%20a%20NY%2C%20similar%20a%20Baccarat%20pero%20m%C3%A1s%20fresco.%20Dulce%20y%20aireado%20con%20lichi%2C%20peon%C3%ADa%20y%20pralin%C3%A9%20adictivo.&notasSalida=Casis%2C%20Lichi%2C%20Mandarina&notasCorazon=Peon%C3%ADa%2C%20Nen%C3%BAfar%2C%20Jasm%C3%ADn&notasFondo=Ambroxan%2C%20Pralin%C3%A9%2C%20Vainilla%2C%20Musgo%20de%20roble"
                 class="product-card">
                 <img src="fotos/MUJER/Grosella Negra, Lichi, Almizcle..jpg" alt="Greenwich Village"
@@ -1108,150 +1478,6 @@
                 <span class="add-btn">Ver Detalles</span>
             </a>
 
-            <!-- Product 10: Iperborea -->
-            <a href="producto.html?id=iperborea&name=Iperborea&brand=Lorenzo%20Villoresi%20Firenze&price3ml=5,99&price5ml=9,95&price10ml=17,90&img=fotos/MUJER/%E2%81%A0%20%E2%81%A0Iperborea%20%E2%80%93%20Lorenzo%20Villoresi%20Firenze.jpg&desc=Floral%20fresca%20y%20aldeh%C3%ADdica%2C%20limpia%20y%20fr%C3%ADa%20como%20el%20viento%20del%20norte.%20Lirio%20de%20los%20valles%20sobre%20almizcle%20blanco%20inmaculado.&notasSalida=Notas%20verdes%2C%20C%C3%ADtricos%2C%20Flores%20frescas%2C%20Mandarina%2C%20Naranja%2C%20Melocot%C3%B3n%2C%20Ciclamen&notasCorazon=Lirio%20de%20los%20valles%2C%20Magnolia%2C%20Mimosa%2C%20Flores%20blancas&notasFondo=Almizcle%2C%20Flores%20blancas%2C%20Notas%20amaderadas"
-                class="product-card">
-                <img src="fotos/MUJER/⁠ ⁠Iperborea – Lorenzo Villoresi Firenze.jpg" alt="Iperborea"
-                    class="product-image">
-                <div class="product-brand">Lorenzo Villoresi Firenze</div>
-                <div class="product-title">Iperborea</div>
-                <div class="product-price">Desde 5,99€</div>
-                <span class="add-btn">Ver Detalles</span>
-            </a>
-
-            <!-- Product 11: La Prima -->
-            <a href="producto.html?id=la-prima&name=La%20Prima&brand=Milano%20Fragranze&price3ml=5,99&price5ml=8,95&price10ml=16,90&img=fotos/MUJER/La%20Prima%20–%20Milano%20Fragranze.jpg&desc=Evoca%20el%20estreno%20de%20la%20%C3%B3pera%20con%20flores%20blancas%20y%20nota%20de%20piel.%20Captura%20la%20emoci%C3%B3n%20y%20elegancia%20con%20toque%20de%20davana.&notasSalida=Bergamota%2C%20Cardamomo%2C%20Davana&notasCorazon=Flor%20de%20azahar%2C%20Osmanto%2C%20Jasm%C3%ADn&notasFondo=Vainilla%20Bourbon%2C%20Almizcle"
-                class="product-card">
-                <img src="fotos/MUJER/La Prima – Milano Fragranze.jpg" alt="La Prima" class="product-image">
-                <div class="product-brand">Milano Fragranze</div>
-                <div class="product-title">La Prima</div>
-                <div class="product-price">Desde 5,99€</div>
-                <span class="add-btn">Ver Detalles</span>
-            </a>
-
-            <!-- Product 12: Lira -->
-            <a href="producto.html?id=lira&name=Lira&brand=Casamorati%20(Xerjoff)&price3ml=10,99&price5ml=17,95&price10ml=33,90&img=fotos/MUJER/⁠Lira%20–%20Casamorati%20(Xerjoff).jpg&desc=Pastel%20de%20lim%C3%B3n%20gourmet%20con%20lavanda%2C%20vainilla%20y%20caramelo.%20Est%C3%A1ndar%20de%20oro%20gourmand%2C%20deliciosa%20sin%20ser%20empalagosa.&notasSalida=Bergamota%2C%20Naranja%20sanguina%2C%20Lavanda&notasCorazon=Jasm%C3%ADn%2C%20Canela%2C%20Regaliz&notasFondo=Vainilla%2C%20Almizcle%2C%20Caramelo"
-                class="product-card">
-                <img src="fotos/MUJER/⁠Lira – Casamorati (Xerjoff).jpg" alt="Lira" class="product-image">
-                <div class="product-brand">Casamorati (Xerjoff)</div>
-                <div class="product-title">Lira</div>
-                <div class="product-price">Desde 10,99€</div>
-                <span class="add-btn">Ver Detalles</span>
-            </a>
-
-            <!-- Product 13: Lune Féline -->
-            <a href="producto.html?id=lune-feline&name=Lune%20F%C3%A9line&brand=Atelier%20des%20Ors&price3ml=9,99&price5ml=14,95&price10ml=28,90&img=fotos/MUJER/%20%E2%81%A0Lune%20F%C3%A9line%20%E2%80%93%20Atelier%20des%20Ors.jpg&desc=Vainilla%20ahumada%20y%20especias%2C%20oscura%20y%20magn%C3%A9tica.%20Lujo%20sensual%20que%20evoca%20el%20pelaje%20de%20un%20felino%20bajo%20la%20luna.&notasSalida=Cardamomo%2C%20Canela%2C%20Pimienta%20rosa&notasCorazon=Notas%20verdes%2C%20Cedro%2C%20Notas%20amaderadas%2C%20%C3%81mbar%20gris%2C%20Styrax&notasFondo=Vainilla%20de%20Tahit%C3%AD%2C%20B%C3%A1lsamo%20de%20Per%C3%BA%2C%20Almizcle"
-                class="product-card">
-                <img src="fotos/MUJER/ ⁠Lune Féline – Atelier des Ors.jpg" alt="Lune Féline" class="product-image">
-                <div class="product-brand">Atelier des Ors</div>
-                <div class="product-title">Lune Féline</div>
-                <div class="product-price">Desde 9,99€</div>
-                <span class="add-btn">Ver Detalles</span>
-            </a>
-
-            <!-- Product 14: Marfa -->
-            <a href="producto.html?id=marfa&name=Marfa&brand=Memo%20Paris&price3ml=13,99&price5ml=22,95&price10ml=42,90&img=fotos/MUJER/Marfa%20–%20Memo%20Paris.jpg&desc=Nardo%20cremoso%20y%20almizclado%20con%20toque%20de%20agave.%20Floral%20envolvente%20con%20personalidad%20moderna%20y%20americana.&notasSalida=Flor%20de%20azahar%2C%20Mandarina&notasCorazon=Nardos%2C%20Ylang-ylang%2C%20Agave&notasFondo=Vainilla%2C%20S%C3%A1ndalo%2C%20Cedro%2C%20Almizcle%20blanco"
-                class="product-card">
-                <img src="fotos/MUJER/Marfa – Memo Paris.jpg" alt="Marfa" class="product-image">
-                <div class="product-brand">Memo Paris</div>
-                <div class="product-title">Marfa</div>
-                <div class="product-price">Desde 13,99€</div>
-                <span class="add-btn">Ver Detalles</span>
-            </a>
-
-            <!-- Product 15: Musk Therapy -->
-            <a href="producto.html?id=musk-therapy&name=Musk%20Therapy&brand=Initio&price3ml=12,99&price5ml=20,95&price10ml=38,90&img=fotos/MUJER/Musk%20Therapy%20–%20Initio.jpg&desc=Terapia%20de%20relajaci%C3%B3n%20con%20nube%20de%20almizcles%20y%20c%C3%ADtricos.%20Luminosidad%20l%C3%A1ctea%20y%20frutal%20que%20induce%20al%20bienestar%20puro.&notasSalida=Bergamota%2C%20Mandarina&notasCorazon=Magnolia%20blanca%2C%20Grosella%20negra&notasFondo=S%C3%A1ndalo%20blanco%2C%20Almizcle%20blanco%2C%20Almizcle%20rosa"
-                class="product-card">
-                <img src="fotos/MUJER/Musk Therapy – Initio.jpg" alt="Musk Therapy" class="product-image">
-                <div class="product-brand">Initio</div>
-                <div class="product-title">Musk Therapy</div>
-                <div class="product-price">Desde 12,99€</div>
-                <span class="add-btn">Ver Detalles</span>
-            </a>
-
-            <!-- Product 16: One Umbrella for Two -->
-            <a href="producto.html?id=one-umbrella&name=One%20Umbrella%20for%20Two&brand=Floraïku&price3ml=10,99&price5ml=16,95&price10ml=32,90&img=fotos/MUJER/One%20Umbrella%20for%20Two%20–%20Floraïku.JPG&desc=%C3%8Dntima%20y%20dulce%2C%20evoca%20pastel%20de%20grosellas%20y%20t%C3%A9%20genmaicha.%20Po%C3%A9tica%20y%20delicadamente%20gourmand%20con%20arroz%20tostado.&notasSalida=Grosella%20negra%2C%20Ciclamen&notasCorazon=T%C3%A9%20Genmaicha%20(t%C3%A9%20verde%20con%20arroz%20tostado)&notasFondo=Cedro%2C%20Almizcle%20blanco"
-                class="product-card">
-                <img src="fotos/MUJER/One Umbrella for Two – Floraïku.JPG" alt="One Umbrella for Two"
-                    class="product-image">
-                <div class="product-brand">Floraïku</div>
-                <div class="product-title">One Umbrella for Two</div>
-                <div class="product-price">Desde 10,99€</div>
-                <span class="add-btn">Ver Detalles</span>
-            </a>
-
-            <!-- Product 17: Oud Canela Vainilla (Silky Woods) -->
-            <a href="producto.html?id=silky-woods&name=Silky%20Woods&brand=Goldfield%20%26%20Banks&price3ml=8,99&price5ml=14,95&price10ml=27,90&img=fotos/MUJER/Oud%2C%20Canela%2C%20Vainilla.jpg&desc=Oud%20australiano%20suave%20y%20sedoso%20envuelto%20en%20vainilla%20y%20gamuza.%20Lujoso%20y%20t%C3%A1ctil%2C%20elimina%20facetas%20agresivas%20para%20ser%20moderno.&notasSalida=Azafr%C3%A1n%2C%20Canela&notasCorazon=Gamuza%2C%20Oud%2C%20Ylang-ylang%2C%20Jasm%C3%ADn&notasFondo=Vainilla%2C%20S%C3%A1ndalo%2C%20Tabaco%2C%20Almizcle"
-                class="product-card">
-                <img src="fotos/MUJER/Oud, Canela, Vainilla.jpg" alt="Silky Woods" class="product-image">
-                <div class="product-brand">Goldfield & Banks</div>
-                <div class="product-title">Silky Woods</div>
-                <div class="product-price">Desde 8,99€</div>
-                <span class="add-btn">Ver Detalles</span>
-            </a>
-
-            <!-- Product 18: Oud Vainilla Coco (Oud Orange Intense) -->
-            <a href="producto.html?id=oud-orange&name=Oud%20Orange%20Intense&brand=Fragrance%20du%20Bois&price3ml=29,99&price5ml=47,95&price10ml=91,90&img=fotos/MUJER/Oud%2C%20Vainilla%2C%20Coco..JPG&desc=Oud%20gourmand%20y%20afrutado%20con%20coco%20y%20vainilla%20solar.%20Oud%20natural%20certificado%20que%20contrasta%20con%20apertura%20tropical.&notasSalida=Coco%2C%20Notas%20frutales&notasCorazon=Vainilla%20Bourbon&notasFondo=Oud%20vintage%20100%25%20puro%2C%20Almizcle"
-                class="product-card">
-                <img src="fotos/MUJER/Oud, Vainilla, Coco..JPG" alt="Oud Orange Intense" class="product-image">
-                <div class="product-brand">Fragrance du Bois</div>
-                <div class="product-title">Oud Orange Intense</div>
-                <div class="product-price">Desde 29,99€</div>
-                <span class="add-btn">Ver Detalles</span>
-            </a>
-
-            <!-- Product 19: Paragon -->
-            <a href="producto.html?id=paragon&name=Paragon&brand=Initio&price3ml=12,99&price5ml=20,95&price10ml=38,90&img=fotos/MUJER/Paragon%20–%20Initio.JPG&desc=Espiritual%20y%20amaderada%20con%20Palo%20Santo%20y%20Salvia%20Blanca.%20Purifica%20el%20aura%20proyectando%20sofisticaci%C3%B3n%20m%C3%ADstica.&notasSalida=Bergamota%2C%20Salvia%20blanca%2C%20Lavanda&notasCorazon=Ciruela%2C%20Palo%20Santo%2C%20Pimienta%20negra&notasFondo=S%C3%A1ndalo%2C%20Oud"
-                class="product-card">
-                <img src="fotos/MUJER/Paragon – Initio.JPG" alt="Paragon" class="product-image">
-                <div class="product-brand">Initio</div>
-                <div class="product-title">Paragon</div>
-                <div class="product-price">Desde 12,99€</div>
-                <span class="add-btn">Ver Detalles</span>
-            </a>
-
-            <!-- Product 20: Poets of Berlin -->
-            <a href="producto.html?id=poets-berlin&name=Poets%20of%20Berlin&brand=Vilhelm%20Parfumerie&price3ml=10,99&price5ml=16,95&price10ml=31,90&img=fotos/MUJER/Poets%20of%20Berlin%20–%20Vilhelm%20Parfumerie.JPG&desc=Tributo%20a%20Bowie%20con%20ar%C3%A1ndanos%2C%20lim%C3%B3n%20y%20bamb%C3%BA.%20Sinfon%C3%ADa%20alegre%2C%20creativa%20y%20dulce%20sobre%20base%20de%20vainilla.&notasSalida=Ar%C3%A1ndano%2C%20Lim%C3%B3n&notasCorazon=Bamb%C3%BA%2C%20Orris&notasFondo=Vainilla%2C%20S%C3%A1ndalo%2C%20Vetiver"
-                class="product-card">
-                <img src="fotos/MUJER/Poets of Berlin – Vilhelm Parfumerie.JPG" alt="Poets of Berlin"
-                    class="product-image">
-                <div class="product-brand">Vilhelm Parfumerie</div>
-                <div class="product-title">Poets of Berlin</div>
-                <div class="product-price">Desde 10,99€</div>
-                <span class="add-btn">Ver Detalles</span>
-            </a>
-
-            <!-- Product 21: Rouge Malachite -->
-            <a href="producto.html?id=rouge-malachite&name=Rouge%20Malachite&brand=Armani%20Priv%C3%A9&price3ml=12,99&price5ml=19,95&price10ml=37,90&img=fotos/MUJER/Rouge%20Malachite%20–%20Armani%20Priv%C3%A9.jpg&desc=Nardo%20carnal%20y%20potente%20envuelto%20en%20%C3%A1mbar%20y%20especias.%20Floral%20hipn%C3%B3tica%20que%20irradia%20pasi%C3%B3n%20inspirada%20en%20Rusia.&notasSalida=Nardos%2C%20Pimienta%20rosa%2C%20Salvia%20Sclarea&notasCorazon=Nardos%2C%20Jasm%C3%ADn%20Sambac%2C%20Ylang-ylang%2C%20Benju%C3%AD%2C%20Cachemira&notasFondo=Nardos%2C%20Ambar"
-                class="product-card">
-                <img src="fotos/MUJER/Rouge Malachite – Armani Privé.jpg" alt="Rouge Malachite" class="product-image">
-                <div class="product-brand">Armani Privé</div>
-                <div class="product-title">Rouge Malachite</div>
-                <div class="product-price">Desde 12,99€</div>
-                <span class="add-btn">Ver Detalles</span>
-            </a>
-
-            <!-- Product 22: Sharing Concept -->
-            <a href="producto.html?id=sharing-concept&name=Sharing%20Concept&brand=Corel&price3ml=8,99&price5ml=14,95&price10ml=27,90&img=fotos/MUJER/Sharing%20Concept%20–%20Corel.JPG&desc=Equilibrada%20y%20amable%2C%20combina%20notas%20frutales%20y%20florales.%20Aroma%20universal%20y%20limpio%20con%20complejidad%20vers%C3%A1til.&notasSalida=Notas%20c%C3%ADtricas%20y%20frutales&notasCorazon=Bouquet%20floral%20ligero&notasFondo=Almizcle%20suave"
-                class="product-card">
-                <img src="fotos/MUJER/Sharing Concept – Corel.JPG" alt="Sharing Concept" class="product-image">
-                <div class="product-brand">Corel</div>
-                <div class="product-title">Sharing Concept</div>
-                <div class="product-price">Desde 8,99€</div>
-                <span class="add-btn">Ver Detalles</span>
-            </a>
-
-            <!-- Product 23: Sonic Flower -->
-            <a href="producto.html?id=sonic-flower&name=Sonic%20Flower&brand=Room%201015&price3ml=6,99&price5ml=9,95&price10ml=18,90&img=fotos/MUJER/Sonic%20Flower%20–%20Room%201015.jpg&desc=Iris%20moderno%20y%20limpio%20con%20pimienta%20rosa%20que%20vibra%20como%20m%C3%BAsica.%20%22Almizcle%20sucio%22%20parad%C3%B3jicamente%20limpio%20y%20sexy.&notasSalida=Pimienta%20rosa%2C%20Semillas%20de%20zanahoria&notasCorazon=Iris%2C%20Jasm%C3%ADn&notasFondo=Ambroxan%2C%20Madera%20de%20cachemira%2C%20Almizcle"
-                class="product-card">
-                <img src="fotos/MUJER/Sonic Flower – Room 1015.jpg" alt="Sonic Flower" class="product-image">
-                <div class="product-brand">Room 1015</div>
-                <div class="product-title">Sonic Flower</div>
-                <div class="product-price">Desde 6,99€</div>
-                <span class="add-btn">Ver Detalles</span>
-            </a>
-
-            <!-- Product 24: The Code of Emotion -->
             <a href="producto.html?id=code-emotion&name=The%20Code%20of%20Emotion&brand=Francesca%20Bianchi&price3ml=15,99&price5ml=25,95&price10ml=49,90&img=fotos/MUJER/⁠The%20Code%20of%20Emotion%20–%20Francesca%20Bianchi.jpg&desc=Exploraci%C3%B3n%20emocional%20con%20florales%20nost%C3%A1lgicos%20y%20bases%20resinosas.%20Juega%20con%20la%20psicolog%C3%ADa%20del%20olfato%20evocando%20melancol%C3%ADa.&notasSalida=Notas%20florales%2C%20Especias&notasCorazon=Orris%2C%20Rosa&notasFondo=Maderas%2C%20B%C3%A1lsamos"
                 class="product-card">
                 <img src="fotos/MUJER/⁠The Code of Emotion – Francesca Bianchi.jpg" alt="The Code of Emotion"
@@ -1262,7 +1488,144 @@
                 <span class="add-btn">Ver Detalles</span>
             </a>
 
-            <!-- Product 25: Vainilla Almizcle Higo (Impadia) -->
+            <a href="producto.html?id=erotika-maximale&name=Erotika%20Maximale&brand=New%20Notes&price3ml=14,99&price5ml=23,95&price10ml=45,90&img=fotos/MUJER/Erotika%20Maximale%20–%20New%20Notes.jpg&desc=Extracto%20c%C3%A1lido%2C%20animal%20y%20especiado%20dise%C3%B1ado%20para%20el%20deseo.%20Perfil%20carnal%20moderno%20sin%20olor%20a%20antiguo.&notasSalida=Especias%20picantes&notasCorazon=Notas%20florales%20carnales&notasFondo=Ambar%2C%20Almizcle%2C%20Notas%20animales"
+                class="product-card">
+                <img src="fotos/MUJER/Erotika Maximale – New Notes.jpg" alt="Erotika Maximale" class="product-image">
+                <div class="product-brand">New Notes</div>
+                <div class="product-title">Erotika Maximale</div>
+                <div class="product-price">Desde 14,99€</div>
+                <span class="add-btn">Ver Detalles</span>
+            </a>
+
+            <a href="producto.html?id=marfa&name=Marfa&brand=Memo%20Paris&price3ml=13,99&price5ml=22,95&price10ml=42,90&img=fotos/MUJER/Marfa%20–%20Memo%20Paris.jpg&desc=Nardo%20cremoso%20y%20almizclado%20con%20toque%20de%20agave.%20Floral%20envolvente%20con%20personalidad%20moderna%20y%20americana.&notasSalida=Flor%20de%20azahar%2C%20Mandarina&notasCorazon=Nardos%2C%20Ylang-ylang%2C%20Agave&notasFondo=Vainilla%2C%20S%C3%A1ndalo%2C%20Cedro%2C%20Almizcle%20blanco"
+                class="product-card">
+                <img src="fotos/MUJER/Marfa – Memo Paris.jpg" alt="Marfa" class="product-image">
+                <div class="product-brand">Memo Paris</div>
+                <div class="product-title">Marfa</div>
+                <div class="product-price">Desde 13,99€</div>
+                <span class="add-btn">Ver Detalles</span>
+            </a>
+
+            <a href="producto.html?id=musk-therapy&name=Musk%20Therapy&brand=Initio&price3ml=12,99&price5ml=20,95&price10ml=38,90&img=fotos/MUJER/Musk%20Therapy%20–%20Initio.jpg&desc=Terapia%20de%20relajaci%C3%B3n%20con%20nube%20de%20almizcles%20y%20c%C3%ADtricos.%20Luminosidad%20l%C3%A1ctea%20y%20frutal%20que%20induce%20al%20bienestar%20puro.&notasSalida=Bergamota%2C%20Mandarina&notasCorazon=Magnolia%20blanca%2C%20Grosella%20negra&notasFondo=S%C3%A1ndalo%20blanco%2C%20Almizcle%20blanco%2C%20Almizcle%20rosa"
+                class="product-card">
+                <img src="fotos/MUJER/Musk Therapy – Initio.jpg" alt="Musk Therapy" class="product-image">
+                <div class="product-brand">Initio</div>
+                <div class="product-title">Musk Therapy</div>
+                <div class="product-price">Desde 12,99€</div>
+                <span class="add-btn">Ver Detalles</span>
+            </a>
+
+            <a href="producto.html?id=paragon&name=Paragon&brand=Initio&price3ml=12,99&price5ml=20,95&price10ml=38,90&img=fotos/MUJER/Paragon%20–%20Initio.JPG&desc=Espiritual%20y%20amaderada%20con%20Palo%20Santo%20y%20Salvia%20Blanca.%20Purifica%20el%20aura%20proyectando%20sofisticaci%C3%B3n%20m%C3%ADstica.&notasSalida=Bergamota%2C%20Salvia%20blanca%2C%20Lavanda&notasCorazon=Ciruela%2C%20Palo%20Santo%2C%20Pimienta%20negra&notasFondo=S%C3%A1ndalo%2C%20Oud"
+                class="product-card">
+                <img src="fotos/MUJER/Paragon – Initio.JPG" alt="Paragon" class="product-image">
+                <div class="product-brand">Initio</div>
+                <div class="product-title">Paragon</div>
+                <div class="product-price">Desde 12,99€</div>
+                <span class="add-btn">Ver Detalles</span>
+            </a>
+
+            <a href="producto.html?id=rouge-malachite&name=Rouge%20Malachite&brand=Armani%20Priv%C3%A9&price3ml=12,99&price5ml=19,95&price10ml=37,90&img=fotos/MUJER/Rouge%20Malachite%20–%20Armani%20Priv%C3%A9.jpg&desc=Nardo%20carnal%20y%20potente%20envuelto%20en%20%C3%A1mbar%20y%20especias.%20Floral%20hipn%C3%B3tica%20que%20irradia%20pasi%C3%B3n%20inspirada%20en%20Rusia.&notasSalida=Nardos%2C%20Pimienta%20rosa%2C%20Salvia%20Sclarea&notasCorazon=Nardos%2C%20Jasm%C3%ADn%20Sambac%2C%20Ylang-ylang%2C%20Benju%C3%AD%2C%20Cachemira&notasFondo=Nardos%2C%20Ambar"
+                class="product-card">
+                <img src="fotos/MUJER/Rouge Malachite – Armani Privé.jpg" alt="Rouge Malachite" class="product-image">
+                <div class="product-brand">Armani Privé</div>
+                <div class="product-title">Rouge Malachite</div>
+                <div class="product-price">Desde 12,99€</div>
+                <span class="add-btn">Ver Detalles</span>
+            </a>
+
+            <a href="producto.html?id=apom&name=APOM&brand=Maison%20Francis%20Kurkdjian&price3ml=11,99&price5ml=18,95&price10ml=34,90&img=fotos/MUJER/APOM%20–%20Maison%20Francis%20Kurkdjian.jpg&desc=%C3%8Dntima%20y%20luminosa%20combinaci%C3%B3n%20de%20flor%20de%20azahar%20y%20cedro.%20Elegancia%20limpia%20y%20simple%20que%20equilibra%20dulzura%20y%20sequedad.&notasSalida=Flor%20de%20azahar&notasCorazon=Ylang-ylang&notasFondo=Cedro%20de%20Virginia"
+                class="product-card">
+                <img src="fotos/MUJER/APOM – Maison Francis Kurkdjian.jpg" alt="APOM" class="product-image">
+                <div class="product-brand">Maison Francis Kurkdjian</div>
+                <div class="product-title">APOM</div>
+                <div class="product-price">Desde 11,99€</div>
+                <span class="add-btn">Ver Detalles</span>
+            </a>
+
+            <a href="producto.html?id=gris-dior&name=Gris%20Dior&brand=Christian%20Dior&price3ml=11,99&price5ml=19,95&price10ml=36,90&img=fotos/MUJER/Gris%20Dior%20–%20Christian%20Dior.jpg&desc=Chipre%20moderno%20gris%20perla%20con%20rosa%20y%20musgo%20de%20roble.%20Sofisticaci%C3%B3n%20melanc%C3%B3lica%20y%20elegante%20que%20trasciende%20g%C3%A9neros.&notasSalida=Bergamota%2C%20Pomelo&notasCorazon=Rosa%2C%20Jasm%C3%ADn%2C%20Fresa%2C%20Ylang-ylang&notasFondo=Pachuli%2C%20Musgo%20de%20roble%2C%20S%C3%A1ndalo%2C%20%C3%81mbar%2C%20Cedro"
+                class="product-card">
+                <img src="fotos/MUJER/Gris Dior – Christian Dior.jpg" alt="Gris Dior" class="product-image">
+                <div class="product-brand">Christian Dior</div>
+                <div class="product-title">Gris Dior</div>
+                <div class="product-price">Desde 12,99€</div>
+                <span class="add-btn">Ver Detalles</span>
+            </a>
+
+            <a href="producto.html?id=fetiche-la-rose&name=F%C3%A9tiche%20La%20Rose&brand=Christian%20Louboutin&price3ml=10,99&price5ml=17,95&price10ml=32,90&img=fotos/MUJER/F%C3%A9tiche%20La%20Rose%20–%20Christian%20Louboutin.JPG&desc=Rosa%20glamurosa%20y%20potente%20con%20matices%20frutales%20y%20base%20sexy.%20Llamativa%20y%20seductora%2C%20estilo%20de%20suela%20roja%20hecho%20perfume.&notasSalida=Notas%20frutales%20rojas&notasCorazon=Rosa%20opulenta&notasFondo=Pachuli%2C%20Vainilla"
+                class="product-card">
+                <img src="fotos/MUJER/Fétiche La Rose – Christian Louboutin.JPG" alt="Fétiche La Rose"
+                    class="product-image">
+                <div class="product-brand">Christian Louboutin</div>
+                <div class="product-title">Fétiche La Rose</div>
+                <div class="product-price">Desde 10,99€</div>
+                <span class="add-btn">Ver Detalles</span>
+            </a>
+
+            <a href="producto.html?id=lira&name=Lira&brand=Casamorati%20(Xerjoff)&price3ml=10,99&price5ml=17,95&price10ml=33,90&img=fotos/MUJER/⁠Lira%20–%20Casamorati%20(Xerjoff).jpg&desc=Pastel%20de%20lim%C3%B3n%20gourmet%20con%20lavanda%2C%20vainilla%20y%20caramelo.%20Est%C3%A1ndar%20de%20oro%20gourmand%2C%20deliciosa%20sin%20ser%20empalagosa.&notasSalida=Bergamota%2C%20Naranja%20sanguina%2C%20Lavanda&notasCorazon=Jasm%C3%ADn%2C%20Canela%2C%20Regaliz&notasFondo=Vainilla%2C%20Almizcle%2C%20Caramelo"
+                class="product-card">
+                <img src="fotos/MUJER/⁠Lira – Casamorati (Xerjoff).jpg" alt="Lira" class="product-image">
+                <div class="product-brand">Casamorati (Xerjoff)</div>
+                <div class="product-title">Lira</div>
+                <div class="product-price">Desde 10,99€</div>
+                <span class="add-btn">Ver Detalles</span>
+            </a>
+
+            <a href="producto.html?id=one-umbrella&name=One%20Umbrella%20for%20Two&brand=Floraïku&price3ml=10,99&price5ml=16,95&price10ml=32,90&img=fotos/MUJER/One%20Umbrella%20for%20Two%20–%20Floraïku.JPG&desc=%C3%8Dntima%20y%20dulce%2C%20evoca%20pastel%20de%20grosellas%20y%20t%C3%A9%20genmaicha.%20Po%C3%A9tica%20y%20delicadamente%20gourmand%20con%20arroz%20tostado.&notasSalida=Grosella%20negra%2C%20Ciclamen&notasCorazon=T%C3%A9%20Genmaicha%20(t%C3%A9%20verde%20con%20arroz%20tostado)&notasFondo=Cedro%2C%20Almizcle%20blanco"
+                class="product-card">
+                <img src="fotos/MUJER/One Umbrella for Two – Floraïku.JPG" alt="One Umbrella for Two"
+                    class="product-image">
+                <div class="product-brand">Floraïku</div>
+                <div class="product-title">One Umbrella for Two</div>
+                <div class="product-price">Desde 10,99€</div>
+                <span class="add-btn">Ver Detalles</span>
+            </a>
+
+            <a href="producto.html?id=poets-berlin&name=Poets%20of%20Berlin&brand=Vilhelm%20Parfumerie&price3ml=10,99&price5ml=16,95&price10ml=31,90&img=fotos/MUJER/Poets%20of%20Berlin%20–%20Vilhelm%20Parfumerie.JPG&desc=Tributo%20a%20Bowie%20con%20ar%C3%A1ndanos%2C%20lim%C3%B3n%20y%20bamb%C3%BA.%20Sinfon%C3%ADa%20alegre%2C%20creativa%20y%20dulce%20sobre%20base%20de%20vainilla.&notasSalida=Ar%C3%A1ndano%2C%20Lim%C3%B3n&notasCorazon=Bamb%C3%BA%2C%20Orris&notasFondo=Vainilla%2C%20S%C3%A1ndalo%2C%20Vetiver"
+                class="product-card">
+                <img src="fotos/MUJER/Poets of Berlin – Vilhelm Parfumerie.JPG" alt="Poets of Berlin"
+                    class="product-image">
+                <div class="product-brand">Vilhelm Parfumerie</div>
+                <div class="product-title">Poets of Berlin</div>
+                <div class="product-price">Desde 10,99€</div>
+                <span class="add-btn">Ver Detalles</span>
+            </a>
+
+            <a href="producto.html?id=lune-feline&name=Lune%20F%C3%A9line&brand=Atelier%20des%20Ors&price3ml=9,99&price5ml=14,95&price10ml=28,90&img=fotos/MUJER/%20%E2%81%A0Lune%20F%C3%A9line%20%E2%80%93%20Atelier%20des%20Ors.jpg&desc=Vainilla%20ahumada%20y%20especias%2C%20oscura%20y%20magn%C3%A9tica.%20Lujo%20sensual%20que%20evoca%20el%20pelaje%20de%20un%20felino%20bajo%20la%20luna.&notasSalida=Cardamomo%2C%20Canela%2C%20Pimienta%20rosa&notasCorazon=Notas%20verdes%2C%20Cedro%2C%20Notas%20amaderadas%2C%20%C3%81mbar%20gris%2C%20Styrax&notasFondo=Vainilla%20de%20Tahit%C3%AD%2C%20B%C3%A1lsamo%20de%20Per%C3%BA%2C%20Almizcle"
+                class="product-card">
+                <img src="fotos/MUJER/ ⁠Lune Féline – Atelier des Ors.jpg" alt="Lune Féline" class="product-image">
+                <div class="product-brand">Atelier des Ors</div>
+                <div class="product-title">Lune Féline</div>
+                <div class="product-price">Desde 9,99€</div>
+                <span class="add-btn">Ver Detalles</span>
+            </a>
+
+            <a href="producto.html?id=tilia&name=Tilia&brand=Marc-Antoine%20Barrois&price3ml=8,99&price5ml=13,95&price10ml=25,90&img=fotos/MUJER/%20Flor%20de%20Tilo%2C%20Jazm%C3%ADn%2C%20Almizcle.JPG&desc=Oda%20luminosa%20a%20la%20flor%20del%20tilo%20con%20notas%20melosas%20y%20solares.%20Abrazo%20floral%20con%20difusi%C3%B3n%20moderna%20y%20aireada.&notasSalida=Lima%2C%20Genista&notasCorazon=Tilo%2C%20Jasm%C3%ADn%2C%20Heliotropo&notasFondo=Vetiver%2C%20Ambroxan%2C%20Georgywood"
+                class="product-card">
+                <img src="fotos/MUJER/ Flor de Tilo, Jazmín, Almizcle.JPG" alt="Tilia" class="product-image">
+                <div class="product-brand">Perfume Collection</div>
+                <div class="product-title">Tilia</div>
+                <div class="product-price">Desde 8,99€</div>
+                <span class="add-btn">Ver Detalles</span>
+            </a>
+
+            <a href="producto.html?id=silky-woods&name=Silky%20Woods&brand=Goldfield%20%26%20Banks&price3ml=8,99&price5ml=14,95&price10ml=27,90&img=fotos/MUJER/Oud%2C%20Canela%2C%20Vainilla.jpg&desc=Oud%20australiano%20suave%20y%20sedoso%20envuelto%20en%20vainilla%20y%20gamuza.%20Lujoso%20y%20t%C3%A1ctil%2C%20elimina%20facetas%20agresivas%20para%20ser%20moderno.&notasSalida=Azafr%C3%A1n%2C%20Canela&notasCorazon=Gamuza%2C%20Oud%2C%20Ylang-ylang%2C%20Jasm%C3%ADn&notasFondo=Vainilla%2C%20S%C3%A1ndalo%2C%20Tabaco%2C%20Almizcle"
+                class="product-card">
+                <img src="fotos/MUJER/Oud, Canela, Vainilla.jpg" alt="Silky Woods" class="product-image">
+                <div class="product-brand">Goldfield & Banks</div>
+                <div class="product-title">Silky Woods</div>
+                <div class="product-price">Desde 8,99€</div>
+                <span class="add-btn">Ver Detalles</span>
+            </a>
+
+            <a href="producto.html?id=sharing-concept&name=Sharing%20Concept&brand=Corel&price3ml=8,99&price5ml=14,95&price10ml=27,90&img=fotos/MUJER/Sharing%20Concept%20–%20Corel.JPG&desc=Equilibrada%20y%20amable%2C%20combina%20notas%20frutales%20y%20florales.%20Aroma%20universal%20y%20limpio%20con%20complejidad%20vers%C3%A1til.&notasSalida=Notas%20c%C3%ADtricas%20y%20frutales&notasCorazon=Bouquet%20floral%20ligero&notasFondo=Almizcle%20suave"
+                class="product-card">
+                <img src="fotos/MUJER/Sharing Concept – Corel.JPG" alt="Sharing Concept" class="product-image">
+                <div class="product-brand">Corel</div>
+                <div class="product-title">Sharing Concept</div>
+                <div class="product-price">Desde 8,99€</div>
+                <span class="add-btn">Ver Detalles</span>
+            </a>
+
             <a href="producto.html?id=impadia&name=Impadia&brand=Charnel&price3ml=8,99&price5ml=13,95&price10ml=25,90&img=fotos/MUJER/Vainilla%2C%20Almizcle%2C%20Higo.jpg&desc=Dualidad%20entre%20inocencia%20frutal%20y%20base%20oscura%20misteriosa.%20Cuento%20de%20hadas%20con%20frutas%20venenosas%20y%20bosques%20encantados.&notasSalida=Frutas%20jugosas&notasCorazon=Flores%20ex%C3%B3ticas&notasFondo=Notas%20gourmand%2C%20Maderas"
                 class="product-card">
                 <img src="fotos/MUJER/Vainilla, Almizcle, Higo.jpg" alt="Impadia" class="product-image">
@@ -1272,7 +1635,52 @@
                 <span class="add-btn">Ver Detalles</span>
             </a>
 
-            <!-- Product 26: 28 -->
+            <a href="producto.html?id=gris-charnel&name=Gris%20Charnel&brand=BDK%20Parfums&price3ml=6,99&price5ml=10,95&price10ml=20,90&img=fotos/MUJER/⁠Gris%20Charnel%20–%20BDK%20Parfums.jpg&desc=Iris%20moderno%20y%20limpio%20resaltando%20facetas%20almendradas%20y%20secas.%20Minimalista%20y%20art%C3%ADstico%20con%20calidez%20de%20haba%20tonka.&notasSalida=Cardamomo%2C%20Aldeh%C3%ADdos%2C%20Pimienta%20rosa&notasCorazon=Iris%2C%20Almendra%2C%20Semillas%20de%20zanahoria&notasFondo=Cedro%2C%20Vetiver%2C%20Ambroxan"
+                class="product-card">
+                <img src="fotos/MUJER/⁠Gris Charnel – BDK Parfums.jpg" alt="Gris Charnel" class="product-image">
+                <div class="product-brand">BDK Parfums</div>
+                <div class="product-title">Gris Charnel</div>
+                <div class="product-price">Desde 6,99€</div>
+                <span class="add-btn">Ver Detalles</span>
+            </a>
+
+            <a href="producto.html?id=sonic-flower&name=Sonic%20Flower&brand=Room%201015&price3ml=6,99&price5ml=9,95&price10ml=18,90&img=fotos/MUJER/Sonic%20Flower%20–%20Room%201015.jpg&desc=Iris%20moderno%20y%20limpio%20con%20pimienta%20rosa%20que%20vibra%20como%20m%C3%BAsica.%20%22Almizcle%20sucio%22%20parad%C3%B3jicamente%20limpio%20y%20sexy.&notasSalida=Pimienta%20rosa%2C%20Semillas%20de%20zanahoria&notasCorazon=Iris%2C%20Jasm%C3%ADn&notasFondo=Ambroxan%2C%20Madera%20de%20cachemira%2C%20Almizcle"
+                class="product-card">
+                <img src="fotos/MUJER/Sonic Flower – Room 1015.jpg" alt="Sonic Flower" class="product-image">
+                <div class="product-brand">Room 1015</div>
+                <div class="product-title">Sonic Flower</div>
+                <div class="product-price">Desde 6,99€</div>
+                <span class="add-btn">Ver Detalles</span>
+            </a>
+
+            <a href="producto.html?id=bianco-latte&name=Bianco%20Latte&brand=Giardini%20di%20Toscana&price3ml=5,99&price5ml=8,95&price10ml=15,90&img=fotos/MUJER/Bianco%20Latte%20–%20Giardini%20di%20Toscana.jpg&desc=Gourmand%20viral%20de%20confort%20l%C3%A1cteo%2C%20caramelo%20y%20miel.%20Abrazo%20comestible%20que%20huele%20a%20leche%20con%20galletas%20y%20dura%20todo%20el%20d%C3%ADa.&notasSalida=Caramelo&notasCorazon=Miel%2C%20Cumarina&notasFondo=Vainilla%2C%20Almizcle%20blanco"
+                class="product-card">
+                <img src="fotos/MUJER/Bianco Latte – Giardini di Toscana.jpg" alt="Bianco Latte" class="product-image">
+                <div class="product-brand">Giardini di Toscana</div>
+                <div class="product-title">Bianco Latte</div>
+                <div class="product-price">Desde 5,99€</div>
+                <span class="add-btn">Ver Detalles</span>
+            </a>
+
+            <a href="producto.html?id=iperborea&name=Iperborea&brand=Lorenzo%20Villoresi%20Firenze&price3ml=5,99&price5ml=9,95&price10ml=17,90&img=fotos/MUJER/%E2%81%A0%20%E2%81%A0Iperborea%20%E2%80%93%20Lorenzo%20Villoresi%20Firenze.jpg&desc=Floral%20fresca%20y%20aldeh%C3%ADdica%2C%20limpia%20y%20fr%C3%ADa%20como%20el%20viento%20del%20norte.%20Lirio%20de%20los%20valles%20sobre%20almizcle%20blanco%20inmaculado.&notasSalida=Notas%20verdes%2C%20C%C3%ADtricos%2C%20Flores%20frescas%2C%20Mandarina%2C%20Naranja%2C%20Melocot%C3%B3n%2C%20Ciclamen&notasCorazon=Lirio%20de%20los%20valles%2C%20Magnolia%2C%20Mimosa%2C%20Flores%20blancas&notasFondo=Almizcle%2C%20Flores%20blancas%2C%20Notas%20amaderadas"
+                class="product-card">
+                <img src="fotos/MUJER/⁠ ⁠Iperborea – Lorenzo Villoresi Firenze.jpg" alt="Iperborea"
+                    class="product-image">
+                <div class="product-brand">Lorenzo Villoresi Firenze</div>
+                <div class="product-title">Iperborea</div>
+                <div class="product-price">Desde 5,99€</div>
+                <span class="add-btn">Ver Detalles</span>
+            </a>
+
+            <a href="producto.html?id=la-prima&name=La%20Prima&brand=Milano%20Fragranze&price3ml=5,99&price5ml=8,95&price10ml=16,90&img=fotos/MUJER/La%20Prima%20–%20Milano%20Fragranze.jpg&desc=Evoca%20el%20estreno%20de%20la%20%C3%B3pera%20con%20flores%20blancas%20y%20nota%20de%20piel.%20Captura%20la%20emoci%C3%B3n%20y%20elegancia%20con%20toque%20de%20davana.&notasSalida=Bergamota%2C%20Cardamomo%2C%20Davana&notasCorazon=Flor%20de%20azahar%2C%20Osmanto%2C%20Jasm%C3%ADn&notasFondo=Vainilla%20Bourbon%2C%20Almizcle"
+                class="product-card">
+                <img src="fotos/MUJER/La Prima – Milano Fragranze.jpg" alt="La Prima" class="product-image">
+                <div class="product-brand">Milano Fragranze</div>
+                <div class="product-title">La Prima</div>
+                <div class="product-price">Desde 5,99€</div>
+                <span class="add-btn">Ver Detalles</span>
+            </a>
+
             <a href="producto.html?id=28-daniel&name=28&brand=Daniel%20Josier&price3ml=5,99&price5ml=8,95&price10ml=15,90&img=fotos/MUJER/%20%E2%81%A028%20%E2%80%93%20Daniel%20Josier.JPG&desc=Complejo%20caleidoscopio%20que%20transita%20de%20lo%20fresco%20a%20lo%20c%C3%A1lido.%20Juega%20con%20facetas%20dulces%20y%20florales%20evolucionando%20maravillosamente.&notasSalida=C%C3%ADtricos%2C%20Especias&notasCorazon=Flores%20ex%C3%B3ticas&notasFondo=Vainilla%2C%20Ambar%2C%20Maderas"
                 class="product-card">
                 <img src="fotos/MUJER/ ⁠28 – Daniel Josier.JPG" alt="28" class="product-image">
@@ -1472,6 +1880,8 @@
     <!-- FIREBASE SDK & LOGIC -->
     <script type="module" src="js/auth.js"></script>
 
+
+
     <!-- Header hide on scroll -->
     <script>
         (function () {
@@ -1632,6 +2042,332 @@
                 // Initial Load
                 updatePagination();
             }
+        });
+    </script>
+    <!-- Filter System JavaScript -->
+    <script>
+        // Filter State
+        const filterState = {
+            prices: [],
+            brands: [],
+            sort: 'price-desc',
+            search: ''
+        };
+
+        // Get all products
+        function getProducts() {
+            return Array.from(document.querySelectorAll('.product-card'));
+        }
+
+        // Extract price from product
+        function getProductPrice(product) {
+            const priceMatch = product.href.match(/price3ml=(\d+),(\d+)/);
+            if (priceMatch) {
+                return parseFloat(`${priceMatch[1]}.${priceMatch[2]}`);
+            }
+            const priceText = product.querySelector('.product-price')?.textContent || '';
+            const match = priceText.match(/(\d+),(\d+)/);
+            return match ? parseFloat(`${match[1]}.${match[2]}`) : 0;
+        }
+
+        // Extract brand from product
+        function getProductBrand(product) {
+            return product.querySelector('.product-brand')?.textContent || '';
+        }
+
+        // Extract name from product
+        function getProductName(product) {
+            return product.querySelector('.product-title')?.textContent || '';
+        }
+
+        // Check if product matches price filter
+        function matchesPriceFilter(product) {
+            if (filterState.prices.length === 0) return true;
+            const price = getProductPrice(product);
+            return filterState.prices.some(range => {
+                if (range === '0-10') return price <= 10;
+                if (range === '10-20') return price > 10 && price <= 20;
+                if (range === '20-30') return price > 20 && price <= 30;
+                if (range === '30-50') return price > 30 && price <= 50;
+                if (range === '50+') return price > 50;
+                return false;
+            });
+        }
+
+        // Check if product matches brand filter
+        function matchesBrandFilter(product) {
+            if (filterState.brands.length === 0) return true;
+            const brand = getProductBrand(product).toLowerCase();
+            return filterState.brands.some(b => brand.includes(b.toLowerCase()));
+        }
+
+        // Check if product matches search
+        function matchesSearch(product) {
+            if (!filterState.search) return true;
+            const name = getProductName(product).toLowerCase();
+            const brand = getProductBrand(product).toLowerCase();
+            const search = filterState.search.toLowerCase();
+            return name.includes(search) || brand.includes(search);
+        }
+
+        // Apply all filters
+        function applyFilters() {
+            const products = getProducts();
+            const grid = document.querySelector('.product-grid');
+
+            // Filter products
+            products.forEach(product => {
+                const matches = matchesPriceFilter(product) &&
+                    matchesBrandFilter(product) &&
+                    matchesSearch(product);
+                product.style.display = matches ? '' : 'none';
+            });
+
+            // Sort products
+            const visibleProducts = products.filter(p => p.style.display !== 'none');
+            visibleProducts.sort((a, b) => {
+                switch (filterState.sort) {
+                    case 'price-asc':
+                        return getProductPrice(a) - getProductPrice(b);
+                    case 'price-desc':
+                        return getProductPrice(b) - getProductPrice(a);
+                    case 'name-asc':
+                        return getProductName(a).localeCompare(getProductName(b));
+                    case 'name-desc':
+                        return getProductName(b).localeCompare(getProductName(a));
+                    default:
+                        return 0;
+                }
+            });
+
+            // Reorder in DOM
+            visibleProducts.forEach(p => grid.appendChild(p));
+
+            // Update UI
+            updateFilterUI();
+        }
+
+        // Update filter UI state
+        function updateFilterUI() {
+            const activeCount = filterState.prices.length + filterState.brands.length +
+                (filterState.sort !== 'price-desc' ? 1 : 0);
+
+            const clearBtn = document.getElementById('clearFiltersBtn');
+            const mobileCount = document.getElementById('mobileFilterCount');
+
+            if (clearBtn) {
+                clearBtn.classList.toggle('visible', activeCount > 0);
+            }
+
+            if (mobileCount) {
+                mobileCount.style.display = activeCount > 0 ? 'flex' : 'none';
+                mobileCount.textContent = activeCount;
+            }
+        }
+
+        // Toggle dropdown
+        function toggleDropdown(id) {
+            const dropdown = document.getElementById(id);
+            const isOpen = dropdown.classList.contains('open');
+
+            // Close all dropdowns
+            document.querySelectorAll('.filter-dropdown').forEach(d => d.classList.remove('open'));
+
+            // Toggle this one
+            if (!isOpen) {
+                dropdown.classList.add('open');
+            }
+        }
+
+        // Close dropdowns when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.filter-dropdown')) {
+                document.querySelectorAll('.filter-dropdown').forEach(d => d.classList.remove('open'));
+            }
+        });
+
+        // Select price filter
+        function selectPriceFilter(element) {
+            const price = element.dataset.price;
+            const checkbox = element.querySelector('input[type="checkbox"]');
+            const isSelected = element.classList.contains('selected');
+
+            if (isSelected) {
+                element.classList.remove('selected');
+                checkbox.checked = false;
+                filterState.prices = filterState.prices.filter(p => p !== price);
+            } else {
+                element.classList.add('selected');
+                checkbox.checked = true;
+                filterState.prices.push(price);
+            }
+
+            applyFilters();
+        }
+
+        // Select sort filter
+        function selectSortFilter(element) {
+            const sort = element.dataset.sort;
+
+            // Update UI
+            element.closest('.filter-dropdown-menu').querySelectorAll('.filter-option').forEach(o => {
+                o.classList.remove('selected');
+            });
+            element.classList.add('selected');
+
+            // Update state
+            filterState.sort = sort;
+            applyFilters();
+
+            // Close dropdown
+            document.querySelectorAll('.filter-dropdown').forEach(d => d.classList.remove('open'));
+        }
+
+        // Select brand filter
+        function selectBrandFilter(element) {
+            const brand = element.dataset.brand;
+            const checkbox = element.querySelector('input[type="checkbox"]');
+            const isSelected = element.classList.contains('selected');
+
+            if (isSelected) {
+                element.classList.remove('selected');
+                checkbox.checked = false;
+                filterState.brands = filterState.brands.filter(b => b !== brand);
+            } else {
+                element.classList.add('selected');
+                checkbox.checked = true;
+                filterState.brands.push(brand);
+            }
+
+            applyFilters();
+        }
+
+        // Clear all filters
+        function clearAllFilters() {
+            filterState.prices = [];
+            filterState.brands = [];
+            filterState.sort = 'price-desc';
+
+            // Reset UI
+            document.querySelectorAll('.filter-option').forEach(o => {
+                o.classList.remove('selected');
+                const checkbox = o.querySelector('input[type="checkbox"]');
+                if (checkbox) checkbox.checked = false;
+            });
+
+            document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('selected'));
+
+            // Set default sort
+            const defaultSort = document.querySelector('.filter-option[data-sort="price-desc"]');
+            if (defaultSort) defaultSort.classList.add('selected');
+
+            const defaultMobileSort = document.querySelector('.filter-chip[data-sort="price-desc"]');
+            if (defaultMobileSort) defaultMobileSort.classList.add('selected');
+
+            applyFilters();
+        }
+
+        // Mobile filter drawer
+        function openFilterDrawer() {
+            document.getElementById('filterDrawerOverlay').classList.add('active');
+            document.getElementById('filterDrawer').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeFilterDrawer() {
+            document.getElementById('filterDrawerOverlay').classList.remove('active');
+            document.getElementById('filterDrawer').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        function applyFiltersAndClose() {
+            applyFilters();
+            closeFilterDrawer();
+        }
+
+        // Toggle mobile filter chip
+        function toggleMobileFilter(element, type) {
+            if (type === 'sort') {
+                // Only one sort option can be selected
+                document.querySelectorAll('#mobileSortOptions .filter-chip').forEach(c => c.classList.remove('selected'));
+                element.classList.add('selected');
+                filterState.sort = element.dataset.sort;
+            } else if (type === 'price') {
+                const price = element.dataset.price;
+                if (element.classList.contains('selected')) {
+                    element.classList.remove('selected');
+                    filterState.prices = filterState.prices.filter(p => p !== price);
+                } else {
+                    element.classList.add('selected');
+                    filterState.prices.push(price);
+                }
+            } else if (type === 'brand') {
+                const brand = element.dataset.brand;
+                if (element.classList.contains('selected')) {
+                    element.classList.remove('selected');
+                    filterState.brands = filterState.brands.filter(b => b !== brand);
+                } else {
+                    element.classList.add('selected');
+                    filterState.brands.push(brand);
+                }
+            }
+        }
+
+        // Populate brand filters
+        function populateBrandFilters() {
+            const products = getProducts();
+            const brands = new Set();
+
+            products.forEach(p => {
+                const brand = getProductBrand(p);
+                if (brand) brands.add(brand);
+            });
+
+            const sortedBrands = Array.from(brands).sort();
+
+            // Desktop brand menu
+            const brandMenu = document.getElementById('brandMenu');
+            if (brandMenu) {
+                brandMenu.innerHTML = sortedBrands.map(brand => `
+                    <div class="filter-option" data-brand="${brand}" onclick="selectBrandFilter(this)">
+                        <input type="checkbox"> ${brand}
+                    </div>
+                `).join('');
+            }
+
+            // Mobile brand chips
+            const mobileBrandOptions = document.getElementById('mobileBrandOptions');
+            if (mobileBrandOptions) {
+                mobileBrandOptions.innerHTML = sortedBrands.map(brand => `
+                    <div class="filter-chip" data-brand="${brand}" onclick="toggleMobileFilter(this, 'brand')">${brand}</div>
+                `).join('');
+            }
+        }
+
+        // Search functionality
+        document.addEventListener('DOMContentLoaded', function () {
+            const searchInput = document.getElementById('searchInput');
+            const searchClear = document.getElementById('searchClear');
+
+            if (searchInput) {
+                searchInput.addEventListener('input', function () {
+                    filterState.search = this.value;
+                    searchClear.style.display = this.value ? 'block' : 'none';
+                    applyFilters();
+                });
+            }
+
+            if (searchClear) {
+                searchClear.addEventListener('click', function () {
+                    searchInput.value = '';
+                    filterState.search = '';
+                    this.style.display = 'none';
+                    applyFilters();
+                });
+            }
+
+            // Populate brands on load
+            populateBrandFilters();
         });
     </script>
 </body>
