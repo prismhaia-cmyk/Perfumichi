@@ -108,8 +108,55 @@ window.addEventListener('storage', () => {
 // Export for use in other modules if needed
 export { getCart, updateCartCount, renderCart, removeFromCart };
 
+// Checkout function - sends cart to Stripe
+async function checkout() {
+    const cart = getCart();
+
+    if (cart.length === 0) {
+        alert('Tu cesta está vacía');
+        return;
+    }
+
+    // Show loading state
+    const checkoutBtn = document.querySelector('.checkout-btn');
+    const originalText = checkoutBtn ? checkoutBtn.textContent : '';
+    if (checkoutBtn) {
+        checkoutBtn.textContent = 'Procesando...';
+        checkoutBtn.disabled = true;
+    }
+
+    try {
+        const response = await fetch('/api/create-checkout', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ items: cart }),
+        });
+
+        const data = await response.json();
+
+        if (data.url) {
+            // Redirect to Stripe Checkout
+            window.location.href = data.url;
+        } else {
+            throw new Error(data.error || 'Error al crear el pago');
+        }
+    } catch (error) {
+        console.error('Checkout error:', error);
+        alert('Error al procesar el pago. Por favor, inténtalo de nuevo.');
+
+        // Restore button state
+        if (checkoutBtn) {
+            checkoutBtn.textContent = originalText;
+            checkoutBtn.disabled = false;
+        }
+    }
+}
+
 // Expose to window for HTML onclick handlers and inline scripts
 window.getCart = getCart;
 window.updateCartCount = updateCartCount;
 window.renderCart = renderCart;
 window.removeFromCart = removeFromCart;
+window.checkout = checkout;
