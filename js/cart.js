@@ -11,7 +11,8 @@ function getCart() {
 
 function updateCartCount() {
     const cart = getCart();
-    const count = cart.length;
+    // Count total items including quantities
+    const count = cart.reduce((total, item) => total + (item.quantity || 1), 0);
     const badge = document.querySelector('.cart-count');
     if (badge) {
         badge.textContent = count;
@@ -39,17 +40,22 @@ function renderCart() {
         cartItemsContainer.innerHTML = '<p class="empty-cart-msg">Tu cesta está vacía.</p>';
     } else {
         cart.forEach((item, index) => {
-            total += item.price;
+            const quantity = item.quantity || 1;
+            const itemTotal = item.price * quantity;
+            total += itemTotal;
             const itemElement = document.createElement('div');
             itemElement.classList.add('cart-item');
-            // Ensure image is rendered correctly (it might be an HTML string or URL)
-            // Assuming item.image is the HTML string for the placeholder as seen in catalogo.html
             itemElement.innerHTML = `
                 <div class="cart-item-img">${item.image}</div>
                 <div class="cart-item-details">
                     <div class="cart-item-title">${item.title}</div>
                     <div class="cart-item-variant">Tamaño: ${item.size}</div>
                     <div class="cart-item-price">${item.price.toFixed(2)}€</div>
+                    <div class="cart-item-quantity">
+                        <button class="qty-btn qty-minus" data-index="${index}">−</button>
+                        <span class="qty-value">${quantity}</span>
+                        <button class="qty-btn qty-plus" data-index="${index}">+</button>
+                    </div>
                 </div>
                 <div class="cart-item-remove" data-index="${index}">&times;</div>
             `;
@@ -59,13 +65,55 @@ function renderCart() {
 
     cartTotalElement.textContent = total.toFixed(2) + '€';
 
-    // Re-attach event listeners for remove buttons
+    // Attach event listeners for remove buttons
     document.querySelectorAll('.cart-item-remove').forEach(btn => {
         btn.addEventListener('click', (e) => {
             const index = parseInt(e.target.dataset.index);
             removeFromCart(index);
         });
     });
+
+    // Attach event listeners for quantity buttons
+    document.querySelectorAll('.qty-minus').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            const index = parseInt(e.target.dataset.index);
+            decreaseQuantity(index);
+        });
+    });
+
+    document.querySelectorAll('.qty-plus').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            const index = parseInt(e.target.dataset.index);
+            increaseQuantity(index);
+        });
+    });
+}
+
+function increaseQuantity(index) {
+    let cart = getCart();
+    if (cart[index]) {
+        cart[index].quantity = (cart[index].quantity || 1) + 1;
+        localStorage.setItem('cart', JSON.stringify(cart));
+        updateCartCount();
+        renderCart();
+    }
+}
+
+function decreaseQuantity(index) {
+    let cart = getCart();
+    if (cart[index]) {
+        const currentQty = cart[index].quantity || 1;
+        if (currentQty > 1) {
+            cart[index].quantity = currentQty - 1;
+            localStorage.setItem('cart', JSON.stringify(cart));
+        } else {
+            // If quantity would be 0, remove item
+            cart.splice(index, 1);
+            localStorage.setItem('cart', JSON.stringify(cart));
+        }
+        updateCartCount();
+        renderCart();
+    }
 }
 
 function removeFromCart(index) {
@@ -106,7 +154,7 @@ window.addEventListener('storage', () => {
 });
 
 // Export for use in other modules if needed
-export { getCart, updateCartCount, renderCart, removeFromCart };
+export { getCart, updateCartCount, renderCart, removeFromCart, increaseQuantity, decreaseQuantity };
 
 // Checkout function - sends cart to Stripe
 async function checkout() {
@@ -116,6 +164,18 @@ async function checkout() {
         alert('Tu cesta está vacía');
         return;
     }
+
+    // Expand cart items based on quantity for Stripe
+    const expandedItems = [];
+    cart.forEach(item => {
+        const qty = item.quantity || 1;
+        for (let i = 0; i < qty; i++) {
+            expandedItems.push({
+                ...item,
+                quantity: 1 // Each line item has quantity 1
+            });
+        }
+    });
 
     // Show loading state
     const checkoutBtn = document.querySelector('.checkout-btn');
@@ -131,7 +191,7 @@ async function checkout() {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ items: cart }),
+            body: JSON.stringify({ items: expandedItems }),
         });
 
         const data = await response.json();
@@ -159,4 +219,6 @@ window.getCart = getCart;
 window.updateCartCount = updateCartCount;
 window.renderCart = renderCart;
 window.removeFromCart = removeFromCart;
+window.increaseQuantity = increaseQuantity;
+window.decreaseQuantity = decreaseQuantity;
 window.checkout = checkout;
