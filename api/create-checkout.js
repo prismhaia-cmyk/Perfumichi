@@ -47,7 +47,7 @@ export default async function handler(req, res) {
                     currency: 'eur',
                     product_data: {
                         name: 'Envío estándar',
-                        description: 'Entrega en 24-48h (Gratis a partir de 80€)',
+                        description: 'Entrega en 3-7 días laborables (Gratis a partir de 80€)',
                     },
                     unit_amount: shippingCost,
                 },
