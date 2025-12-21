@@ -548,7 +548,13 @@
             font-size: 1rem;
         }
 
-        .size-btn.active,
+        .size-btn.active {
+            background: #D4AF37;
+            border-color: #D4AF37;
+            color: #000;
+            font-weight: 600;
+        }
+
         .size-btn:hover {
             border-color: #D4AF37;
             color: #D4AF37;
@@ -1859,10 +1865,16 @@
         if (addToCartBtn) {
             addToCartBtn.addEventListener('click', function () {
                 const sizeBtn = document.querySelector('.size-btn.active');
-                const size = sizeBtn ? sizeBtn.textContent : '3ml';
+                const size = sizeBtn ? sizeBtn.textContent.trim() : '3ml';
 
-                const priceText = document.querySelector('.price').textContent;
-                const price = parseFloat(priceText.replace('€', '').trim()) || 25.00;
+                // Get the correct price from productPrices based on selected size
+                let price = productPrices[size] || 0;
+
+                // Fallback: if price is still 0, try to parse from the displayed price
+                if (price === 0) {
+                    const priceText = document.querySelector('.price').textContent;
+                    price = parseFloat(priceText.replace('€', '').replace(',', '.').replace('Desde', '').trim()) || 25.00;
+                }
 
                 const title = document.querySelector('h1').textContent;
 

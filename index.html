@@ -2246,6 +2246,210 @@
             });
         }
     </script>
+
+    <!-- Cookie Consent Popup -->
+    <div id="cookieConsent" class="cookie-consent-popup">
+        <div class="cookie-consent-content">
+            <span class="cookie-icon">🍪</span>
+            <div class="cookie-text">
+                <strong>Cookies:</strong> Recopilamos datos de <strong>inicio de sesión</strong> y
+                <strong>pagos</strong> para un servicio seguro.
+                <a href="politicas.html">Más info</a>
+            </div>
+            <div class="cookie-buttons">
+                <button class="cookie-btn cookie-btn-accept" onclick="acceptCookies()">Aceptar</button>
+                <button class="cookie-btn cookie-btn-reject" onclick="rejectCookies()">Esenciales</button>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        /* Cookie Consent Popup Styles - Compact Version */
+        .cookie-consent-popup {
+            display: none;
+            position: fixed;
+            bottom: 1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 9999;
+            animation: slideUp 0.4s ease-out;
+        }
+
+        .cookie-consent-popup.show {
+            display: block;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translate(-50%, 100%);
+            }
+
+            to {
+                opacity: 1;
+                transform: translate(-50%, 0);
+            }
+        }
+
+        .cookie-consent-content {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background: rgba(17, 17, 17, 0.98);
+            border: 1px solid #D4AF37;
+            border-radius: 50px;
+            padding: 0.8rem 1.5rem;
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.4);
+        }
+
+        .cookie-consent-content .cookie-icon {
+            font-size: 1.3rem;
+        }
+
+        .cookie-consent-content .cookie-text {
+            color: #aaa;
+            font-size: 0.8rem;
+            line-height: 1.4;
+            max-width: 320px;
+        }
+
+        .cookie-consent-content .cookie-text strong {
+            color: #fff;
+        }
+
+        .cookie-consent-content .cookie-text a {
+            color: #D4AF37;
+            text-decoration: none;
+            margin-left: 0.3rem;
+        }
+
+        .cookie-consent-content .cookie-text a:hover {
+            text-decoration: underline;
+        }
+
+        .cookie-buttons {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .cookie-btn {
+            padding: 0.5rem 1rem;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: inherit;
+            white-space: nowrap;
+        }
+
+        .cookie-btn-accept {
+            background: #D4AF37;
+            color: #000;
+        }
+
+        .cookie-btn-accept:hover {
+            background: #c9a432;
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.4);
+        }
+
+        .cookie-btn-reject {
+            background: transparent;
+            color: #888;
+            border: 1px solid #444;
+        }
+
+        .cookie-btn-reject:hover {
+            border-color: #D4AF37;
+            color: #D4AF37;
+        }
+
+        /* Mobile adjustments */
+        @media (max-width: 600px) {
+            .cookie-consent-popup {
+                left: 1rem;
+                right: 1rem;
+                transform: translateX(0);
+                bottom: 1rem;
+            }
+
+            @keyframes slideUp {
+                from {
+                    opacity: 0;
+                    transform: translateY(100%);
+                }
+
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            .cookie-consent-content {
+                flex-wrap: wrap;
+                justify-content: center;
+                border-radius: 16px;
+                padding: 1rem;
+                gap: 0.8rem;
+            }
+
+            .cookie-consent-content .cookie-text {
+                text-align: center;
+                max-width: 100%;
+            }
+        }
+    </style>
+
+    <script>
+        // Cookie Consent Functions
+        function checkCookieConsent() {
+            const consent = localStorage.getItem('cookieConsent');
+            if (!consent) {
+                // Show popup after a short delay for better UX
+                setTimeout(() => {
+                    document.getElementById('cookieConsent').classList.add('show');
+                }, 1000);
+            }
+        }
+
+        function acceptCookies() {
+            localStorage.setItem('cookieConsent', 'accepted');
+            localStorage.setItem('cookieConsentDate', new Date().toISOString());
+            hideCookiePopup();
+        }
+
+        function rejectCookies() {
+            localStorage.setItem('cookieConsent', 'essential');
+            localStorage.setItem('cookieConsentDate', new Date().toISOString());
+            hideCookiePopup();
+        }
+
+        function hideCookiePopup() {
+            const popup = document.getElementById('cookieConsent');
+            popup.style.animation = 'slideDown 0.3s ease-out forwards';
+            setTimeout(() => {
+                popup.classList.remove('show');
+                popup.style.animation = '';
+            }, 300);
+        }
+
+        // Add slideDown animation
+        const styleSheet = document.createElement('style');
+        styleSheet.textContent = `
+            @keyframes slideDown {
+                from { opacity: 1; transform: translateY(0); }
+                to { opacity: 0; transform: translateY(100%); }
+            }
+        `;
+        document.head.appendChild(styleSheet);
+
+        // Check consent on page load
+        document.addEventListener('DOMContentLoaded', checkCookieConsent);
+    </script>
 </body>
 
 </html>
