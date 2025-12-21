@@ -19,17 +19,26 @@ export default async function handler(req, res) {
         const shippingCost = subtotal >= freeShippingThreshold ? 0 : 599; // 5.99€ in cents
 
         // Build line items for Stripe
-        const lineItems = items.map(item => ({
-            price_data: {
-                currency: 'eur',
-                product_data: {
-                    name: item.title,
-                    description: `Tamaño: ${item.size}`,
+        const lineItems = items.map(item => {
+            const lineItem = {
+                price_data: {
+                    currency: 'eur',
+                    product_data: {
+                        name: item.title,
+                        description: item.description || `Decant ${item.size} - Perfume de alta calidad`,
+                    },
+                    unit_amount: Math.round(item.price * 100), // Convert to cents
                 },
-                unit_amount: Math.round(item.price * 100), // Convert to cents
-            },
-            quantity: 1,
-        }));
+                quantity: 1,
+            };
+
+            // Add image if available (must be absolute URL)
+            if (item.imageUrl && item.imageUrl.startsWith('http')) {
+                lineItem.price_data.product_data.images = [item.imageUrl];
+            }
+
+            return lineItem;
+        });
 
         // Add shipping as a line item if not free
         if (shippingCost > 0) {

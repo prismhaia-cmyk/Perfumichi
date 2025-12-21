@@ -1877,17 +1877,24 @@
                 }
 
                 const title = document.querySelector('h1').textContent;
+                const brand = document.querySelector('.brand')?.textContent || '';
+                const description = document.querySelector('.description p')?.textContent || '';
 
                 // Get image from main product image element
                 const mainImg = document.getElementById('main-product-image');
                 const image = mainImg ? mainImg.outerHTML : '<div class="product-placeholder-img">IMG</div>';
 
+                // Get absolute image URL for Stripe
+                const imageUrl = mainImg ? new URL(mainImg.src, window.location.origin).href : '';
+
                 const newItem = {
                     id: Date.now(),
-                    title: title,
+                    title: `${brand} - ${title}`,
                     price: price,
                     size: size,
                     image: image,
+                    imageUrl: imageUrl,
+                    description: `${description.substring(0, 100)}... | Tamaño: ${size}`,
                     quantity: 1
                 };
 
