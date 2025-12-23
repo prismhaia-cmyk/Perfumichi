@@ -5,67 +5,67 @@
     
     <!-- Homepage - Highest Priority -->
     <url>
-        <loc>https://essencedecants.com/</loc>
-        <xhtml:link rel="alternate" hreflang="es" href="https://essencedecants.com/"/>
-        <xhtml:link rel="alternate" hreflang="es-ES" href="https://essencedecants.com/"/>
-        <xhtml:link rel="alternate" hreflang="x-default" href="https://essencedecants.com/"/>
+        <loc>https://perfumichi.com/</loc>
+        <xhtml:link rel="alternate" hreflang="es" href="https://perfumichi.com/"/>
+        <xhtml:link rel="alternate" hreflang="es-ES" href="https://perfumichi.com/"/>
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://perfumichi.com/"/>
         <lastmod>2024-12-10</lastmod>
         <changefreq>weekly</changefreq>
         <priority>1.0</priority>
         <image:image>
-            <image:loc>https://essencedecants.com/logo.png</image:loc>
-            <image:title>Essence Decants - Decants de Perfumes de Lujo en España</image:title>
+            <image:loc>https://perfumichi.com/logo.png</image:loc>
+            <image:title>Perfumichi - Decants de Perfumes de Lujo en España</image:title>
             <image:caption>Tienda online de decants de perfumes nicho y de lujo</image:caption>
         </image:image>
         <image:image>
-            <image:loc>https://essencedecants.com/perfume.png</image:loc>
+            <image:loc>https://perfumichi.com/perfume.png</image:loc>
             <image:title>Decants de Perfumes Premium</image:title>
         </image:image>
     </url>
     
     <!-- Main Catalog - Very High Priority -->
     <url>
-        <loc>https://essencedecants.com/catalogo.html</loc>
-        <xhtml:link rel="alternate" hreflang="es" href="https://essencedecants.com/catalogo.html"/>
-        <xhtml:link rel="alternate" hreflang="es-ES" href="https://essencedecants.com/catalogo.html"/>
+        <loc>https://perfumichi.com/catalogo.html</loc>
+        <xhtml:link rel="alternate" hreflang="es" href="https://perfumichi.com/catalogo.html"/>
+        <xhtml:link rel="alternate" hreflang="es-ES" href="https://perfumichi.com/catalogo.html"/>
         <lastmod>2024-12-10</lastmod>
         <changefreq>daily</changefreq>
         <priority>0.95</priority>
         <image:image>
-            <image:loc>https://essencedecants.com/logo.png</image:loc>
+            <image:loc>https://perfumichi.com/logo.png</image:loc>
             <image:title>Catálogo Completo de Decants - Más de 100 Fragancias</image:title>
         </image:image>
     </url>
     
     <!-- Luxury Perfumes / Niche Collection -->
     <url>
-        <loc>https://essencedecants.com/nicho.html</loc>
-        <xhtml:link rel="alternate" hreflang="es" href="https://essencedecants.com/nicho.html"/>
+        <loc>https://perfumichi.com/nicho.html</loc>
+        <xhtml:link rel="alternate" hreflang="es" href="https://perfumichi.com/nicho.html"/>
         <lastmod>2024-12-10</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.85</priority>
         <image:image>
-            <image:loc>https://essencedecants.com/logo.png</image:loc>
+            <image:loc>https://perfumichi.com/logo.png</image:loc>
             <image:title>Decants de Perfumes Ultra-Lujo - Boadicea, Roja, Clive Christian</image:title>
         </image:image>
     </url>
     
     <!-- Woman Collection -->
     <url>
-        <loc>https://essencedecants.com/woman.html</loc>
-        <xhtml:link rel="alternate" hreflang="es" href="https://essencedecants.com/woman.html"/>
+        <loc>https://perfumichi.com/woman.html</loc>
+        <xhtml:link rel="alternate" hreflang="es" href="https://perfumichi.com/woman.html"/>
         <lastmod>2024-12-10</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.85</priority>
         <image:image>
-            <image:loc>https://essencedecants.com/logo.png</image:loc>
+            <image:loc>https://perfumichi.com/logo.png</image:loc>
             <image:title>Decants de Perfumes para Mujer - Fragancias Femeninas de Lujo</image:title>
         </image:image>
     </url>
 
     <!-- Product Page Template (for reference) -->
     <url>
-        <loc>https://essencedecants.com/producto.html</loc>
+        <loc>https://perfumichi.com/producto.html</loc>
         <lastmod>2024-12-10</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.7</priority>
@@ -73,7 +73,7 @@
     
     <!-- Policies Page -->
     <url>
-        <loc>https://essencedecants.com/politicas.html</loc>
+        <loc>https://perfumichi.com/politicas.html</loc>
         <lastmod>2024-12-10</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.3</priority>
@@ -81,7 +81,7 @@
     
     <!-- Account Page (lower priority) -->
     <url>
-        <loc>https://essencedecants.com/account.html</loc>
+        <loc>https://perfumichi.com/account.html</loc>
         <lastmod>2024-12-10</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.2</priority>
