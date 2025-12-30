@@ -222,6 +222,90 @@
                 font-size: 1.6rem;
             }
         }
+
+        /* Benefits Banner */
+        .benefits-banner {
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 8px;
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin: 1rem 0;
+            text-align: left;
+        }
+
+        .benefit-icon {
+            font-size: 1.5rem;
+        }
+
+        .benefit-content h3 {
+            color: #D4AF37;
+            font-size: 0.9rem;
+            margin-bottom: 0.2rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .benefit-content p {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin: 0;
+        }
+
+        /* Order Items Styling */
+        .order-item {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            text-align: left;
+        }
+
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.8rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.85rem;
+            color: #aaa;
+        }
+
+        .order-status.paid {
+            color: #4ade80;
+            /* Green */
+        }
+
+        .order-product {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .order-product .qty {
+            color: #777;
+        }
+
+        .order-footer {
+            margin-top: 0.8rem;
+            padding-top: 0.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            font-weight: 600;
+            color: #D4AF37;
+        }
+
+        .loading-orders,
+        .error-text {
+            color: #777;
+            font-size: 0.9rem;
+            padding: 1rem;
+        }
     </style>
 </head>
 
@@ -245,14 +329,33 @@
 
             <div class="divider"></div>
 
+            <!-- Benefits Banner -->
+            <div class="benefits-banner">
+                <div class="benefit-icon">👑</div>
+                <div class="benefit-content">
+                    <h3>Miembro Exclusivo</h3>
+                    <p>Disfruta de descuentos especiales y acceso anticipado a novedades.</p>
+                </div>
+            </div>
+
+            <div class="divider"></div>
+
             <!-- Orders Section -->
             <div class="orders-section">
-                <h2 class="section-title">Mis Pedidos</h2>
-                <div class="empty-orders">
-                    <div class="empty-icon">📦</div>
-                    <p class="empty-text">Aún no tienes pedidos</p>
-                    <a href="catalogo.html" class="btn-primary">Explorar Catálogo</a>
+                <h2 class="section-title">Historial de Pedidos</h2>
+                <div id="orders-container">
+                    <!-- Loading State -->
+                    <div class="loading-orders">Cargando pedidos...</div>
                 </div>
+
+                <!-- Template for Empty State (Hidden by default) -->
+                <template id="empty-orders-template">
+                    <div class="empty-orders">
+                        <div class="empty-icon">📦</div>
+                        <p class="empty-text">Aún no tienes pedidos registrados</p>
+                        <a href="catalogo.html" class="btn-primary">Explorar Catálogo</a>
+                    </div>
+                </template>
             </div>
 
             <!-- Action Buttons -->
@@ -266,7 +369,7 @@
     <script type="module">
         import { auth, db } from "./js/auth.js";
         import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-        import { doc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import { doc, getDoc, collection, query, orderBy, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
         // Check Authentication State
         onAuthStateChanged(auth, async (user) => {
@@ -299,6 +402,9 @@
                 nameElement.textContent = `Hola, ${displayName}`;
                 avatarElement.textContent = displayName.charAt(0).toUpperCase();
 
+                // Load Orders
+                loadUserOrders(user.uid);
+
             } else {
                 // User is signed out, redirect to login
                 window.location.href = "index.html";
@@ -313,6 +419,60 @@
                 console.error("Error signing out:", error);
             });
         };
+
+        // Load Orders Function
+        async function loadUserOrders(uid) {
+            const container = document.getElementById('orders-container');
+            const emptyTemplate = document.getElementById('empty-orders-template');
+
+            try {
+                const ordersRef = collection(db, "users", uid, "orders");
+                // Order by creation date descending
+                const q = query(ordersRef, orderBy("createdAt", "desc"));
+                const querySnapshot = await getDocs(q);
+
+                container.innerHTML = ''; // Clear loading
+
+                if (querySnapshot.empty) {
+                    // Show empty state
+                    const clone = emptyTemplate.content.cloneNode(true);
+                    container.appendChild(clone);
+                } else {
+                    // Render orders
+                    querySnapshot.forEach((doc) => {
+                        const order = doc.data();
+                        const orderEl = document.createElement('div');
+                        orderEl.className = 'order-item';
+
+                        // Format items list
+                        const itemsHtml = order.items.map(item =>
+                            `<div class="order-product">
+                                <span>${item.title} (${item.size})</span>
+                                <span class="qty">x${item.quantity || 1}</span>
+                             </div>`
+                        ).join('');
+
+                        orderEl.innerHTML = `
+                            <div class="order-header">
+                                <span class="order-date">${order.dateString || 'Fecha desconocida'}</span>
+                                <span class="order-status ${order.status}">${order.status === 'paid' ? 'Pagado' : order.status}</span>
+                            </div>
+                            <div class="order-body">
+                                ${itemsHtml}
+                            </div>
+                            <div class="order-footer">
+                                <span>Total</span>
+                                <span class="order-total">${(order.totalAmount || 0).toFixed(2)}€</span>
+                            </div>
+                        `;
+                        container.appendChild(orderEl);
+                    });
+                }
+            } catch (error) {
+                console.error("Error loading orders:", error);
+                container.innerHTML = '<p class="error-text">No se pudieron cargar los pedidos.</p>';
+            }
+        }
     </script>
 
 </body>

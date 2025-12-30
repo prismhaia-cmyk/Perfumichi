@@ -185,6 +185,13 @@ async function checkout() {
         checkoutBtn.disabled = true;
     }
 
+    // Save pending order for success page handling
+    localStorage.setItem('pending_order', JSON.stringify({
+        items: cart,
+        date: new Date().toISOString(),
+        total: cart.reduce((sum, item) => sum + (item.price * (item.quantity || 1)), 0)
+    }));
+
     try {
         const response = await fetch('/api/create-checkout', {
             method: 'POST',

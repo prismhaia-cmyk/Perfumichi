@@ -109,9 +109,72 @@
             📧 Recibirás un email con el número de seguimiento.</p>
     </div>
 
-    <script>
-        // Clear the cart after successful purchase
-        localStorage.removeItem('cart');
+    <!-- FIREBASE SDK & ORDER LOGIC -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        import { getFirestore, doc, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        // Same config as auth.js
+        const firebaseConfig = {
+            apiKey: "AIzaSyAVF0VNF_A3CQV_JXcB-fx7LtJ99GgKUhw",
+            authDomain: "inicio-perfumichi.firebaseapp.com",
+            projectId: "inicio-perfumichi",
+            storageBucket: "inicio-perfumichi.firebasestorage.app",
+            messagingSenderId: "766706966554",
+            appId: "1:766706966554:web:7e6df65dcd7f9e782cf1a3",
+            measurementId: "G-NEJNNXGBT9"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        // Get Session ID from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const sessionId = urlParams.get('session_id');
+
+        // Check for pending order
+        const pendingOrder = JSON.parse(localStorage.getItem('pending_order'));
+
+        onAuthStateChanged(auth, async (user) => {
+            if (user && pendingOrder) {
+                console.log("Saving order for user:", user.email);
+                
+                try {
+                    // Create order object
+                    const orderData = {
+                        items: pendingOrder.items,
+                        totalAmount: pendingOrder.total,
+                        status: 'paid',
+                        stripeSessionId: sessionId || 'unknown',
+                        createdAt: serverTimestamp(), // Server time is safer
+                        dateString: new Date().toLocaleDateString('es-ES')
+                    };
+
+                    // Add to 'orders' sub-collection of the user
+                    // Structure: users/{uid}/orders/{orderId}
+                    await addDoc(collection(db, "users", user.uid, "orders"), orderData);
+                    
+                    console.log("✅ Order saved successfully!");
+                    
+                    // Clear pending data ONLY after successful save
+                    localStorage.removeItem('pending_order');
+                    localStorage.removeItem('cart');
+
+                } catch (error) {
+                    console.error("❌ Error saving order:", error);
+                    // Decide if you want to alert the user or retry
+                }
+            } else {
+                // Guest or No Pending Order -> Just clear cart as usual
+                console.log("Guest checkout or no pending data.");
+                localStorage.removeItem('cart');
+                // Don't clear pending_order yet if user is not logged in but might log in later? 
+                // For now, simplify: Assume they bought as guest.
+                localStorage.removeItem('pending_order'); 
+            }
+        });
     </script>
 </body>
 

@@ -245,6 +245,11 @@ window.handleBubbleRegister = async (e) => {
             // Not critical - user is already authenticated
         }
 
+        // Redirect to Home after short delay to show toast
+        setTimeout(() => {
+            window.location.href = "index.html";
+        }, 1500);
+
     } catch (error) {
         console.error("Registration Error:", error);
         showToast("Error al registrar: " + error.message, "error");
